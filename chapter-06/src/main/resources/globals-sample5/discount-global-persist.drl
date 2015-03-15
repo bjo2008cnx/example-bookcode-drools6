@@ -1,0 +1,60 @@
+package org.drools.devguide;
+
+import org.drools.devguide.sales.model.Client;
+import org.drools.devguide.sales.model.Client.ClientCategory;
+import org.drools.devguide.sales.model.ClientDiscountEvaluation;
+import org.drools.devguide.sales.service.ClientService;
+import org.drools.devguide.sales.service.ClientDiscountService;
+
+import java.util.List;
+
+global Client.ClientCategory[] discountCategories;
+global ClientService clientService;
+global ClientDiscountService clientDiscountService;
+global List results;
+
+rule "Apply no discount"
+when
+    String(
+        this == "calculate discounts"
+    )
+
+    $c: Client(
+        category not memberOf discountCategories
+    ) from clientService.getAllClients()
+
+then
+    ClientDiscountEvaluation cde = new ClientDiscountEvaluation($c);
+    cde.setDiscount(0.0f);
+    insert(cde);
+end
+
+rule "Apply 10 percent discount"
+when
+    String(
+        this == "calculate discounts"
+    )
+
+    $c: Client(
+        category memberOf discountCategories
+    ) from clientService.getAllClients()
+
+then
+    ClientDiscountEvaluation cde = new ClientDiscountEvaluation($c);
+    cde.setDiscount(0.1f);
+    insert(cde);
+end
+
+rule "Collect results"
+when
+    $cde: ClientDiscountEvaluation()
+then
+    results.add($cde);
+end
+
+rule "Persist results"
+when
+    $cde: ClientDiscountEvaluation()
+then
+    clientDiscountService.persist($cde);
+end

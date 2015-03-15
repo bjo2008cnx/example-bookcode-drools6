@@ -1,0 +1,14 @@
+package org.drools.devguide;
+
+import org.drools.devguide.sales.model.Client;
+import org.drools.devguide.sales.model.Client.ClientCategory;
+import org.drools.devguide.sales.model.ClientDiscountEvaluation;
+
+rule "Apply 10 percent discount"
+when
+    $cde: ClientDiscountEvaluation(
+        client.category memberOf [ClientCategory.ELITE, ClientCategory.PREMIUM]
+    )
+then
+    $cde.setDiscount(0.1f);
+end

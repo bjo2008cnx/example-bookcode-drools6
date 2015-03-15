@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="globalsKBase1" packages="globals-sample1">
+        <ksession name="discount-fixed"/>
+    </kbase>
+    <kbase name="globalsKBase2" packages="globals-sample2">
+        <ksession name="discount-variable"/>
+    </kbase>
+    <kbase name="globalsKBase3" packages="globals-sample3">
+        <ksession name="discount-service"/>
+    </kbase>
+    <kbase name="globalsKBase4" packages="globals-sample4">
+        <ksession name="discount-global-list"/>
+    </kbase>
+    <kbase name="globalsKBase5" packages="globals-sample5">
+        <ksession name="discount-global-persist"/>
+    </kbase>
+    <kbase name="channelsKBase1" packages="channels-sample1">
+        <ksession name="discount-channel-persist"/>
+    </kbase>
+    <kbase name="queriesKBase1" packages="queries-sample1">
+        <ksession name="discount-query"/>
+    </kbase>
+</kmodule>
