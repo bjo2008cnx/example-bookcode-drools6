@@ -59,5 +59,17 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+   
+    <repositories>
+        <repository>
+            <id>jboss-repo</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <url>http://repo1.maven.org/maven2/</url>
+            <id>central</id>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+ 
 </project>
