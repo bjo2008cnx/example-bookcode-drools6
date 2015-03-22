@@ -24,16 +24,13 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.ClassObjectFilter;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 /**
  *
  * @author esteban
  */
-public class GlobalsTest {
+public class GlobalsTest extends BaseTest{
 
     @Test
     public void detectSuspiciousAmountOperationsWithFixedThresholdTest() {
@@ -157,7 +154,7 @@ public class GlobalsTest {
         ksession.fireAllRules();
 
         //After the rules are fired, 2 SuspiciousOperation objects are now 
-        //present. Thse objects belong to Client "A" and "B".
+        //present. These objects belong to Client "A" and "B".
         suspiciousOperations
                 = this.getFactsFromSession(ksession, SuspiciousOperation.class);
 
@@ -241,7 +238,7 @@ public class GlobalsTest {
         ksession.fireAllRules();
 
         //After the rules are fired, 2 SuspiciousOperation objects are now 
-        //present. Thse objects belong to Client "A" and "B".
+        //present. These objects belong to Client "A" and "B".
         suspiciousOperations
                 = this.getFactsFromSession(ksession, SuspiciousOperation.class);
 
@@ -334,7 +331,7 @@ public class GlobalsTest {
     }
     
     @Test
-    public void detectSuspiciousAmountOperationsAuditServiceList() {
+    public void detectSuspiciousAmountOperationsNotifyAuditService() {
 
         //Create 2 clients without any Order. Orders are going to be provided
         //by the OrderService.
@@ -419,17 +416,6 @@ public class GlobalsTest {
                 , containsInAnyOrder("A", "B")
         );
         
-    }
-    
-    private KieSession createSession(String name) {
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
-
-        return kContainer.newKieSession(name);
-    }
-
-    private <T> Collection<T> getFactsFromSession(KieSession ksession, Class<T> classType) {
-        return (Collection<T>) ksession.getObjects(new ClassObjectFilter(classType));
     }
     
 }

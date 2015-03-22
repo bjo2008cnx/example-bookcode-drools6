@@ -17,9 +17,9 @@
         <ksession name="suspicious-operations-audit-service"/>
     </kbase>
     <kbase name="channelsKBase1" packages="channels-sample1">
-        <ksession name="discount-channel-persist"/>
+        <ksession name="suspicious-operations-channel"/>
     </kbase>
     <kbase name="queriesKBase1" packages="queries-sample1">
-        <ksession name="discount-query"/>
+        <ksession name="suspicious-operations-query"/>
     </kbase>
 </kmodule>

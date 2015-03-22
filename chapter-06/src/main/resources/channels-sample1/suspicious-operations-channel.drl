@@ -1,0 +1,31 @@
+package org.drools.devguide;
+
+import org.drools.devguide.eshop.model.Client;
+import org.drools.devguide.eshop.model.Order;
+import org.drools.devguide.eshop.model.OrderState;
+import org.drools.devguide.eshop.model.SuspiciousOperation;
+import org.drools.devguide.eshop.service.AuditService;
+import org.drools.devguide.eshop.service.OrderService;
+
+
+global Double amountThreshold;
+global OrderService orderService;
+global AuditService auditService;
+
+rule "Detect suspicious amount operations"
+when
+    $c: Client()
+    Number( doubleValue > amountThreshold ) from accumulate (
+        Order ( state != OrderState.COMPLETED, $total: total) from orderService.getOrdersByClient($c.id),
+        sum($total)
+    )
+then
+    insert(new SuspiciousOperation($c, SuspiciousOperation.Type.SUSPICIOUS_AMOUNT));
+end
+
+rule "Send Suspicious Operation to Audit Channel"
+when
+    $so: SuspiciousOperation()
+then
+    channels["audit-channel"].send($so);
+end

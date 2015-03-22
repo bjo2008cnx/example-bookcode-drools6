@@ -5,82 +5,121 @@
  */
 package org.drools.devguide;
 
-import org.drools.devguide.sales.model.ClientDiscountEvaluation;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.drools.devguide.sales.model.Client;
-import org.drools.devguide.sales.service.ClientService;
-import static org.hamcrest.core.Is.is;
+import static java.util.stream.Collectors.toList;
+import org.drools.devguide.eshop.model.Client;
+import org.drools.devguide.eshop.model.Order;
+import org.drools.devguide.eshop.model.OrderState;
+import org.drools.devguide.eshop.model.SuspiciousOperation;
+import org.drools.devguide.eshop.service.OrderService;
+import org.drools.devguide.util.ClientBuilder;
+import org.drools.devguide.util.OrderBuilder;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import org.kie.api.KieServices;
 import org.kie.api.runtime.Channel;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 /**
  *
  * @author esteban
  */
-public class ChannelsTest {
+public class ChannelsTest extends BaseTest{
 
     @Test
-    public void calculateDiscountsToAllClientsAndPersistResultsTest() throws FileNotFoundException {
-        
-        List<ClientDiscountEvaluation> results = new ArrayList<>();
+    public void detectSuspiciousAmountOperationsNotifyAuditService() throws FileNotFoundException {
+        //Create 2 clients without any Order. Orders are going to be provided
+        //by the OrderService.
+        Client clientA = new ClientBuilder().withId("A").build();
+        Client clientB = new ClientBuilder().withId("B").build();
 
-        ClientService clientServiceImpl = new ClientService() {
-
-            Set<Client> clients = new HashSet<>();
-
-            {
-                Client frequentClient = new Client();
-                frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-                clients.add(frequentClient);
-
-                Client eliteClient = new Client();
-                eliteClient.setCategory(Client.ClientCategory.ELITE);
-                clients.add(eliteClient);
-            }
+        //Mock an instance of OrderService
+        OrderService orderService = new OrderService() {
 
             @Override
-            public Set<Client> getAllClients() {
-                return clients;
+            public Collection<Order> getOrdersByClient(String clientId) {
+                switch (clientId){
+                    case "A":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(2)
+                                        .withProduct()
+                                        .withSalePrice(5000.0)
+                                        .end()
+                                    .end()
+                                    .newItem()
+                                        .withQuantity(5)
+                                        .withProduct()
+                                        .withSalePrice(800.0)
+                                        .end()
+                                    .end()
+                            .build()
+                        );
+                    case "B":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(1)
+                                        .withProduct()
+                                        .withSalePrice(1000.0)
+                                    .end()
+                                .end()
+                            .build()
+                        );
+                    default:
+                        return Collections.EMPTY_LIST;
+                }
             }
         };
         
-        
-        final AtomicInteger counter = new AtomicInteger(0);
-        Channel discountStorage = new Channel() {
+        //Implement a Channel that notifies AuditService when new instances of
+        //SuspiciousOperation are available.
+        final Set<SuspiciousOperation> results = new HashSet<>();
+        Channel auditServiceChannel = new Channel(){
 
             @Override
             public void send(Object object) {
-                //keep track of each time this method gets invoked.
-                counter.incrementAndGet();
+                //notify AuditService here. For testing purposes, we are just 
+                //going to store the received object in a Set.
+                results.add((SuspiciousOperation) object);
             }
+            
         };
         
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
-
-        KieSession ksession = kContainer.newKieSession("discount-channel-persist");
-
-        ksession.setGlobal("discountCategories", new Client.ClientCategory[]{Client.ClientCategory.ELITE, Client.ClientCategory.PREMIUM});
-        ksession.setGlobal("clientService", clientServiceImpl);
-        ksession.setGlobal("results", results);
+        //Create a session
+        KieSession ksession = this.createSession("suspicious-operations-channel");
         
-        ksession.registerChannel("discount-storage", discountStorage);
+        //Before we insert any fact, we set the value of 'amountThreshold' global
+        //to 500.0, the value of 'orderService' global to the mocked service
+        //we have created.
+        ksession.setGlobal("amountThreshold", 500.0);
+        ksession.setGlobal("orderService", orderService);
+        
+        //We also register a new Channel under the name "audit-channel"
+        ksession.registerChannel("audit-channel", auditServiceChannel);
+        
+        ksession.insert(clientA);
+        ksession.insert(clientB);
 
-        ksession.insert("calculate discounts");
-
+        //Let's fire any activated rule now.
         ksession.fireAllRules();
 
-        assertThat(counter.get(), is(2));
-
+        //After the rules are fired, 2 SuspiciousOperation objects are now 
+        //present in the 'results' Set.
+        assertThat(results, hasSize(2));
+        assertThat(
+                results.stream().map(so -> so.getClient().getId()).collect(toList())
+                , containsInAnyOrder("A", "B")
+        );
     }
 
 }

@@ -3,6 +3,7 @@ package org.drools.devguide.eshop.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Client implements Serializable {
 
@@ -39,42 +40,33 @@ public class Client implements Serializable {
 		this.orders = orders;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((orders == null) ? 0 : orders.hashCode());
-		return result;
-	}
+        @Override
+        public int hashCode() {
+                int hash = 7;
+                hash = 67 * hash + Objects.hashCode(this.id);
+                hash = 67 * hash + Objects.hashCode(this.name);
+                return hash;
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Client other = (Client) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (orders == null) {
-			if (other.orders != null)
-				return false;
-		} else if (!orders.equals(other.orders))
-			return false;
-		return true;
-	}
+        @Override
+        public boolean equals(Object obj) {
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Client other = (Client) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                if (!Objects.equals(this.name, other.name)) {
+                    return false;
+                }
+                return true;
+        }
+
+	
 
 	@Override
 	public String toString() {
