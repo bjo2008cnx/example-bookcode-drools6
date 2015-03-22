@@ -5,25 +5,29 @@
  */
 package org.drools.devguide;
 
-import org.drools.devguide.sales.model.ClientDiscountEvaluation;
-import org.drools.devguide.sales.service.ClientDiscountService;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.drools.devguide.sales.model.Client;
-import org.drools.devguide.sales.service.ClientService;
-import static org.hamcrest.core.Is.is;
+import static java.util.stream.Collectors.toList;
+import org.drools.devguide.eshop.model.Client;
+import org.drools.devguide.eshop.model.Order;
+import org.drools.devguide.eshop.model.OrderState;
+import org.drools.devguide.eshop.model.SuspiciousOperation;
+import org.drools.devguide.eshop.service.AuditService;
+import org.drools.devguide.eshop.service.OrderService;
+import org.drools.devguide.util.ClientBuilder;
+import org.drools.devguide.util.OrderBuilder;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.kie.api.KieServices;
+import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.ObjectFilter;
-import org.kie.api.runtime.rule.FactHandle;
 
 /**
  *
@@ -32,202 +36,400 @@ import org.kie.api.runtime.rule.FactHandle;
 public class GlobalsTest {
 
     @Test
-    public void applyDiscountToFixedCategoriesTest() throws FileNotFoundException {
+    public void detectSuspiciousAmountOperationsWithFixedThresholdTest() {
 
-        Client frequentClient = new Client();
-        frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-        ClientDiscountEvaluation frequentClientDiscount = new ClientDiscountEvaluation(frequentClient);
+        //Create a client with PENDING orders for a value > 10000
+        Client clientA = new ClientBuilder()
+                .withId("A")
+                .newOrder()
+                    .withSate(OrderState.PENDING)
+                    .newItem()
+                        .withQuantity(2)
+                        .withProduct()
+                        .withSalePrice(5000.0)
+                    .end()
+                .end()
+                    .newItem()
+                        .withQuantity(5)
+                        .withProduct()
+                        .withSalePrice(800.0)
+                    .end()
+                .end()
+            .end()
+        .build();
 
-        Client eliteClient = new Client();
-        eliteClient.setCategory(Client.ClientCategory.ELITE);
-        ClientDiscountEvaluation eliteClientDiscount = new ClientDiscountEvaluation(eliteClient);
+        //Create a client with PENDING orders for a value < 10000 
+        Client clientB = new ClientBuilder()
+                .withId("B")
+                .newOrder()
+                    .withSate(OrderState.PENDING)
+                    .newItem()
+                        .withQuantity(1)
+                        .withProduct()
+                        .withSalePrice(1000.0)
+                    .end()
+                .end()
+            .end()
+        .build();
 
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
+        //Create a session and insert the 2 patients.
+        KieSession ksession = this.createSession("suspicious-operations-fixed");
 
-        KieSession ksession = kContainer.newKieSession("discount-fixed");
-        ksession.insert(frequentClientDiscount);
-        ksession.insert(eliteClientDiscount);
+        ksession.insert(clientA);
+        ksession.insert(clientB);
 
+        //Before we fire any activated rule, we check that the session doesn't
+        //have any object of type SuspiciousOperation in it.
+        Collection<SuspiciousOperation> suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
+        assertThat(suspiciousOperations, hasSize(0));
+
+        //Let's fire any activated rule now.
         ksession.fireAllRules();
-        ksession.dispose();
 
-        assertThat(frequentClientDiscount.getDiscount(), is(0.0f));
-        assertThat(eliteClientDiscount.getDiscount(), is(0.1f));
+        //After the rules are fired, a SuspiciousOperation object is now 
+        //present. This object belongs to Client "A".
+        suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
+
+        assertThat(suspiciousOperations, hasSize(1));
+        assertThat(suspiciousOperations.iterator().next().getClient().getId(),
+                is("A"));
+
+        ksession.dispose();
 
     }
 
     @Test
-    public void applyDiscountToVariableCategoriesTest() throws FileNotFoundException {
+    public void detectSuspiciousAmountOperationsWithVariableThresholdTest() {
 
-        Client frequentClient = new Client();
-        frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-        ClientDiscountEvaluation frequentClientDiscount = new ClientDiscountEvaluation(frequentClient);
+        //Create a client with PENDING orders for a value > 10000
+        Client clientA = new ClientBuilder()
+                .withId("A")
+                .newOrder()
+                    .withSate(OrderState.PENDING)
+                    .newItem()
+                        .withQuantity(2)
+                        .withProduct()
+                        .withSalePrice(5000.0)
+                    .end()
+                .end()
+                    .newItem()
+                        .withQuantity(5)
+                        .withProduct()
+                        .withSalePrice(800.0)
+                    .end()
+                .end()
+            .end()
+        .build();
 
-        Client eliteClient = new Client();
-        eliteClient.setCategory(Client.ClientCategory.ELITE);
-        ClientDiscountEvaluation eliteClientDiscount = new ClientDiscountEvaluation(eliteClient);
+        //Create a client with PENDING orders for a value < 10000 
+        Client clientB = new ClientBuilder()
+                .withId("B")
+                .newOrder()
+                    .withSate(OrderState.PENDING)
+                    .newItem()
+                        .withQuantity(1)
+                        .withProduct()
+                        .withSalePrice(1000.0)
+                    .end()
+                .end()
+            .end()
+        .build();
 
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
+        //Create a session
+        KieSession ksession = this.createSession("suspicious-operations-variable");
+        
+        //Before we insert any fact, we set the value of 'amountThreshold' global
+        //to 500.0
+        ksession.setGlobal("amountThreshold", 500.0);
 
-        KieSession ksession = kContainer.newKieSession("discount-variable");
+        ksession.insert(clientA);
+        ksession.insert(clientB);
 
-        ksession.setGlobal("discountCategories", new Client.ClientCategory[]{Client.ClientCategory.ELITE, Client.ClientCategory.PREMIUM});
+        //Before we fire any activated rule, we check that the session doesn't
+        //have any object of type SuspiciousOperation in it.
+        Collection<SuspiciousOperation> suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
+        assertThat(suspiciousOperations, hasSize(0));
 
-        ksession.insert(frequentClientDiscount);
-        ksession.insert(eliteClientDiscount);
-
+        //Let's fire any activated rule now.
         ksession.fireAllRules();
-        ksession.dispose();
 
-        assertThat(frequentClientDiscount.getDiscount(), is(0.0f));
-        assertThat(eliteClientDiscount.getDiscount(), is(0.1f));
+        //After the rules are fired, 2 SuspiciousOperation objects are now 
+        //present. Thse objects belong to Client "A" and "B".
+        suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
 
+        assertThat(suspiciousOperations, hasSize(2));
+        assertThat(
+                suspiciousOperations.stream().map(so -> so.getClient().getId()).collect(toList())
+                , containsInAnyOrder("A", "B")
+        );
+        
     }
 
     @Test
-    public void calculateDiscountsToAllClientsTest() throws FileNotFoundException {
+    public void detectSuspiciousAmountOperationsWithOrderServiceTest() {
 
-        ClientService clientServiceImpl = new ClientService() {
+        //Create 2 clients without any Order. Orders are going to be provided
+        //by the OrderService.
+        Client clientA = new ClientBuilder().withId("A").build();
+        Client clientB = new ClientBuilder().withId("B").build();
 
-            Set<Client> clients = new HashSet<>();
-
-            {
-                Client frequentClient = new Client();
-                frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-                clients.add(frequentClient);
-
-                Client eliteClient = new Client();
-                eliteClient.setCategory(Client.ClientCategory.ELITE);
-                clients.add(eliteClient);
-            }
+        //Mock an instance of OrderService
+        OrderService orderService = new OrderService() {
 
             @Override
-            public Set<Client> getAllClients() {
-                return clients;
+            public Collection<Order> getOrdersByClient(String clientId) {
+                switch (clientId){
+                    case "A":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(2)
+                                        .withProduct()
+                                        .withSalePrice(5000.0)
+                                        .end()
+                                    .end()
+                                    .newItem()
+                                        .withQuantity(5)
+                                        .withProduct()
+                                        .withSalePrice(800.0)
+                                        .end()
+                                    .end()
+                            .build()
+                        );
+                    case "B":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(1)
+                                        .withProduct()
+                                        .withSalePrice(1000.0)
+                                    .end()
+                                .end()
+                            .build()
+                        );
+                    default:
+                        return Collections.EMPTY_LIST;
+                }
             }
         };
         
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
+        //Create a session
+        KieSession ksession = this.createSession("suspicious-operations-order-service");
+        
+        //Before we insert any fact, we set the value of 'amountThreshold' global
+        //to 500.0 and the value of 'orderService' global to the mocked service
+        //we have created.
+        ksession.setGlobal("amountThreshold", 500.0);
+        ksession.setGlobal("orderService", orderService);
 
-        KieSession ksession = kContainer.newKieSession("discount-service");
+        ksession.insert(clientA);
+        ksession.insert(clientB);
 
-        ksession.setGlobal("discountCategories", new Client.ClientCategory[]{Client.ClientCategory.ELITE, Client.ClientCategory.PREMIUM});
-        ksession.setGlobal("clientService", clientServiceImpl);
+        //Before we fire any activated rule, we check that the session doesn't
+        //have any object of type SuspiciousOperation in it.
+        Collection<SuspiciousOperation> suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
+        assertThat(suspiciousOperations, hasSize(0));
 
-        ksession.insert("calculate discounts");
-
+        //Let's fire any activated rule now.
         ksession.fireAllRules();
 
-        //Retrieve the facts of type ClientDiscountEvaluation from the session.
-        Collection<FactHandle> discontFacts = ksession.getFactHandles(new ObjectFilter() {
-            
-            @Override
-            public boolean accept(Object object) {
-                return object instanceof ClientDiscountEvaluation;
-            }
-        });
-        
-        assertThat(discontFacts.size(), is(2));
+        //After the rules are fired, 2 SuspiciousOperation objects are now 
+        //present. Thse objects belong to Client "A" and "B".
+        suspiciousOperations
+                = this.getFactsFromSession(ksession, SuspiciousOperation.class);
 
+        assertThat(suspiciousOperations, hasSize(2));
+        assertThat(
+                suspiciousOperations.stream().map(so -> so.getClient().getId()).collect(toList())
+                , containsInAnyOrder("A", "B")
+        );
+        
+    }
+
+    @Test
+    public void detectSuspiciousAmountOperationsCollectInGlobalList() {
+
+        //Create 2 clients without any Order. Orders are going to be provided
+        //by the OrderService.
+        Client clientA = new ClientBuilder().withId("A").build();
+        Client clientB = new ClientBuilder().withId("B").build();
+
+        //Mock an instance of OrderService
+        OrderService orderService = new OrderService() {
+
+            @Override
+            public Collection<Order> getOrdersByClient(String clientId) {
+                switch (clientId){
+                    case "A":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(2)
+                                        .withProduct()
+                                        .withSalePrice(5000.0)
+                                        .end()
+                                    .end()
+                                    .newItem()
+                                        .withQuantity(5)
+                                        .withProduct()
+                                        .withSalePrice(800.0)
+                                        .end()
+                                    .end()
+                            .build()
+                        );
+                    case "B":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(1)
+                                        .withProduct()
+                                        .withSalePrice(1000.0)
+                                    .end()
+                                .end()
+                            .build()
+                        );
+                    default:
+                        return Collections.EMPTY_LIST;
+                }
+            }
+        };
+        
+        //Create a session
+        KieSession ksession = this.createSession("suspicious-operations-global-list");
+        
+        //Before we insert any fact, we set the value of 'amountThreshold' global
+        //to 500.0 and the value of 'orderService' global to the mocked service
+        //we have created.
+        ksession.setGlobal("amountThreshold", 500.0);
+        ksession.setGlobal("orderService", orderService);
+        
+        //We will also set a global Set to collect all the SuspiciousOperation
+        //objects generated in the session.
+        Set<SuspiciousOperation> results = new HashSet<>();
+        ksession.setGlobal("results", results);
+
+        ksession.insert(clientA);
+        ksession.insert(clientB);
+
+        //Let's fire any activated rule now.
+        ksession.fireAllRules();
+
+        //After the rules are fired, 2 SuspiciousOperation objects are now 
+        //present in the 'results' Set.
+        assertThat(results, hasSize(2));
+        assertThat(
+                results.stream().map(so -> so.getClient().getId()).collect(toList())
+                , containsInAnyOrder("A", "B")
+        );
+        
     }
     
     @Test
-    public void calculateDiscountsToAllClientsAndGetResultsTest() throws FileNotFoundException {
-        
-        List<ClientDiscountEvaluation> results = new ArrayList<>();
+    public void detectSuspiciousAmountOperationsAuditServiceList() {
 
-        ClientService clientServiceImpl = new ClientService() {
+        //Create 2 clients without any Order. Orders are going to be provided
+        //by the OrderService.
+        Client clientA = new ClientBuilder().withId("A").build();
+        Client clientB = new ClientBuilder().withId("B").build();
 
-            Set<Client> clients = new HashSet<>();
-
-            {
-                Client frequentClient = new Client();
-                frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-                clients.add(frequentClient);
-
-                Client eliteClient = new Client();
-                eliteClient.setCategory(Client.ClientCategory.ELITE);
-                clients.add(eliteClient);
-            }
+        //Mock an instance of OrderService
+        OrderService orderService = new OrderService() {
 
             @Override
-            public Set<Client> getAllClients() {
-                return clients;
+            public Collection<Order> getOrdersByClient(String clientId) {
+                switch (clientId){
+                    case "A":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(2)
+                                        .withProduct()
+                                        .withSalePrice(5000.0)
+                                        .end()
+                                    .end()
+                                    .newItem()
+                                        .withQuantity(5)
+                                        .withProduct()
+                                        .withSalePrice(800.0)
+                                        .end()
+                                    .end()
+                            .build()
+                        );
+                    case "B":
+                        return Arrays.asList(
+                            new OrderBuilder(null)
+                                    .withSate(OrderState.PENDING)
+                                    .newItem()
+                                        .withQuantity(1)
+                                        .withProduct()
+                                        .withSalePrice(1000.0)
+                                    .end()
+                                .end()
+                            .build()
+                        );
+                    default:
+                        return Collections.EMPTY_LIST;
+                }
             }
         };
         
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
+        //Create a mocked implementation of AuditService that collects its results
+        //into a set
+        final Set<SuspiciousOperation> results = new HashSet<>();
+        AuditService auditService = new AuditService() {
 
-        KieSession ksession = kContainer.newKieSession("discount-global-list");
+            @Override
+            public void notifySuspiciousOperation(SuspiciousOperation operation) {
+                results.add(operation);
+            }
+        };
+        
+        //Create a session
+        KieSession ksession = this.createSession("suspicious-operations-audit-service");
+        
+        //Before we insert any fact, we set the value of 'amountThreshold' global
+        //to 500.0, the value of 'orderService' global to the mocked service
+        //we have created and the value of 'auditService' global to the mocked
+        //service we have created.
+        ksession.setGlobal("amountThreshold", 500.0);
+        ksession.setGlobal("orderService", orderService);
+        ksession.setGlobal("auditService", auditService);
+        
+        ksession.insert(clientA);
+        ksession.insert(clientB);
 
-        ksession.setGlobal("discountCategories", new Client.ClientCategory[]{Client.ClientCategory.ELITE, Client.ClientCategory.PREMIUM});
-        ksession.setGlobal("clientService", clientServiceImpl);
-        ksession.setGlobal("results", results);
-
-        ksession.insert("calculate discounts");
-
+        //Let's fire any activated rule now.
         ksession.fireAllRules();
 
-        assertThat(results.size(), is(2));
-
+        //After the rules are fired, 2 SuspiciousOperation objects are now 
+        //present in the 'results' Set.
+        assertThat(results, hasSize(2));
+        assertThat(
+                results.stream().map(so -> so.getClient().getId()).collect(toList())
+                , containsInAnyOrder("A", "B")
+        );
+        
     }
     
-    @Test
-    public void calculateDiscountsToAllClientsAndPersistResultsTest() throws FileNotFoundException {
-        
-        List<ClientDiscountEvaluation> results = new ArrayList<>();
-
-        ClientService clientServiceImpl = new ClientService() {
-
-            Set<Client> clients = new HashSet<>();
-
-            {
-                Client frequentClient = new Client();
-                frequentClient.setCategory(Client.ClientCategory.FREQUENT);
-                clients.add(frequentClient);
-
-                Client eliteClient = new Client();
-                eliteClient.setCategory(Client.ClientCategory.ELITE);
-                clients.add(eliteClient);
-            }
-
-            @Override
-            public Set<Client> getAllClients() {
-                return clients;
-            }
-        };
-        
-        
-        final AtomicInteger counter = new AtomicInteger(0);
-        ClientDiscountService clientDiscountServiceImpl = new ClientDiscountService() {
-
-            @Override
-            public void persist(ClientDiscountEvaluation cde) {
-                //keep track of each time this method gets invoked.
-                counter.incrementAndGet();
-            }
-        };
-        
+    private KieSession createSession(String name) {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
 
-        KieSession ksession = kContainer.newKieSession("discount-global-persist");
-
-        ksession.setGlobal("discountCategories", new Client.ClientCategory[]{Client.ClientCategory.ELITE, Client.ClientCategory.PREMIUM});
-        ksession.setGlobal("clientService", clientServiceImpl);
-        ksession.setGlobal("results", results);
-        ksession.setGlobal("clientDiscountService", clientDiscountServiceImpl);
-
-        ksession.insert("calculate discounts");
-
-        ksession.fireAllRules();
-
-        assertThat(counter.get(), is(2));
-
+        return kContainer.newKieSession(name);
     }
 
+    private <T> Collection<T> getFactsFromSession(KieSession ksession, Class<T> classType) {
+        return (Collection<T>) ksession.getObjects(new ClassObjectFilter(classType));
+    }
+    
 }

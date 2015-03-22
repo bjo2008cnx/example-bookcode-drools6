@@ -8,11 +8,20 @@ public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String id;
 	private String name;
-	private List<Order> orders = new ArrayList<Order>();
+	private List<Order> orders = new ArrayList<>();
 	
 	public Client() {
 	}
+
+        public String getId() {
+                return id;
+        }
+
+        public void setId(String id) {
+               this.id = id;
+        }
 
 	public String getName() {
 		return name;
@@ -34,6 +43,7 @@ public class Client implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((orders == null) ? 0 : orders.hashCode());
 		return result;
@@ -48,9 +58,14 @@ public class Client implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Client other = (Client) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		} else if (!name.equals(other.name))
 			return false;
 		if (orders == null) {

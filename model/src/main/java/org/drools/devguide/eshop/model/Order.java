@@ -1,17 +1,37 @@
 package org.drools.devguide.eshop.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Client client;
+	private Date date;
 	private List<OrderItem> items;
 	private OrderState state;
 	
 	public Order() {
 	}
+
+        public Client getClient() {
+            return client;
+        }
+
+        public void setClient(Client client) {
+            this.client = client;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
 
 	public List<OrderItem> getItems() {
 		return items;
@@ -28,37 +48,45 @@ public class Order implements Serializable {
 	public void setState(OrderState state) {
 		this.state = state;
 	}
+        
+        public double getTotal(){
+            return this.getItems().stream()
+                    .mapToDouble(item -> item.getProduct().getSalePrice() * item.getQuantity())
+                    .sum();
+        }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((items == null) ? 0 : items.hashCode());
-		result = prime * result + ((state == null) ? 0 : state.hashCode());
-		return result;
-	}
+        @Override
+        public int hashCode() {
+                int hash = 5;
+                return hash;
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		if (items == null) {
-			if (other.items != null)
-				return false;
-		} else if (!items.equals(other.items))
-			return false;
-		if (state != other.state)
-			return false;
-		return true;
-	}
+        @Override
+        public boolean equals(Object obj) {
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Order other = (Order) obj;
+                if (!Objects.equals(this.client, other.client)) {
+                    return false;
+                }
+                if (!Objects.equals(this.date, other.date)) {
+                    return false;
+                }
+                if (!Objects.equals(this.items, other.items)) {
+                    return false;
+                }
+                if (this.state != other.state) {
+                    return false;
+                }
+                return true;
+        }
 
-	@Override
-	public String toString() {
-		return "Order [items=" + items + ", state=" + state + "]";
-	}
+        @Override
+        public String toString() {
+                return "Order [" + "client=" + client + ", date=" + date + ", items=" + items + ", state=" + state + ']';
+        }
 }

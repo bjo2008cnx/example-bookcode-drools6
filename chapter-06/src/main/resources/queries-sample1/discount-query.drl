@@ -1,8 +1,8 @@
 package org.drools.devguide;
 
-import org.drools.devguide.sales.model.Client;
-import org.drools.devguide.sales.model.Client.ClientCategory;
-import org.drools.devguide.sales.model.ClientDiscountEvaluation;
+import org.drools.devguide.eshop.model.Client;
+import org.drools.devguide.eshop.model.Client.ClientCategory;
+import org.drools.devguide.eshop.model.ClientDiscountEvaluation;
 import org.drools.devguide.sales.service.ClientService;
 import org.drools.devguide.sales.service.ClientDiscountService;
 
