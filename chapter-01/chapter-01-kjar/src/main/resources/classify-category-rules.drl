@@ -1,0 +1,33 @@
+package chapter01.rules
+
+
+import org.drools.devguide.eshop.model.Product;
+import org.drools.devguide.eshop.model.Product.Category;
+
+rule "Classify Product - Low Range"
+    when
+        $p: Product( cost <= 200, category == Category.NA )
+    then
+        $p.setCategory(Category.LOW_RANGE);
+        update($p);
+end
+
+rule "Classify Product - Mid Range"
+    when
+        $p: Product( cost > 200 && cost < 500, category == Category.NA )
+    then
+        $p.setCategory(Category.MID_RANGE);
+        update($p);
+end
+
+rule "Classify Product - High Range"
+    when
+        $p: Product( cost >= 500, category == Category.NA )
+    then
+        $p.setCategory(Category.HIGH_RANGE);
+        update($p);
+end
+
+
+
+

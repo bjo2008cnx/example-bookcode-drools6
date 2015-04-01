@@ -3,41 +3,50 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drools.devguide</groupId>
-        <artifactId>drools6-dev-guide-parent</artifactId>
+        <artifactId>chapter-01</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-06</artifactId>
+    
+    <artifactId>chapter-01-tests</artifactId>
     <packaging>jar</packaging>
-    <name>Drools 6 Developer Guide - Chapter 6</name>
     <dependencies>
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>model</artifactId>
+            <type>jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>shared</artifactId>
             <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>chapter-01-kjar</artifactId>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+        
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-api</artifactId>
-            <scope>test</scope>
             <type>jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-compiler</artifactId>
-            <scope>test</scope>
             <type>jar</type>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-core</artifactId>
-            <scope>test</scope>
             <type>jar</type>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -54,5 +63,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
 </project>

@@ -6,19 +6,9 @@
         <artifactId>drools6-dev-guide-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-06</artifactId>
+    <artifactId>shared</artifactId>
     <packaging>jar</packaging>
-    <name>Drools 6 Developer Guide - Chapter 6</name>
     <dependencies>
-        <dependency>
-            <groupId>org.drools.devguide</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.drools.devguide</groupId>
-            <artifactId>shared</artifactId>
-            <type>test-jar</type>
-        </dependency>
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-api</artifactId>
@@ -54,5 +44,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

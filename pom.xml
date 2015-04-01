@@ -16,6 +16,9 @@
     <modules>
         <module>model</module>
         <module>chapter-06</module>
+        <module>myfirstproject</module>
+        <module>chapter-01</module>
+        <module>shared</module>
     </modules>
     
     <dependencyManagement>
@@ -23,6 +26,22 @@
             <dependency>
                 <groupId>org.drools.devguide</groupId>
                 <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>shared</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>shared</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>chapter-01-kjar</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -40,7 +59,6 @@
                 <artifactId>drools-core</artifactId>
                 <version>${drools.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>

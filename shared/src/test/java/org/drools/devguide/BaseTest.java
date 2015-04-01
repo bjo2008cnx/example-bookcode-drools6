@@ -16,7 +16,14 @@ import org.kie.api.runtime.KieSession;
  * @author esteban
  */
 public class BaseTest {
-    
+
+    protected KieSession createDefaultSession() {
+        KieServices ks = KieServices.Factory.get();
+        KieContainer kContainer = ks.getKieClasspathContainer();
+
+        return kContainer.newKieSession();
+    }
+
     protected KieSession createSession(String name) {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
@@ -27,5 +34,5 @@ public class BaseTest {
     protected <T> Collection<T> getFactsFromSession(KieSession ksession, Class<T> classType) {
         return (Collection<T>) ksession.getObjects(new ClassObjectFilter(classType));
     }
-    
+
 }

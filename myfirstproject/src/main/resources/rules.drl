@@ -1,0 +1,13 @@
+package myfirstproject.rules
+
+
+import org.drools.devguide.eshop.model.Product;
+import org.drools.devguide.eshop.model.Product.Category;
+
+rule "Classify Product - Low Range"
+    when
+        $p: Product(cost < 200)
+    then
+        $p.setCategory(Category.LOW_RANGE);
+end
+

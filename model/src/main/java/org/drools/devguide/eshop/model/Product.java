@@ -1,98 +1,113 @@
 package org.drools.devguide.eshop.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Product implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Long id;
-	private String name;
-	private Double cost;
-	private Double salePrice;
-	
-	public Product() {
-	}
+    public enum Category {
+        NA, LOW_RANGE, MID_RANGE, HIGH_RANGE
+    };
+    private static final long serialVersionUID = 1L;
 
-	public String getName() {
-		return name;
-	}
+    private Long id;
+    private String name;
+    private Double cost;
+    private Double salePrice;
+    private Category category;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Product() {
+    }
 
-	public Double getCost() {
-		return cost;
-	}
+    public Product(String name, Double cost, Double salePrice) {
+        this.name = name;
+        this.cost = cost;
+        this.salePrice = salePrice;
+        this.category = Category.NA;
+    }
 
-	public void setCost(Double cost) {
-		this.cost = cost;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Double getSalePrice() {
-		return salePrice;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSalePrice(Double salePrice) {
-		this.salePrice = salePrice;
-	}
+    public Double getCost() {
+        return cost;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Double getSalePrice() {
+        return salePrice;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((salePrice == null) ? 0 : salePrice.hashCode());
-		return result;
-	}
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (cost == null) {
-			if (other.cost != null)
-				return false;
-		} else if (!cost.equals(other.cost))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (salePrice == null) {
-			if (other.salePrice != null)
-				return false;
-		} else if (!salePrice.equals(other.salePrice))
-			return false;
-		return true;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", cost=" + cost
-				+ ", salePrice=" + salePrice + "]";
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.cost);
+        hash = 59 * hash + Objects.hashCode(this.salePrice);
+        hash = 59 * hash + Objects.hashCode(this.category);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.cost, other.cost)) {
+            return false;
+        }
+        if (!Objects.equals(this.salePrice, other.salePrice)) {
+            return false;
+        }
+        if (this.category != other.category) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", cost=" + cost
+                + ", salePrice=" + salePrice + ", category=" + category + '}';
+    }
+
 }
