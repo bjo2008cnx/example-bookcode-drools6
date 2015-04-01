@@ -2,12 +2,17 @@ package chapter01.rules
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Product;
+import org.drools.devguide.eshop.model.Discount;
+import org.drools.devguide.eshop.model.OrderItem;
 import org.drools.devguide.eshop.model.Product.Category;
 
 rule "High Range Order - 10% Discount"
     when
-        $o: Order( )
+        $o: Order( $items : items, discount == null )
+        forall( OrderItem( this memberOf $items,  $product : product)
+                Product(this == $product, category == Category.HIGH_RANGE)
+        )
     then
-        
+        $o.setDiscount(new Discount(10.0));
 end
 

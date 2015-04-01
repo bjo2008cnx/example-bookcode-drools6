@@ -13,6 +13,7 @@ public class Order implements Serializable {
 	private Date date;
 	private List<OrderItem> items;
 	private OrderState state;
+        private Discount discount;
 	
 	public Order() {
 	}
@@ -40,6 +41,8 @@ public class Order implements Serializable {
 	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}
+        
+        
 	
 	public OrderState getState() {
 		return state;
@@ -54,6 +57,16 @@ public class Order implements Serializable {
                     .mapToDouble(item -> item.getProduct().getSalePrice() * item.getQuantity())
                     .sum();
         }
+
+        public Discount getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(Discount discount) {
+            this.discount = discount;
+        }
+        
+        
 
         @Override
         public int hashCode() {

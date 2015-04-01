@@ -16,6 +16,12 @@ public class Discount implements Serializable {
 	public Discount() {
 	}
 
+        public Discount(Double percentage) {
+            this.percentage = percentage;
+        }
+        
+        
+
 	public Provider getProvider() {
 		return provider;
 	}
