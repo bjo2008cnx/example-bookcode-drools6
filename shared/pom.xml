@@ -10,6 +10,10 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-api</artifactId>
             <scope>test</scope>
