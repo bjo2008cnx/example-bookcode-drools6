@@ -7,11 +7,13 @@ import java.util.Objects;
 
 public class Client implements Serializable {
 
+        public enum Category{GOLD, SILVER, BRONZE};
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String name;
 	private List<Order> orders = new ArrayList<>();
+        private Category category;
 	
 	public Client() {
 	}
@@ -39,6 +41,16 @@ public class Client implements Serializable {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+
+        public Category getCategory() {
+            return category;
+        }
+
+        public void setCategory(Category category) {
+            this.category = category;
+        }
+        
+        
 
         @Override
         public int hashCode() {
