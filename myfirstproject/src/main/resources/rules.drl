@@ -1,6 +1,5 @@
 package myfirstproject.rules
 
-
 import org.drools.devguide.eshop.model.Product;
 import org.drools.devguide.eshop.model.Product.Category;
 

@@ -56,6 +56,7 @@ public class SimpleOrderDiscountTest extends BaseTest{
         OrderItem item1 = new OrderItem();
         item1.setProduct(pA);
         item1.setQuantity(2);
+        items.add(item1);
         OrderItem item2 = new OrderItem();
         item1.setProduct(pB);
         item1.setQuantity(1);
@@ -67,6 +68,7 @@ public class SimpleOrderDiscountTest extends BaseTest{
         kSession.insert(pA);
         kSession.insert(pB);
         kSession.insert(item1);
+        kSession.insert(item2);
         kSession.insert(o);
         
         int fired = kSession.fireAllRules();
