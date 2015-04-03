@@ -6,8 +6,17 @@
         <artifactId>drools6-dev-guide-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>model</artifactId>
-    <name>Drools 6 Developer Guide - EShop Model</name>
+    <artifactId>services</artifactId>
+    <name>Drools 6 Developer Guide - EShop Services</name>
     <packaging>jar</packaging>
-  
+    <dependencies>
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>shared</artifactId>
+        </dependency>
+    </dependencies>
 </project>

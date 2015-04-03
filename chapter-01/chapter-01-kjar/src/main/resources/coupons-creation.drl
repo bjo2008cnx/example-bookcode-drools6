@@ -1,0 +1,14 @@
+package chapter01.rules;
+
+import org.drools.devguide.eshop.model.Coupon;
+
+
+
+rule "Create Coupons for Silver Clients"
+    when
+        $o: Order( $client: client )
+        $c: Client(this == $client, category == Category.SILVER )
+    then
+        insert(new Coupon($c, $o, Coupon.CouponType.POINTS));        
+end 
+

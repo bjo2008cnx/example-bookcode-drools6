@@ -12,6 +12,8 @@
     <packaging>pom</packaging>
     <name>Drools 6 Developer Guide - Chapter 1</name>
     <modules>
+        <module>myfirstproject</module>
+        <module>myfirstproject-cdi</module>
         <module>chapter-01-kjar</module>
         <module>chapter-01-tests</module>
     </modules>

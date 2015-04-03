@@ -1,14 +1,13 @@
-
-package chapter01.rules
+package chapter01.rules;
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Client;
-import org.drools.devguide.eshop.model.Client.Category;
+
 
 rule "Classify Client by order size"
     when
         $o: Order( $items : items.size >= 20, $client: client )
         $c: Client(this == $client)
     then
-        $c.setCategory(Category.SILVER);
+        $c.setCategory(Client.Category.SILVER);
 end 

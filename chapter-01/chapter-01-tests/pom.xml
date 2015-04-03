@@ -8,6 +8,7 @@
     </parent>
     
     <artifactId>chapter-01-tests</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 1:  Tests</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

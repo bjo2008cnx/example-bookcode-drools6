@@ -8,6 +8,7 @@
     </parent>
     <artifactId>shared</artifactId>
     <packaging>jar</packaging>
+    <name>Drools 6 Developer Guide - EShop Shared Classes and Utils</name>
     <dependencies>
         <dependency>
             <groupId>org.drools.devguide</groupId>

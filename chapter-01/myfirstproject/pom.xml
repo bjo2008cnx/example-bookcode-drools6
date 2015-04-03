@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drools.devguide</groupId>
-        <artifactId>drools6-dev-guide-parent</artifactId>
+        <artifactId>chapter-01</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-  
+ 
     <artifactId>myfirstproject</artifactId>
-    <name>myfirstproject</name>
+    <name>My First Drools Project Java SE Version</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>

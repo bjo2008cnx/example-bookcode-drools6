@@ -7,6 +7,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     <artifactId>chapter-01-kjar</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 1:  Business Knowledge Assets</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
