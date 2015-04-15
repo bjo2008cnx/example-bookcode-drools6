@@ -11,10 +11,13 @@ import org.drools.devguide.eshop.model.Client;
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.OrderItem;
 import org.drools.devguide.eshop.model.Product;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,7 +55,7 @@ public class SimpleOrderDiscountTest extends BaseTest{
         
         Product pA = new Product("A", 700.0,800.0);
         Product pB = new Product("B", 800.0,850.0);
-        List<OrderItem> items = new ArrayList<OrderItem>();
+        List<OrderItem> items = new ArrayList<>();
         OrderItem item1 = new OrderItem();
         item1.setProduct(pA);
         item1.setQuantity(2);
@@ -73,9 +76,8 @@ public class SimpleOrderDiscountTest extends BaseTest{
         
         int fired = kSession.fireAllRules();
         assertEquals(3, fired);
-        Assert.assertNotNull(o.getDiscount());
-        Assert.assertEquals((Double)10.0, o.getDiscount().getPercentage());
-        
+        assertThat(o.getDiscount(), not(nullValue()));
+        assertThat(o.getDiscount().getPercentage(), is(10.0));
         
     }
 }

@@ -7,9 +7,10 @@
 import org.drools.devguide.BaseTest;
 import org.drools.devguide.eshop.model.Product;
 import org.drools.devguide.eshop.model.Product.Category;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class ClassifyProductsTest extends BaseTest{
         Product p = new Product("A", 123.0,234.0);
         kSession.insert(p);
         int fired = kSession.fireAllRules();
-        assertEquals(1, fired);
-        assertEquals(Category.LOW_RANGE, p.getCategory());
+        assertThat(1, is(fired));
+        assertThat(Category.LOW_RANGE, is(p.getCategory()));
     }
 }

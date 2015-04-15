@@ -4,13 +4,11 @@ import org.drools.devguide.eshop.model.Client;
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.OrderState;
 import org.drools.devguide.eshop.model.SuspiciousOperation;
-import org.drools.devguide.eshop.service.AuditService;
 import org.drools.devguide.eshop.service.OrderService;
 
 
 global Double amountThreshold;
 global OrderService orderService;
-global AuditService auditService;
 
 rule "Detect suspicious amount operations"
 when

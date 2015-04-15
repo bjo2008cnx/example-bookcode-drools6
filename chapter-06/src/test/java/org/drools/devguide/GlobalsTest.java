@@ -44,8 +44,8 @@ public class GlobalsTest extends BaseTest{
                         .withQuantity(2)
                         .withProduct()
                         .withSalePrice(5000.0)
+                        .end()
                     .end()
-                .end()
                     .newItem()
                         .withQuantity(5)
                         .withProduct()
@@ -64,9 +64,9 @@ public class GlobalsTest extends BaseTest{
                         .withQuantity(1)
                         .withProduct()
                         .withSalePrice(1000.0)
+                        .end()
                     .end()
                 .end()
-            .end()
         .build();
 
         //Create a session and insert the 2 patients.
