@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drools.devguide;
+package org.drools.devguide.chapter06;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.drools.devguide.BaseTest;
 import static java.util.stream.Collectors.toList;
 import org.drools.devguide.eshop.model.Client;
 import org.drools.devguide.eshop.model.Order;
