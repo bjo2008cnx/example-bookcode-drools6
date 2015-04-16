@@ -3,17 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.drools.devguide</groupId>
-        <artifactId>chapter-01</artifactId>
+        <artifactId>drools6-dev-guide-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-01-kjar</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 1:  Business Knowledge Assets</name>
-    <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>org.drools.devguide</groupId>
-            <artifactId>model</artifactId>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
+   
+    <artifactId>chapter-02</artifactId>
+    
+    <packaging>pom</packaging>
+    <name>Drools 6 Developer Guide - Chapter 2 Parent</name>
+    <modules>
+        <module>myfirstproject</module>
+        <module>myfirstproject-cdi</module>
+        <module>chapter-02-kjar</module>
+        <module>chapter-02-tests</module>
+    </modules>
 </project>
