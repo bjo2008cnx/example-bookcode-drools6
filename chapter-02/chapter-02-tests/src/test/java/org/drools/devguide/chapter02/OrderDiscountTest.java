@@ -23,10 +23,10 @@ import org.kie.api.runtime.KieSession;
  *
  * @author salaboy
  */
-public class SimpleOrderDiscountTest extends BaseTest {
+public class OrderDiscountTest extends BaseTest {
 
     @Test
-    public void simpleApplyDiscount() {
+    public void highRangeOrderDiscountTest() {
         KieSession kSession = createDefaultSession();
 
         Order o = ModelFactory.getOrderWithFiveHighRangeItems();

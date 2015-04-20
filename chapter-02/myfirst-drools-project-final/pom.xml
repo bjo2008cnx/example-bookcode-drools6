@@ -7,9 +7,9 @@
         <artifactId>chapter-02</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-  
-    <artifactId>myfirstproject-cdi</artifactId>
-    <name>My First Drools Project CDI Version</name>
+ 
+    <artifactId>myfirst-drools-project-final</artifactId>
+    <name>My First Drools Project Java SE Version (Final)</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -31,14 +31,6 @@
             <groupId>org.drools.devguide</groupId>
             <artifactId>model</artifactId>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se-core</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

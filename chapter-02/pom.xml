@@ -12,9 +12,9 @@
     <packaging>pom</packaging>
     <name>Drools 6 Developer Guide - Chapter 2 Parent</name>
     <modules>
-        <module>myfirstproject</module>
-        <module>myfirstproject-cdi</module>
         <module>chapter-02-kjar</module>
         <module>chapter-02-tests</module>
+        <module>myfirst-drools-project-final</module>
+        <module>myfirst-drools-project-cdi-final</module>
     </modules>
 </project>

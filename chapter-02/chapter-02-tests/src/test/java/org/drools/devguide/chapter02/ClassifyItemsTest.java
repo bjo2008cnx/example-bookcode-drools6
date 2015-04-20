@@ -21,7 +21,7 @@ import org.kie.api.runtime.KieSession;
 public class ClassifyItemsTest extends BaseTest {
 
     @Test
-    public void simpleClassification() {
+    public void lowRangeItemClassificationTest() {
         KieSession kSession = createDefaultSession();
         Item item = new Item("A", 123.0, 234.0);
         kSession.insert(item);
@@ -29,4 +29,12 @@ public class ClassifyItemsTest extends BaseTest {
         assertThat(1, is(fired));
         assertThat(Category.LOW_RANGE, is(item.getCategory()));
     }
+    
+//    @Test
+//    public void midRangeItemClassificationTest() {
+//    }
+    
+//    @Test
+//    public void highRangeItemClassificationTest() {
+//    }
 }
