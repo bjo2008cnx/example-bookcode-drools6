@@ -56,6 +56,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>chapter-03-kjar</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-api</artifactId>
                 <version>${drools.version}</version>
