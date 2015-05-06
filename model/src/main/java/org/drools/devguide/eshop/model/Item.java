@@ -6,7 +6,8 @@ import java.util.Objects;
 public class Item implements Serializable {
 
     public enum Category {
-        NA, LOW_RANGE, MID_RANGE, HIGH_RANGE
+        NA, LOW_RANGE, MID_RANGE, HIGH_RANGE,
+        SPECIAL_MIDHIGH_RANGE //used in chapter 4
     };
     private static final long serialVersionUID = 1L;
 
