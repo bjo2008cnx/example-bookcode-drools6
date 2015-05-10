@@ -56,6 +56,8 @@ public class WorkingMemoryModificationTest extends BaseTest {
 		});
         assertThat(goldCustomerObjs, notNullValue());
         assertThat(1, equalTo(goldCustomerObjs.size()));
+        IsGoldCustomer obj1 = (IsGoldCustomer) goldCustomerObjs.iterator().next();
+        assertThat(obj1.getCustomer(), equalTo(customer));
         
       //check it contains one object of type IsLowRangeItem
         Collection<?> lowRangeItemObjs = ksession.getObjects(new ObjectFilter() {
@@ -66,5 +68,7 @@ public class WorkingMemoryModificationTest extends BaseTest {
 		});
         assertThat(lowRangeItemObjs, notNullValue());
         assertThat(1, equalTo(lowRangeItemObjs.size()));
+        IsLowRangeItem obj2 = (IsLowRangeItem) lowRangeItemObjs.iterator().next();
+        assertThat(obj2.getItem(), equalTo(item));
 	}
 }
