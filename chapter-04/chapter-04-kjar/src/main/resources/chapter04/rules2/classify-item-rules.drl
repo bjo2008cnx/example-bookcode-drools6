@@ -1,4 +1,4 @@
-package chapter04.rules;
+package chapter04.rules2;
 
 import org.drools.devguide.eshop.model.Item;
 

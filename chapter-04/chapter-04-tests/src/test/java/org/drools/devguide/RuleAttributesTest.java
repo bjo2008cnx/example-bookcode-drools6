@@ -13,9 +13,11 @@ import org.kie.api.runtime.KieSession;
 
 public class RuleAttributesTest extends BaseTest {
 
+	protected final String ksessionName = "ruleAttributesKsession";
+	
 	@Test
 	public void testRuleAttributes() {
-		KieSession ksession = createDefaultSession();
+		KieSession ksession = createSession(ksessionName);
 		EShopConfigService mockService = mock(EShopConfigService.class);
 		when(mockService.isMidHighCategoryEnabled()).thenReturn(true);
 		ksession.setGlobal("configService", mockService);
@@ -28,7 +30,7 @@ public class RuleAttributesTest extends BaseTest {
 	
 	@Test
 	public void testDisabledRule() {
-		KieSession ksession = createDefaultSession();
+		KieSession ksession = createSession(ksessionName);
 		EShopConfigService mockService = mock(EShopConfigService.class);
 		when(mockService.isMidHighCategoryEnabled()).thenReturn(false);
 		ksession.setGlobal("configService", mockService);
