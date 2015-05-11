@@ -30,7 +30,7 @@ end
 
 rule "Classify Item - Mid/High Range (special)"
 	no-loop
-	salience 10
+        salience($i.getCost())
 	enabled (configService.isMidHighCategoryEnabled())
 	when
 		$i: Item( cost > 300 && cost < 400 )
