@@ -8,4 +8,8 @@
   <kbase name="ruleAttributesKbase" packages="chapter04.rules2">
     <ksession name="ruleAttributesKsession"/>
   </kbase>
+  
+  <kbase name="ruleGroupingKbase" packages="chapter04.rules3">
+    <ksession name="ruleGroupingKsession"/>
+  </kbase>
 </kmodule>
