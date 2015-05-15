@@ -13,8 +13,11 @@ import org.drools.devguide.eshop.model.Item;
 import org.drools.devguide.eshop.model.Item.Category;
 import org.drools.devguide.eshop.model.Order;
 import org.junit.Test;
+import org.kie.api.KieBase;
 import org.kie.api.KieServices;
+import org.kie.api.builder.Message;
 import org.kie.api.builder.ReleaseId;
+import org.kie.api.builder.Results;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
@@ -31,11 +34,14 @@ public class KieContainerTest {
     public void loadingRulesFromExistingArtifact() {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-simple-discounts", "0.1-SNAPSHOT"));
-        for (String s : kContainer.getKieBaseNames()) {
-            System.out.println("KieBase: "+s);
-        }
 
-        KieSession kieSession = kContainer.newKieSession("rules.discount");
+        Results results = kContainer.verify();
+        for (Message message : results.getMessages()) {
+            System.out.println(">> message: "+message);
+
+        }
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        KieSession kieSession = kContainer.newKieSession();
 
         Customer customer = new Customer();
         customer.setCategory(Customer.Category.SILVER);
@@ -47,15 +53,84 @@ public class KieContainerTest {
         kieSession.insert(order);
 
         int fired = kieSession.fireAllRules();
-        System.out.println("Fired: "+fired);
 
         assertThat(1, is(fired));
-        assertThat(10, is(order.getDiscount()));
+        assertThat(10.0, is(order.getDiscount().getPercentage()));
+
+    }
 
 
+//    @Test
+//    public void loadingRulesFromAnotherExistingArtifact() {
+//        KieServices ks = KieServices.Factory.get();
+//        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-premium-discounts", "0.1-SNAPSHOT"));
+//
+//        Results results = kContainer.verify();
+//        for (Message message : results.getMessages()) {
+//            System.out.println(">> message: "+message);
+//
+//        }
+//        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+//        KieSession kieSession = kContainer.newKieSession();
+//
+//        Customer customer = new Customer();
+//        customer.setCategory(Customer.Category.GOLD);
+//
+//        Order order = new Order();
+//        order.setCustomer(customer);
+//
+//        kieSession.insert(customer);
+//        kieSession.insert(order);
+//
+//        int fired = kieSession.fireAllRules();
+//
+//        assertThat(1, is(fired));
+//        assertThat(20.0, is(order.getDiscount().getPercentage()));
+//
+//
+//
+//
+//    }
+
+
+    @Test
+    public void loadingRulesFromParentExistingArtifact() {
+        KieServices ks = KieServices.Factory.get();
+        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-parent", "0.1-SNAPSHOT"));
+
+        Results results = kContainer.verify();
+        for (Message message : results.getMessages()) {
+            System.out.println(">> message: "+message);
+
+        }
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        KieSession kieSession = kContainer.newKieSession();
+
+        Customer customerGold = new Customer();
+        customerGold.setCategory(Customer.Category.GOLD);
+
+        Order orderGold = new Order();
+        orderGold.setCustomer(customerGold);
+
+        kieSession.insert(customerGold);
+        kieSession.insert(orderGold);
+
+        Customer customerSilver = new Customer();
+        customerSilver.setCategory(Customer.Category.SILVER);
+
+        Order orderSilver = new Order();
+        orderSilver.setCustomer(customerSilver);
+
+        kieSession.insert(customerSilver);
+        kieSession.insert(orderSilver);
+
+        int fired = kieSession.fireAllRules();
+
+        assertThat(2, is(fired));
+        assertThat(10.0, is(orderSilver.getDiscount().getPercentage()));
+        assertThat(20.0, is(orderGold.getDiscount().getPercentage()));
 
 
     }
-    
 
 }

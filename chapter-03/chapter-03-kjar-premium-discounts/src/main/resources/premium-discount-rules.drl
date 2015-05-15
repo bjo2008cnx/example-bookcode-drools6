@@ -1,6 +1,7 @@
-package chapter03.rules;
+package rules;
 
-import org.drools.devguide.eshop.model.OrderLine;
+import org.drools.devguide.eshop.model.Order;
+import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.eshop.model.Discount;
 
 rule "Gold Customers - 20% Discount"

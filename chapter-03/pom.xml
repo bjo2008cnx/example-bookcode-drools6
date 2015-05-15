@@ -14,6 +14,7 @@
     <modules>
         <module>chapter-03-kjar-simple-discounts</module>
         <module>chapter-03-kjar-premium-discounts</module>
+        <module>chapter-03-kjar-parent</module>
         <module>chapter-03-tests</module>
         
     </modules>
