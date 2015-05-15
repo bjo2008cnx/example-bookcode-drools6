@@ -12,4 +12,8 @@
   <kbase name="ruleGroupingKbase" packages="chapter04.rules3">
     <ksession name="ruleGroupingKsession"/>
   </kbase>
+
+  <kbase name="timerCalendarKbase" packages="chapter04.rules4">
+    <ksession name="timerCalendarKsession"/>
+  </kbase>
 </kmodule>
