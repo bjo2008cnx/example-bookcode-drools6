@@ -1,0 +1,15 @@
+package chapter03.rules;
+
+import org.drools.devguide.eshop.model.OrderLine;
+import org.drools.devguide.eshop.model.Discount;
+
+rule "Gold Customers - 20% Discount"
+    when
+        
+        $o: Order( $customer: customer, discount == null )
+        $c: Customer( category == Category.GOLD, this == $customer )
+    then
+        $o.setDiscount(new Discount(20.0));
+        update($o);
+end
+

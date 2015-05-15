@@ -12,7 +12,8 @@
     <packaging>pom</packaging>
     <name>Drools 6 Developer Guide - Chapter 3 Parent</name>
     <modules>
-        <module>chapter-03-kjar</module>
+        <module>chapter-03-kjar-simple-discounts</module>
+        <module>chapter-03-kjar-premium-discounts</module>
         <module>chapter-03-tests</module>
         
     </modules>

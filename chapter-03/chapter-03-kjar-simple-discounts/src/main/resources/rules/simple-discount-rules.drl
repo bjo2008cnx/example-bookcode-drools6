@@ -1,0 +1,29 @@
+package rules;
+
+import org.drools.devguide.eshop.model.OrderLine;
+import org.drools.devguide.eshop.model.Discount;
+
+rule "Silver Customers "
+    when
+        $c: Customer(  )
+    then
+       System.out.println("HERE A SILVER CUSTOMER");
+end
+
+rule "Silver Customers "
+    when
+        $o: Order(  )
+    then
+       System.out.println("HERE AN ORDER");
+end
+
+rule "Silver Customers - 10% Discount"
+    when
+        
+        $o: Order( $customer: customer, discount == null )
+        $c: Customer( category == Category.SILVER, this == $customer )
+    then
+        $o.setDiscount(new Discount(10.0));
+        update($o);
+end
+

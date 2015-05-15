@@ -6,8 +6,8 @@
         <artifactId>chapter-03</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-03-kjar</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 3:  Business Knowledge Assets</name>
+    <artifactId>chapter-03-kjar-premium-discounts</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 3: Premium Discounts Knowledge Assets</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
