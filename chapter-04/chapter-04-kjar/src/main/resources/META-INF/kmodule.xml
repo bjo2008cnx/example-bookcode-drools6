@@ -16,4 +16,8 @@
   <kbase name="timerCalendarKbase" packages="chapter04.rules4">
     <ksession name="timerCalendarKsession"/>
   </kbase>
+
+  <kbase name="loopingExamplesKbase" packages="chapter04.rules5">
+    <ksession name="loopingExamplesKsession"/>
+  </kbase>
 </kmodule>
