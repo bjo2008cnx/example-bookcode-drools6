@@ -10,6 +10,7 @@ rule "Gold Customers - 20% Discount"
         $o: Order( $customer: customer, discount == null )
         $c: Customer( category == Category.GOLD, this == $customer )
     then
+        System.out.println("Executing Gold Customer 20% Discount Rule!");
         $o.setDiscount(new Discount(20.0));
         update($o);
 end
