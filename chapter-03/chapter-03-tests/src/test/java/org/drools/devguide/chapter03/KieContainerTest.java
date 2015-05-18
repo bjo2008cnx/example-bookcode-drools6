@@ -31,6 +31,36 @@ import static org.junit.Assert.assertThat;
 public class KieContainerTest {
 
     @Test
+    public void loadingRulesFromClassPath() {
+        KieServices ks = KieServices.Factory.get();
+        KieContainer kContainer = ks.newKieClasspathContainer();
+
+        Results results = kContainer.verify();
+        for (Message message : results.getMessages()) {
+            System.out.println(">> message: "+message);
+
+        }
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        KieSession kieSession = kContainer.newKieSession("rules.cp.discount.session");
+
+        Customer customer = new Customer();
+        customer.setCategory(Customer.Category.BRONZE);
+
+        Order order = new Order();
+        order.setCustomer(customer);
+
+        kieSession.insert(customer);
+        kieSession.insert(order);
+
+        int fired = kieSession.fireAllRules();
+
+        assertThat(1, is(fired));
+        assertThat(5.0, is(order.getDiscount().getPercentage()));
+
+
+    }
+
+    @Test
     public void loadingRulesFromExistingArtifact() {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-simple-discounts", "0.1-SNAPSHOT"));
@@ -118,6 +148,8 @@ public class KieContainerTest {
 
         int fired = kieSession.fireAllRules();
         assertThat(1, is(fired));
+        assertThat(20.0, is(orderGold.getDiscount().getPercentage()));
+
         Customer customerSilver = new Customer();
         customerSilver.setCategory(Customer.Category.SILVER);
 
@@ -133,7 +165,7 @@ public class KieContainerTest {
 
         assertThat(1, is(fired));
         assertThat(10.0, is(orderSilver.getDiscount().getPercentage()));
-        assertThat(20.0, is(orderGold.getDiscount().getPercentage()));
+
 
 
     }
