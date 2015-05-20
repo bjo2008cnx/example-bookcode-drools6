@@ -138,6 +138,7 @@ public class KieContainerTest {
         KieSession kieSession = kContainer.newKieSession("rules.discount");
 
         Customer customerGold = new Customer();
+        customerGold.setCustomerId(1L);
         customerGold.setCategory(Customer.Category.GOLD);
 
         Order orderGold = new Order();
@@ -146,11 +147,8 @@ public class KieContainerTest {
         kieSession.insert(customerGold);
         kieSession.insert(orderGold);
 
-        int fired = kieSession.fireAllRules();
-        assertThat(1, is(fired));
-        assertThat(20.0, is(orderGold.getDiscount().getPercentage()));
-
         Customer customerSilver = new Customer();
+        customerSilver.setCustomerId(2L);
         customerSilver.setCategory(Customer.Category.SILVER);
 
         Order orderSilver = new Order();
@@ -159,14 +157,11 @@ public class KieContainerTest {
         kieSession.insert(customerSilver);
         kieSession.insert(orderSilver);
 
-        fired = kieSession.fireAllRules();
-        /// BUGZILLA HERE??? if I just want to fire all the rules after inserting all the facts
-        // the Silver Rule is executed twice (no idea why!!!!)
+        int fired = kieSession.fireAllRules();
 
-        assertThat(1, is(fired));
+        assertThat(2, is(fired));
         assertThat(10.0, is(orderSilver.getDiscount().getPercentage()));
-
-
+        assertThat(20.0, is(orderGold.getDiscount().getPercentage()));
 
     }
 
