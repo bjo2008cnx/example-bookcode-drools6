@@ -87,6 +87,12 @@
                 <version>${drools.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-core</artifactId>
+		<classifier>tests</classifier>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.enterprise</groupId>
                 <artifactId>cdi-api</artifactId>
                 <version>${cdi.version}</version>
