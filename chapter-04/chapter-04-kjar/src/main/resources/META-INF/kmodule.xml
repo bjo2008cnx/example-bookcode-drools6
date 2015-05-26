@@ -20,4 +20,8 @@
   <kbase name="loopingExamplesKbase" packages="chapter04.rules5">
     <ksession name="loopingExamplesKsession"/>
   </kbase>
+
+  <kbase name="declaredTypesKbase" packages="chapter04.rules6">
+    <ksession name="declaredTypesKsession"/>
+  </kbase>
 </kmodule>
