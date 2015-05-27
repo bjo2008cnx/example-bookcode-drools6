@@ -17,6 +17,7 @@ import org.kie.api.runtime.KieSession;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import org.kie.scanner.KieModuleMetaData;
 
 /**
  *
@@ -30,12 +31,15 @@ public class KieContainerMavenTests {
     public void loadingRulesFromExistingArtifact() {
         System.out.println("### Running loadingRulesFromExistingArtifact() Test ###");
         KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-simple-discounts", "0.1-SNAPSHOT"));
+        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
+                                                                    "chapter-03-kjar-simple-discounts", 
+                                                                    "0.1-SNAPSHOT"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
         kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
@@ -44,8 +48,22 @@ public class KieContainerMavenTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         KieSession kieSession = kContainer.newKieSession("rules.simple.discount");
+        
+        KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
+                                                        ks.newReleaseId("org.drools.devguide", 
+                                                                        "chapter-03-kjar-simple-discounts", 
+                                                                        "0.1-SNAPSHOT"));
+        
+        kieModuleMetaData.getPackages().stream().map((pkg) -> {
+            System.out.println(" >> Package Loaded:  "+pkg);
+            return pkg;
+        }).forEach((pkg) -> {
+            kieModuleMetaData.getRuleNamesInPackage(pkg).stream().forEach((rule) -> {
+                System.out.println("\t >> Contain Rule:  "+rule);
+            });
+        });
 
         Customer customer = new Customer();
         customer.setCategory(Customer.Category.SILVER);
@@ -71,12 +89,15 @@ public class KieContainerMavenTests {
         System.out.println("### Running loadingRulesFromAnotherExistingArtifact() Test ###");
         KieServices ks = KieServices.Factory.get();
 
-        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-premium-discounts", "0.1-SNAPSHOT"));
+        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
+                                                                "chapter-03-kjar-premium-discounts", 
+                                                                "0.1-SNAPSHOT"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
         kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
@@ -85,8 +106,22 @@ public class KieContainerMavenTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+
         KieSession kieSession = kContainer.newKieSession("rules.premium.discount");
+        
+        KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
+                                                        ks.newReleaseId("org.drools.devguide", 
+                                                                "chapter-03-kjar-premium-discounts", 
+                                                                "0.1-SNAPSHOT"));
+        
+        kieModuleMetaData.getPackages().stream().map((pkg) -> {
+            System.out.println(" >> Package Loaded:  "+pkg);
+            return pkg;
+        }).forEach((pkg) -> {
+            kieModuleMetaData.getRuleNamesInPackage(pkg).stream().forEach((rule) -> {
+                System.out.println("\t >> Contain Rule:  "+rule);
+            });
+        });
 
         Customer customer = new Customer();
         customer.setCategory(Customer.Category.GOLD);
@@ -112,12 +147,16 @@ public class KieContainerMavenTests {
     public void loadingRulesFromParentExistingArtifact() {
         System.out.println("### Running loadingRulesFromParentExistingArtifact() Test ###");
         KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-parent", "0.1-SNAPSHOT"));
+        KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
+                                                                "chapter-03-kjar-parent", 
+                                                                "0.1-SNAPSHOT"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
@@ -126,9 +165,23 @@ public class KieContainerMavenTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         KieSession kieSession = kContainer.newKieSession("rules.discount.all");
 
+        KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
+                                                        ks.newReleaseId("org.drools.devguide", 
+                                                                "chapter-03-kjar-parent", 
+                                                                "0.1-SNAPSHOT"));
+        
+        kieModuleMetaData.getPackages().stream().map((pkg) -> {
+            System.out.println(" >> Package Loaded:  "+pkg);
+            return pkg;
+        }).forEach((pkg) -> {
+            kieModuleMetaData.getRuleNamesInPackage(pkg).stream().forEach((rule) -> {
+                System.out.println("\t >> Contain Rule:  "+rule);
+            });
+        });
+        
         Customer customerGold = new Customer();
         customerGold.setCustomerId(1L);
         customerGold.setCategory(Customer.Category.GOLD);

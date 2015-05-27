@@ -34,6 +34,7 @@ public class KieContainerClasspathTests {
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
         kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
@@ -42,7 +43,7 @@ public class KieContainerClasspathTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         // Let's load the configurations for the kmodule.xml file 
         //  defined in the /src/test/resources/META-INF/ directory
         KieSession kieSession = kContainer.newKieSession("rules.cp.discount.session");
@@ -74,7 +75,8 @@ public class KieContainerClasspathTests {
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
-         kContainer.getKieBaseNames().stream().map((kieBase) -> {
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
         }).forEach((kieBase) -> {
@@ -82,7 +84,7 @@ public class KieContainerClasspathTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         // Let's load the configurations for the kmodule.xml file defined 
         //  in the chapter-03-simple-discounts/src/main/resources/META-INF/ directory
         // Notice that here the rule defined in the tests is not loaded
@@ -115,7 +117,8 @@ public class KieContainerClasspathTests {
         results.getMessages().stream().forEach((message) -> {
             System.out.println(">> Message ( "+message.getLevel()+" ): "+message.getText());
         });
-         kContainer.getKieBaseNames().stream().map((kieBase) -> {
+        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        kContainer.getKieBaseNames().stream().map((kieBase) -> {
             System.out.println(">> Loading KieBase: "+ kieBase );
             return kieBase;
         }).forEach((kieBase) -> {
@@ -123,7 +126,7 @@ public class KieContainerClasspathTests {
                 System.out.println("\t >> Containing KieSession: "+ kieSession );
             });
         });
-        assertThat(false, is(results.hasMessages(Message.Level.ERROR)));
+        
         // Let's load the configurations for the parent kmodule.xml file defined 
         //  in the chapter-03-kjar-parent/src/main/resources/META-INF/ directory
         KieSession kieSession = kContainer.newKieSession("rules.discount.all");
