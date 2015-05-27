@@ -1,0 +1,26 @@
+package chapter04.rules7
+
+import org.drools.devguide.eshop.model.Discount;
+
+declare PropertyReactiveOrder
+	@propertyReactive
+	discount: Discount
+	totalItems: Integer
+	total: Double
+end
+
+rule "Larger than 20 items orders are special orders"
+	when
+		$o: PropertyReactiveOrder(totalItems > 20) @Watch (!discount)
+	then
+		Discount $d = new Discount(0.05);
+		$o.setDiscount($d); 
+end
+
+rule "Larger than 100 dollars orders are special orders"
+	when
+		$o: PropertyReactiveOrder(total > 100.00) @Watch (!discount)
+	then
+		Discount $d = new Discount(0.03);
+		$o.setDiscount($d); 
+end

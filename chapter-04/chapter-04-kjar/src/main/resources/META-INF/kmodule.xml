@@ -24,4 +24,8 @@
   <kbase name="declaredTypesKbase" packages="chapter04.rules6">
     <ksession name="declaredTypesKsession"/>
   </kbase>
+  
+  <kbase name="propertyReactiveKbase" packages="chapter04.rules7">
+    <ksession name="propertyReactiveKsession"/>
+  </kbase>
 </kmodule>

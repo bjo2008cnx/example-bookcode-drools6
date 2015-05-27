@@ -10,6 +10,7 @@ import org.drools.devguide.eshop.model.Item;
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.OrderLine;
 import org.junit.Test;
+import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
 
 public class DeclaredTypesTest extends BaseTest {
@@ -17,14 +18,22 @@ public class DeclaredTypesTest extends BaseTest {
     protected final String ksessionName = "declaredTypesKsession";
 
     @Test
-    public void testLargeOrder() {
-        KieSession ksession1 = createSession(ksessionName);
+    public void testLargeOrder() throws Exception {
+        KieSession ksession = createSession(ksessionName);
     	Order order1 = createLargeOrder();
-        ksession1.insert(order1);
-        int firedRules = ksession1.fireAllRules();
+        ksession.insert(order1);
+        int firedRules = ksession.fireAllRules();
         assertThat(firedRules, equalTo(2));
-        //after running the same rules so much, discounts increase a lot...
         assertThat(order1.getDiscount().getPercentage(), equalTo(0.05));
+        
+        final FactType type = ksession.getKieBase().getFactType("chapter04.rules6", "SpecialOrder");
+        Object specialOffer = type.newInstance();
+        type.set(specialOffer, "order", order1);
+        
+        ksession.insert(specialOffer);
+        firedRules = ksession.fireAllRules();
+        //because we added a SpecialOffer, we fire "Apply special order discount" once more
+        assertThat(firedRules, equalTo(1));
     }
     
 	private Order  createLargeOrder() {
