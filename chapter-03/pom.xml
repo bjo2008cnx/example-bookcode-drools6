@@ -15,7 +15,7 @@
         <module>chapter-03-kjar-simple-discounts</module>
         <module>chapter-03-kjar-premium-discounts</module>
         <module>chapter-03-kjar-parent</module>
-        <module>chapter-03-tests</module>
-        
+        <module>chapter-03-classpath-tests</module>
+        <module>chapter-03-maven-tests</module>
     </modules>
 </project>

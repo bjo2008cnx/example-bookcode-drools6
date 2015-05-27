@@ -7,10 +7,28 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     
-    <artifactId>chapter-03-tests</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 3:  Tests</name>
+    <artifactId>chapter-03-classpath-tests</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 3:  Classpath Tests</name>
     <packaging>jar</packaging>
     <dependencies>
+        <!-- Start dependencies for the other Kie Modules --> 
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>chapter-03-kjar-simple-discounts</artifactId>  
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>chapter-03-kjar-premium-discounts</artifactId>  
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools.devguide</groupId>
+            <artifactId>chapter-03-kjar-parent</artifactId>  
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- End dependencies for the other Kie Modules --> 
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>model</artifactId>
@@ -30,12 +48,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.kie</groupId>
-            <artifactId>kie-ci</artifactId>
-            <type>jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-compiler</artifactId>
             <type>jar</type>
@@ -45,12 +57,6 @@
             <groupId>org.drools</groupId>
             <artifactId>drools-core</artifactId>
             <type>jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>drools-core</artifactId>
-            <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
