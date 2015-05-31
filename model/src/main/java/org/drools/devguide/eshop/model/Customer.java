@@ -11,6 +11,7 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long customerId;
+    private Integer age;
     private String name;
     private Category category = Category.NA;
 
@@ -23,6 +24,14 @@ public class Customer implements Serializable {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getName() {
@@ -45,6 +54,7 @@ public class Customer implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.customerId);
+        hash = 67 * hash + Objects.hashCode(this.age);
         hash = 67 * hash + Objects.hashCode(this.name);
         return hash;
     }
@@ -61,6 +71,9 @@ public class Customer implements Serializable {
         if (!Objects.equals(this.customerId, other.customerId)) {
             return false;
         }
+        if (!Objects.equals(this.age, other.age)) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -69,6 +82,6 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer [id = " + customerId + ", name=" + name + ", category = " + category + "]";
+        return "Customer [id = " + customerId + ", age=" + age + ", name=" + name + ", category = " + category + "]";
     }
 }
