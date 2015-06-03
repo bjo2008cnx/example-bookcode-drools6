@@ -3,6 +3,5 @@
          xmlns="http://jboss.org/kie/6.0.0/kmodule">
     <kbase name="discount" default="true" includes="rules.premium, rules.simple">
         <ksession name="rules.discount.all" type="stateful"/>
-
     </kbase>
 </kmodule>
