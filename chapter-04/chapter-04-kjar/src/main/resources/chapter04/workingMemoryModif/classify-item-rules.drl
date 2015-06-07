@@ -1,4 +1,4 @@
-package chapter04.rules1;
+package chapter04.workingMemoryModif;
 
 import org.drools.devguide.eshop.model.Coupon;
 import org.drools.devguide.eshop.model.Customer;

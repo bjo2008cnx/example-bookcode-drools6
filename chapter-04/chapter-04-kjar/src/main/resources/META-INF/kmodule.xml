@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xmlns="http://jboss.org/kie/6.0.0/kmodule">
-  <kbase name="wmModificationKbase" packages="chapter04.rules1">
+  <kbase name="wmModificationKbase" packages="chapter04.workingMemoryModif">
     <ksession name="wmModificationKsession"/>
   </kbase>
 
-  <kbase name="ruleAttributesKbase" packages="chapter04.rules2">
+  <kbase name="ruleAttributesKbase" packages="chapter04.ruleAttributes">
     <ksession name="ruleAttributesKsession"/>
   </kbase>
   
-  <kbase name="ruleGroupingKbase" packages="chapter04.rules3">
+  <kbase name="ruleGroupingKbase" packages="chapter04.ruleGrouping">
     <ksession name="ruleGroupingKsession"/>
   </kbase>
 
-  <kbase name="timerCalendarKbase" packages="chapter04.rules4">
+  <kbase name="timerCalendarKbase" packages="chapter04.timersAndCalendars">
     <ksession name="timerCalendarKsession"/>
   </kbase>
 
-  <kbase name="loopingExamplesKbase" packages="chapter04.rules5">
+  <kbase name="loopingExamplesKbase" packages="chapter04.loops">
     <ksession name="loopingExamplesKsession"/>
   </kbase>
 
-  <kbase name="declaredTypesKbase" packages="chapter04.rules6">
+  <kbase name="declaredTypesKbase" packages="chapter04.declaredTypes">
     <ksession name="declaredTypesKsession"/>
   </kbase>
   
-  <kbase name="propertyReactiveKbase" packages="chapter04.rules7">
+  <kbase name="propertyReactiveKbase" packages="chapter04.propertyReactive">
     <ksession name="propertyReactiveKsession"/>
   </kbase>
+ 
+  <kbase name="collectKbase" packages="chapter04.collectRules">
+    <ksession name="collectKsession"/>
+  </kbase>
+  
+  <kbase name="accumulateKbase" packages="chapter04.accumRules">
+    <ksession name="accumKsession"/>
+  </kbase>
+
 </kmodule>

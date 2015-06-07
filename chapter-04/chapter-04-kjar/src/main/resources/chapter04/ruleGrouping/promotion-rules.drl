@@ -1,4 +1,4 @@
-package chapter04.rules3;
+package chapter04.ruleGrouping;
 
 import org.drools.devguide.eshop.model.Discount;
 import org.drools.devguide.eshop.model.Item;

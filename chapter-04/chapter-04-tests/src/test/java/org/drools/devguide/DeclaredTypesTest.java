@@ -26,7 +26,7 @@ public class DeclaredTypesTest extends BaseTest {
         assertThat(firedRules, equalTo(2));
         assertThat(order1.getDiscount().getPercentage(), equalTo(0.05));
         
-        final FactType type = ksession.getKieBase().getFactType("chapter04.rules6", "SpecialOrder");
+        final FactType type = ksession.getKieBase().getFactType("chapter04.declaredTypes", "SpecialOrder");
         Object specialOffer = type.newInstance();
         type.set(specialOffer, "order", order1);
         

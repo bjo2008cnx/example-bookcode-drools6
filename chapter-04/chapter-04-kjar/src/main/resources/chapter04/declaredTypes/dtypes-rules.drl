@@ -1,4 +1,4 @@
-package chapter04.rules6
+package chapter04.declaredTypes
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Discount;

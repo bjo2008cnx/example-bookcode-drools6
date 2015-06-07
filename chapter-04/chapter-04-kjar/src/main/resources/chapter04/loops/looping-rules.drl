@@ -1,4 +1,4 @@
-package chapter04.rules5;
+package chapter04.loops;
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Item;

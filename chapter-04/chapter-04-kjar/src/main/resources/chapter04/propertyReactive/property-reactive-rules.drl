@@ -1,4 +1,4 @@
-package chapter04.rules7
+package chapter04.propertyReactive
 
 import org.drools.devguide.eshop.model.Discount;
 

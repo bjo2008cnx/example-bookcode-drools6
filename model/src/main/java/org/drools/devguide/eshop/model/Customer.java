@@ -13,6 +13,7 @@ public class Customer implements Serializable {
     private Long customerId;
     private Integer age;
     private String name;
+    private String email;
     private Category category = Category.NA;
 
     public Customer() {
@@ -42,6 +43,14 @@ public class Customer implements Serializable {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -55,6 +64,7 @@ public class Customer implements Serializable {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.customerId);
         hash = 67 * hash + Objects.hashCode(this.age);
+        hash = 67 * hash + Objects.hashCode(this.email);
         hash = 67 * hash + Objects.hashCode(this.name);
         return hash;
     }
@@ -74,6 +84,9 @@ public class Customer implements Serializable {
         if (!Objects.equals(this.age, other.age)) {
             return false;
         }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -82,6 +95,6 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer [id = " + customerId + ", age=" + age + ", name=" + name + ", category = " + category + "]";
+        return "Customer [id = " + customerId + ", age=" + age + ", email=" + email + ", name=" + name + ", category = " + category + "]";
     }
 }

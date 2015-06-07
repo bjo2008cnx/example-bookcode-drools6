@@ -1,4 +1,4 @@
-package chapter04.rules4;
+package chapter04.timersAndCalendars;
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.service.EmailService;

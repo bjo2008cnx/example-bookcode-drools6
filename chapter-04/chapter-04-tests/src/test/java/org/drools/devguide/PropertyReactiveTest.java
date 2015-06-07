@@ -16,7 +16,7 @@ public class PropertyReactiveTest extends BaseTest {
     @Test
     public void testLargeOrder() throws Exception {
         KieSession ksession = createSession(ksessionName);
-        FactType type = ksession.getKieBase().getFactType("chapter04.rules7", "PropertyReactiveOrder");
+        FactType type = ksession.getKieBase().getFactType("chapter04.propertyReactive", "PropertyReactiveOrder");
         Object order = type.newInstance();
         type.set(order, "totalItems", 21);
         ksession.insert(order);
