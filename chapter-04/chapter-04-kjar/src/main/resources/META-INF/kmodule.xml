@@ -37,4 +37,8 @@
     <ksession name="accumKsession"/>
   </kbase>
 
+  <kbase name="condElemsKbase" packages="chapter04.conditionalElements">
+    <ksession name="condElemsKsession"/>
+  </kbase>
+
 </kmodule>
