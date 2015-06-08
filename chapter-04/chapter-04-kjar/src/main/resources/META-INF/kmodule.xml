@@ -41,4 +41,8 @@
     <ksession name="condElemsKsession"/>
   </kbase>
 
+  <kbase name="traitsKbase" packages="chapter04.traits">
+    <ksession name="traitsKsession"/>
+  </kbase>
+
 </kmodule>

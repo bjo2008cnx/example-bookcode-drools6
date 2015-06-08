@@ -15,5 +15,9 @@
             <artifactId>model</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-core</artifactId>
+        </dependency>
     </dependencies>
 </project>
