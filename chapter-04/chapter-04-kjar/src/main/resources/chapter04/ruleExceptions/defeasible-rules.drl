@@ -1,0 +1,26 @@
+package chapter04.ruleExceptions
+
+import org.drools.devguide.eshop.model.Order;
+import org.drools.devguide.eshop.types.IsLargeOrder;
+
+rule "large orders" @Defeasible
+    when Order($id: orderId, total > 150.00)
+    then insertLogical(new IsLargeOrder($id));
+end
+
+rule "large orders exception" @Defeasible
+  @Defeats("large orders")
+    when Order($id: orderId, total > 150.00, totalItems < 5)
+    then insertLogical(new IsLargeOrder($id), "neg" );
+end
+
+rule "large orders double exception" 
+  @Defeats("large orders exception", "large orders")
+    when Order($id: orderId, total > 300.00)
+    then insertLogical(new IsLargeOrder($id));
+end
+
+rule "print large orders"
+    when $o: IsLargeOrder()
+    then System.out.println($o);
+end

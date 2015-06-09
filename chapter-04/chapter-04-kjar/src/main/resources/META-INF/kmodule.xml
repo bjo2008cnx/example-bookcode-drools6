@@ -45,4 +45,7 @@
     <ksession name="traitsKsession"/>
   </kbase>
 
+  <kbase name="ruleExceptionsKbase" packages="chapter04.ruleExceptions">
+    <ksession name="ruleExceptionsKsession"/>
+  </kbase>
 </kmodule>
