@@ -19,8 +19,8 @@ import org.kie.api.runtime.KieSession;
 
 public class RuleExceptionsTest extends BaseTest {
 
-    protected final String ksessionName = "ruleExceptionsKsession";
-
+	private String ksessionName = "ruleExceptionsKsession";
+	
     @Test
     public void testInsertModifyAndDelete() {
         KieSession ksession = createSession(ksessionName);

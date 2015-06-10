@@ -5,25 +5,25 @@ import java.util.Objects;
 
 public class IsLargeOrder implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 	
-	private Long orderId;
+    private Long orderId;
 	
-	public IsLargeOrder() {
-	}
+    public IsLargeOrder() {
+    }
 	
-	public IsLargeOrder(Long orderId) {
-		super();
-		this.orderId = orderId;
-	}
+    public IsLargeOrder(Long orderId) {
+        super();
+        this.orderId = orderId;
+    }
 
-	public Long getOrderId() {
-		return orderId;
-	}
+    public Long getOrderId() {
+        return orderId;
+    }
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 	
     @Override
     public int hashCode() {
