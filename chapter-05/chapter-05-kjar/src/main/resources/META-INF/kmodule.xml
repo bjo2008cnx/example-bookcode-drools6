@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <configuration>
+        <property key="drools.evaluator.containsItem" value="org.drools.devguide.chapter05.evaluator.ContainsItemEvaluatorDefinition"/>
+    </configuration>
     <kbase name="globalsKBase1" packages="globals-sample1">
         <ksession name="suspicious-operations-fixed"/>
     </kbase>
@@ -21,5 +24,8 @@
     </kbase>
     <kbase name="queriesKBase1" packages="queries-sample1">
         <ksession name="suspicious-operations-query"/>
+    </kbase>
+    <kbase name="customOperatorKBase" packages="chapter05.customOperator">
+        <ksession name="customOperatorKsession"/>
     </kbase>
 </kmodule>

@@ -33,7 +33,7 @@ import org.kie.scanner.MavenRepository;
 /**
  * Tests related to KieScanner component.
  * These tests are different from the tests in this book because they require
- * KieJars to be programatically generated and deployed into Maven. These
+ * KieJars to be programmatically generated and deployed into Maven. These
  * tests don't depend on any other KieModule.
  * @author esteban
  */
@@ -67,12 +67,12 @@ public class KieScannerTest {
     /**
      * This test shows how a KieContainer can be updated using a KieScanner.
      * The KieScanner used in this test is never started. Instead of that,
-     * the KieScanner is programatically executed whenever we want it to
+     * the KieScanner is programmatically executed whenever we want it to
      * check for changes in the underlying KieContainer.
      * @throws IOException 
      */
     @Test
-    public void kieContainerUpdateKJarTest() throws IOException {
+    public void kieContainerUpdateKieJarTest() throws IOException {
 
         //Create 2 SILVER customers and one Order for each of them.
         Customer customerA = new Customer();
@@ -85,7 +85,7 @@ public class KieScannerTest {
         Order orderB = new Order();
         orderB.setCustomer(customerB);
 
-        //Programatically create a kjar with org.drools.devguide:chapter-03-scanner-1:0.9
+        //Programmatically create a KieJar with org.drools.devguide:chapter-03-scanner-1:0.9
         //GAV.
         String groupId = "org.drools.devguide";
         String artifactId = "chapter-03-scanner-1";
@@ -94,15 +94,15 @@ public class KieScannerTest {
         KieServices ks = KieServices.Factory.get();
         ReleaseId releaseId = ks.newReleaseId(groupId, artifactId, version);
 
-        //The kjar will contains a single rule that will give a 10% discount
+        //The KieJar will contains a single rule that will give a 10% discount
         //to Orders from SILVER Customers.
         InternalKieModule originalKJar = createKieJar(ks, releaseId, createDiscountRuleForSilverCustomers(10.0));
         
-        //Before we can create a kieContainer for the kjar we just created, 
-        //we need to deploy the kjar into maven's repository.
+        //Before we can create a kieContainer for the KieJar we just created, 
+        //we need to deploy the KieJar into maven's repository.
         repository.deployArtifact(releaseId, originalKJar, createKPom(fileManager, releaseId));
 
-        //Once the kjar is deployed in maven, we can create a KieContainer for it,
+        //Once the KieJar is deployed in maven, we can create a KieContainer for it,
         KieContainer kieContainer = ks.newKieContainer(releaseId);
         
         //The KieContainer is wrapped by a KieScanner.
@@ -118,14 +118,14 @@ public class KieScannerTest {
         this.calculateAndAssertDiscount(customerA, orderA, ksession, 10.0);
         
         
-        //A new kjar for the same GAV is created and deployed into maven.
-        //This new version of the kjar will give a 25% discount to SILVER
+        //A new KieJar for the same GAV is created and deployed into maven.
+        //This new version of the KieJar will give a 25% discount to SILVER
         //Customers' Orders.
         InternalKieModule newKJar = createKieJar(ks, releaseId, createDiscountRuleForSilverCustomers(25.0));
         repository.deployArtifact(releaseId, newKJar, createKPom(fileManager, releaseId));
         
-        //Programatically tells the scanner to look for modifications in the 
-        //kjar referenced by the KieContainer it is wrapping.
+        //Programmatically tells the scanner to look for modifications in the 
+        //KieJar referenced by the KieContainer it is wrapping.
         //At this point, the KieSession we had previously created will be updated.
         scanner.scanNow();
         
@@ -158,7 +158,7 @@ public class KieScannerTest {
     }
 
     /**
-     * Programatically creates a rule (String) to set the Discount for SILVER
+     * Programmatically creates a rule (String) to set the Discount for SILVER
      * Customers Orders. The value of the Discount can be parameterized using 
      * the 'discount' parameter.
      * @param discount

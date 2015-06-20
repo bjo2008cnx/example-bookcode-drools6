@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drools.devguide.chapter06;
+package org.drools.devguide.chapter05;
 
 import java.util.Arrays;
 import java.util.Collection;

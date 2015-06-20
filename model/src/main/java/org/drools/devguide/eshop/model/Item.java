@@ -21,6 +21,11 @@ public class Item implements Serializable {
     }
 
     public Item(String name, Double cost, Double salePrice) {
+        this(null, name, cost, salePrice);
+    }
+    
+    public Item(Long id, String name, Double cost, Double salePrice) {
+        this.id = id;
         this.name = name;
         this.cost = cost;
         this.salePrice = salePrice;
