@@ -24,19 +24,26 @@ public class ContainsItemEvaluator extends BaseEvaluator {
     private final boolean isNegated;
 
     public ContainsItemEvaluator(ValueType type, boolean isNegated) {
-        super(type , isNegated? ContainsItemEvaluatorDefinition.NOT_CONTAINS_ITEM : ContainsItemEvaluatorDefinition.CONTAINS_ITEM);
+        super(type , 
+                isNegated? 
+                        ContainsItemEvaluatorDefinition.NOT_CONTAINS_ITEM : 
+                        ContainsItemEvaluatorDefinition.CONTAINS_ITEM);
         this.isNegated = isNegated;
     }
     
     @Override
-    public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor extractor, InternalFactHandle factHandle, FieldValue value) {
+    public boolean evaluate(InternalWorkingMemory workingMemory, 
+            InternalReadAccessor extractor, InternalFactHandle factHandle, 
+            FieldValue value) {
         Object order = extractor.getValue(workingMemory, factHandle.getObject());
         
         return this.isNegated ^ this.evaluateUnsafe(order, value.getValue());
     }
 
     @Override
-    public boolean evaluate(InternalWorkingMemory workingMemory, InternalReadAccessor leftExtractor, InternalFactHandle left, InternalReadAccessor rightExtractor, InternalFactHandle right) {
+    public boolean evaluate(InternalWorkingMemory workingMemory, 
+            InternalReadAccessor leftExtractor, InternalFactHandle left, 
+            InternalReadAccessor rightExtractor, InternalFactHandle right) {
         Object order = leftExtractor.getValue(workingMemory, left.getObject());
         Object itemId = rightExtractor.getValue(workingMemory, right.getObject());
         
@@ -44,17 +51,23 @@ public class ContainsItemEvaluator extends BaseEvaluator {
     }
 
     @Override
-    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle right) {
-        Object order = context.getFieldExtractor().getValue(workingMemory, right.getObject());
+    public boolean evaluateCachedLeft(InternalWorkingMemory workingMemory, 
+            VariableRestriction.VariableContextEntry context, 
+            InternalFactHandle right) {
+        Object order = context.getFieldExtractor().getValue(workingMemory, 
+                right.getObject());
         Object itemId = ((ObjectVariableContextEntry)context).left;
         
         return this.isNegated ^ this.evaluateUnsafe(order, itemId);
     }
 
     @Override
-    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, VariableRestriction.VariableContextEntry context, InternalFactHandle left) {
+    public boolean evaluateCachedRight(InternalWorkingMemory workingMemory, 
+            VariableRestriction.VariableContextEntry context, 
+            InternalFactHandle left) {
         Object order = ((ObjectVariableContextEntry)context).right;
-        Object itemId = context.getFieldExtractor().getValue(workingMemory, left.getObject());
+        Object itemId = context.getFieldExtractor().getValue(workingMemory, 
+                left.getObject());
         
         return this.isNegated ^ this.evaluateUnsafe(order, itemId);
     }
@@ -62,7 +75,8 @@ public class ContainsItemEvaluator extends BaseEvaluator {
     private boolean evaluateUnsafe(Object order, Object itemId){
         //if the object is not an Order return false.
         if (!(order instanceof Order)){
-            throw new IllegalArgumentException(order.getClass()+" can't be casted to type Order");
+            throw new IllegalArgumentException(
+                    order.getClass()+" can't be casted to type Order");
         }
         
         //if the value we are comparing aginst is not a Long, return false.
@@ -71,7 +85,8 @@ public class ContainsItemEvaluator extends BaseEvaluator {
         try{
             itemIdAsLong = Long.parseLong(itemId.toString());
         } catch (NumberFormatException e){
-            throw new IllegalArgumentException(itemId.getClass()+" can't be converted to Long");
+            throw new IllegalArgumentException(
+                    itemId.getClass()+" can't be converted to Long");
         }
         
         return this.evaluate((Order)order, itemIdAsLong);

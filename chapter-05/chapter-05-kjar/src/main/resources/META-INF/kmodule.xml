@@ -28,4 +28,7 @@
     <kbase name="customOperatorKBase" packages="chapter05.customOperator">
         <ksession name="customOperatorKsession"/>
     </kbase>
+    <kbase name="customAccFunctionKBase" packages="chapter05.customAccFunction">
+        <ksession name="customAccFunctionKsession"/>
+    </kbase>
 </kmodule>

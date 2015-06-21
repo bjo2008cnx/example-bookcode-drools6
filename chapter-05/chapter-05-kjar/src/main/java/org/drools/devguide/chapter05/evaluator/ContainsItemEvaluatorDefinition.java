@@ -53,22 +53,33 @@ public class ContainsItemEvaluatorDefinition implements EvaluatorDefinition {
 
     @Override
     public Evaluator getEvaluator(ValueType type, Operator operator) {
-        return this.getEvaluator(type, operator.getOperatorString(), operator.isNegated(), null);
+        return this.getEvaluator(type, operator.getOperatorString(), 
+                operator.isNegated(), null);
     }
 
     @Override
-    public Evaluator getEvaluator(ValueType type, Operator operator, String parameterText) {
-        return this.getEvaluator(type, operator.getOperatorString(), operator.isNegated(), parameterText);
+    public Evaluator getEvaluator(ValueType type, Operator operator, 
+            String parameterText) {
+        return this.getEvaluator(type, operator.getOperatorString(), 
+                operator.isNegated(), parameterText);
     }
 
     @Override
-    public Evaluator getEvaluator(ValueType type, String operatorId, boolean isNegated, String parameterText) {
-        return getEvaluator(type, operatorId, isNegated, parameterText, Target.BOTH, Target.BOTH);
+    public Evaluator getEvaluator(ValueType type, String operatorId, 
+            boolean isNegated, String parameterText) {
+        return getEvaluator(type, operatorId, isNegated, parameterText, 
+                Target.BOTH, Target.BOTH);
     }
 
     @Override
-    public Evaluator getEvaluator(ValueType type, String operatorId, boolean isNegated, String parameterText, Target leftTarget, Target rightTarget) {
-        return isNegated ? negatedEvaluator == null ? new ContainsItemEvaluator(type, isNegated) : negatedEvaluator : evaluator == null ? new ContainsItemEvaluator(type, isNegated) : evaluator;
+    public Evaluator getEvaluator(ValueType type, String operatorId, 
+            boolean isNegated, String parameterText, Target leftTarget, 
+            Target rightTarget) {
+        return isNegated ? 
+                negatedEvaluator == null ? 
+                    new ContainsItemEvaluator(type, isNegated) : negatedEvaluator 
+                : evaluator == null ? 
+                    new ContainsItemEvaluator(type, isNegated) : evaluator;
     }
 
     @Override
