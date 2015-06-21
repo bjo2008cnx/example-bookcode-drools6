@@ -1,4 +1,4 @@
-package org.drools.devguide;
+package chapter05.globals4;
 
 import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.eshop.model.Order;

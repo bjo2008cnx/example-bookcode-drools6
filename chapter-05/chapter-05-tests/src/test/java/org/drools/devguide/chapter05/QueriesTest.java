@@ -86,7 +86,7 @@ public class QueriesTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-query");
+        KieSession ksession = this.createSession("queriesKsession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0 and the value of 'orderService' global to the mocked service
@@ -163,7 +163,7 @@ public class QueriesTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-query");
+        KieSession ksession = this.createSession("queriesKsession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0 and the value of 'orderService' global to the mocked service

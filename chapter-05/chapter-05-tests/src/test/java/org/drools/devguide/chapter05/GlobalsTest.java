@@ -48,7 +48,7 @@ public class GlobalsTest extends BaseTest{
         Order customer2Order = ModelFactory.getPendingOrderWithTotalValueLessThan10000(customer2);
 
         //Create a session and insert the 2 customers and their orders.
-        KieSession ksession = this.createSession("suspicious-operations-fixed");
+        KieSession ksession = this.createSession("globals1Ksession");
 
         ksession.insert(customer1);
         ksession.insert(customer1Order);
@@ -93,7 +93,7 @@ public class GlobalsTest extends BaseTest{
         Order customer2Order = ModelFactory.getPendingOrderWithTotalValueLessThan10000(customer2);
 
         //Create a session and insert the 2 customers and their orders.
-        KieSession ksession = this.createSession("suspicious-operations-variable");
+        KieSession ksession = this.createSession("globals2Ksession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0
@@ -155,7 +155,7 @@ public class GlobalsTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-order-service");
+        KieSession ksession = this.createSession("globals3Ksession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0 and the value of 'orderService' global to the mocked service
@@ -217,7 +217,7 @@ public class GlobalsTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-global-list");
+        KieSession ksession = this.createSession("globals4Ksession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0 and the value of 'orderService' global to the mocked service
@@ -287,7 +287,7 @@ public class GlobalsTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-audit-service");
+        KieSession ksession = this.createSession("globals5Ksession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0, the value of 'orderService' global to the mocked service

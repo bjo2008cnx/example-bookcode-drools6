@@ -1,4 +1,4 @@
-package org.drools.devguide;
+package chapter05.queries;
 
 import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.eshop.model.Order;
@@ -10,7 +10,6 @@ import org.drools.devguide.eshop.service.OrderService;
 
 global Double amountThreshold;
 global OrderService orderService;
-global AuditService auditService;
 
 rule "Detect suspicious amount operations"
 when
@@ -23,9 +22,10 @@ then
     insert(new SuspiciousOperation($c, SuspiciousOperation.Type.SUSPICIOUS_AMOUNT));
 end
 
-rule "Send Suspicious Operation to Audit Service"
-when
+query "Get All Suspicious Operations"
     $so: SuspiciousOperation()
-then
-    auditService.notifySuspiciousOperation($so);
+end
+
+query "Get Customer Suspicious Operations" (String $customerId)
+    $so: SuspiciousOperation(customer.customerId == $customerId)
 end

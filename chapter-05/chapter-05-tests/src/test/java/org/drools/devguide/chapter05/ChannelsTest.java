@@ -97,7 +97,7 @@ public class ChannelsTest extends BaseTest{
         };
         
         //Create a session
-        KieSession ksession = this.createSession("suspicious-operations-channel");
+        KieSession ksession = this.createSession("channelsKsession");
         
         //Before we insert any fact, we set the value of 'amountThreshold' global
         //to 500.0, the value of 'orderService' global to the mocked service

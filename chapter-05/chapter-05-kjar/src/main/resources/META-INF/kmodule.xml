@@ -4,26 +4,26 @@
     <configuration>
         <property key="drools.evaluator.containsItem" value="org.drools.devguide.chapter05.evaluator.ContainsItemEvaluatorDefinition"/>
     </configuration>
-    <kbase name="globalsKBase1" packages="globals-sample1">
-        <ksession name="suspicious-operations-fixed"/>
+    <kbase name="globals1KBase" packages="chapter05.globals-1">
+        <ksession name="globals1Ksession"/>
     </kbase>
-    <kbase name="globalsKBase2" packages="globals-sample2">
-        <ksession name="suspicious-operations-variable"/>
+    <kbase name="globals2KBase" packages="chapter05.globals-2">
+        <ksession name="globals2Ksession"/>
     </kbase>
-    <kbase name="globalsKBase3" packages="globals-sample3">
-        <ksession name="suspicious-operations-order-service"/>
+    <kbase name="globals3KBase" packages="chapter05.globals-3">
+        <ksession name="globals3Ksession"/>
     </kbase>
-    <kbase name="globalsKBase4" packages="globals-sample4">
-        <ksession name="suspicious-operations-global-list"/>
+    <kbase name="globals4KBase" packages="chapter05.globals-4">
+        <ksession name="globals4Ksession"/>
     </kbase>
-    <kbase name="globalsKBase5" packages="globals-sample5">
-        <ksession name="suspicious-operations-audit-service"/>
+    <kbase name="globals5KBase" packages="chapter05.globals-5">
+        <ksession name="globals5Ksession"/>
     </kbase>
-    <kbase name="channelsKBase1" packages="channels-sample1">
-        <ksession name="suspicious-operations-channel"/>
+    <kbase name="channelsKBase" packages="chapter05.channels">
+        <ksession name="channelsKsession"/>
     </kbase>
-    <kbase name="queriesKBase1" packages="queries-sample1">
-        <ksession name="suspicious-operations-query"/>
+    <kbase name="queriesKBase" packages="chapter05.queries">
+        <ksession name="queriesKsession"/>
     </kbase>
     <kbase name="customOperatorKBase" packages="chapter05.customOperator">
         <ksession name="customOperatorKsession"/>
