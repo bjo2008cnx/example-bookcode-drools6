@@ -39,7 +39,7 @@ public class GlobalsTest extends BaseTest{
         Customer customer1 = new CustomerBuilder()
                 .withId(1L).build();
         
-        Order customer1Order = ModelFactory.getPendingOrderWithTotalValueGraterThan10000(customer1);
+        Order customer1Order = ModelFactory.getPendingOrderWithTotalValueGreaterThan10000(customer1);
 
         //Create a customer with PENDING orders for a value < 10000 
         Customer customer2 = new CustomerBuilder()
@@ -84,7 +84,7 @@ public class GlobalsTest extends BaseTest{
         Customer customer1 = new CustomerBuilder()
                 .withId(1L).build();
         
-        Order customer1Order = ModelFactory.getPendingOrderWithTotalValueGraterThan10000(customer1);
+        Order customer1Order = ModelFactory.getPendingOrderWithTotalValueGreaterThan10000(customer1);
 
         //Create a customer with PENDING orders for a value < 10000 
         Customer customer2 = new CustomerBuilder()
@@ -142,7 +142,7 @@ public class GlobalsTest extends BaseTest{
                 switch (customerId.toString()){
                     case "1":
                         return Arrays.asList(
-                            ModelFactory.getPendingOrderWithTotalValueGraterThan10000(customer1)
+                            ModelFactory.getPendingOrderWithTotalValueGreaterThan10000(customer1)
                         );
                     case "2":
                         return Arrays.asList(
@@ -204,7 +204,7 @@ public class GlobalsTest extends BaseTest{
                 switch (customerId.toString()){
                     case "1":
                         return Arrays.asList(
-                            ModelFactory.getPendingOrderWithTotalValueGraterThan10000(customer1)
+                            ModelFactory.getPendingOrderWithTotalValueGreaterThan10000(customer1)
                         );
                     case "2":
                         return Arrays.asList(
@@ -263,7 +263,7 @@ public class GlobalsTest extends BaseTest{
                 switch (customerId.toString()){
                     case "1":
                         return Arrays.asList(
-                            ModelFactory.getPendingOrderWithTotalValueGraterThan10000(customer1)
+                            ModelFactory.getPendingOrderWithTotalValueGreaterThan10000(customer1)
                         );
                     case "2":
                         return Arrays.asList(

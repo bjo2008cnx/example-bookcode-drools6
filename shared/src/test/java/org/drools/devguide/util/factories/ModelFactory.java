@@ -67,7 +67,7 @@ public class ModelFactory {
         .build();
     }
     
-    public static Order getPendingOrderWithTotalValueGraterThan10000(Customer customer){
+    public static Order getPendingOrderWithTotalValueGreaterThan10000(Customer customer){
         return new OrderBuilder(customer)
             .withSate(OrderState.PENDING)
             .newLine()
