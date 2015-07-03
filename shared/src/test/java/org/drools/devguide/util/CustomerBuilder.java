@@ -25,6 +25,16 @@ public class CustomerBuilder {
         return this;
     }
     
+    public CustomerBuilder withName(String name){
+        instance.setName(name);
+        return this;
+    }
+    
+    public CustomerBuilder withCategory(Customer.Category category){
+        instance.setCategory(category);
+        return this;
+    }
+    
     public Customer build(){
         return instance;
     }
