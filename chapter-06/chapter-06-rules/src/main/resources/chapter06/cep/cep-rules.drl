@@ -1,0 +1,50 @@
+package chapter06.cep;
+
+import org.drools.devguide.eshop.events.TransactionEvent;
+
+declare SuspiciousCustomerEvent
+    @role(event)
+    customerId: Long
+    reason: String
+end
+
+rule "More than 10 transactions in an hour from the same client is suspicious"
+    when
+        $t1: TransactionEvent($cId: customerId)
+        Number(intValue >= 10) from accumulate(
+            $t2: TransactionEvent(
+                this != $t1, 
+                customerId == $cId, 
+                this meets[1h] $t1
+            ),
+            count($t2)
+        )
+    then
+        insert(new SuspiciousCustomerEvent($cId, "Many transactions in one hour"));
+end
+
+rule "More than 1 transaction of 200 dollars in an hour from the same client"
+    when
+        $t1: TransactionEvent($cId: customerId, totalAmount >= 200.0)
+        $t2: TransactionEvent(
+            this != $t1, 
+            this meets[1h] $t1, 
+            customerId == $cId, 
+            totalAmount >= 200.0
+        )
+    then
+        insert(new SuspiciousCustomerEvent($cId, "Two large transactions in an hour"));
+end
+
+rule "More than 3 suspicious cases in the day and we warn the owner"
+    when
+        SuspiciousCustomerEvent($cId: customerId)
+        Number(intValue > 3) from accumulate(
+            $s: SuspiciousCustomerEvent(customerId == $cId),
+            count($s)
+        )
+    then
+        //warn the owner
+        System.out.println("WARNING: Suspicious fraud case. Client " + $cId);
+end
+
