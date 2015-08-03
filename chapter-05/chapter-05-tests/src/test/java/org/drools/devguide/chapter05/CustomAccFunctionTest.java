@@ -64,7 +64,7 @@ public class CustomAccFunctionTest extends BaseTest {
             order.getOrderLines().add(line);
         }
         order.increaseDiscount(discount);
-    	return order;
+        return order;
     }
     
 }

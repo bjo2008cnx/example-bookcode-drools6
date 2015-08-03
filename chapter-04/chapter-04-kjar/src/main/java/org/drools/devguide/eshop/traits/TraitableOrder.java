@@ -15,7 +15,7 @@ import org.drools.devguide.eshop.model.OrderState;
 @Traitable
 public class TraitableOrder implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private Long orderId;
     private Date date;
@@ -25,55 +25,55 @@ public class TraitableOrder implements Serializable {
     private Discount discount;
 
     public TraitableOrder() {
-	}
+    }
 
-	public Long getOrderId() {
-		return orderId;
-	}
+    public Long getOrderId() {
+        return orderId;
+    }
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-	public List<OrderLine> getOrderLines() {
-		return orderLines;
-	}
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
 
-	public void setOrderLines(List<OrderLine> orderLines) {
-		this.orderLines = orderLines;
-	}
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
+    }
 
-	public OrderState getState() {
-		return state;
-	}
+    public OrderState getState() {
+        return state;
+    }
 
-	public void setState(OrderState state) {
-		this.state = state;
-	}
+    public void setState(OrderState state) {
+        this.state = state;
+    }
 
-	public Discount getDiscount() {
-		return discount;
-	}
+    public Discount getDiscount() {
+        return discount;
+    }
 
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
-	}
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
 
     @Override
     public int hashCode() {

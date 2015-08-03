@@ -4,14 +4,14 @@ import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Item;
 
 rule "Apply 10% discount on notepads"
-	agenda-group "withoutNoLoop"
+    agenda-group "withoutNoLoop"
     when $i: Item(name == "notepad")
     then modify($i){setSalePrice($i.getSalePrice()*0.9);}
 end
 
 rule "Apply 10% discount on notepads BUT ONLY ONCE"
     no-loop true
-	agenda-group "withNoLoop"
+    agenda-group "withNoLoop"
     when $i: Item(name == "notepad")
     then modify($i){setSalePrice($i.getSalePrice()*0.9);}
 end

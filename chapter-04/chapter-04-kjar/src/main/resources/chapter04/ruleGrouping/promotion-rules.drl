@@ -5,15 +5,15 @@ import org.drools.devguide.eshop.model.Item;
 import org.drools.devguide.eshop.model.OrderLine;
 
 rule "Promotion: more than 5 pencils get 5% discount"
-	agenda-group "promotions"
+    agenda-group "promotions"
     when
-    	OrderLine(item.name == "pencil", quantity > 5 && quantity <= 10)
+        OrderLine(item.name == "pencil", quantity > 5 && quantity <= 10)
     then
         insert(new Discount(0.05));
 end
 
 rule "Promotion: more than 10 pencils get 10% discount"
-	agenda-group "promotions"
+    agenda-group "promotions"
     when
         OrderLine(item.name == "pencil", quantity > 10)
     then
@@ -21,18 +21,18 @@ rule "Promotion: more than 10 pencils get 10% discount"
 end
 
 rule "Done with promotions. Onward with printing invoice"
-	salience -100 //last rule of group to run
-	agenda-group "promotions"
+    salience -100 //last rule of group to run
+    agenda-group "promotions"
     when
-    	OrderLine()
+        OrderLine()
     then
         kcontext.getKnowledgeRuntime().getAgenda().getAgendaGroup("printing").setFocus();
 end
 
 rule "Print invoices"
-	agenda-group "printing"
-	when
-		$line: OrderLine()
-	then
-		System.out.println($line.getQuantity() + " " + $line.getItem().getName());
+    agenda-group "printing"
+    when
+        $line: OrderLine()
+    then
+        System.out.println($line.getQuantity() + " " + $line.getItem().getName());
 end

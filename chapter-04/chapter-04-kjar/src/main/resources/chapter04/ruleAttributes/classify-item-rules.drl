@@ -29,12 +29,12 @@ rule "Classify Item - High Range"
 end
 
 rule "Classify Item - Mid/High Range (special)"
-	no-loop
+    no-loop
         salience($i.getCost())
-	enabled (configService.isMidHighCategoryEnabled())
-	when
-		$i: Item( cost > 300 && cost < 400 )
-	then
-		$i.setCategory(Item.Category.SPECIAL_MIDHIGH_RANGE);
-		update($i);
+    enabled (configService.isMidHighCategoryEnabled())
+    when
+        $i: Item( cost > 300 && cost < 400 )
+    then
+        $i.setCategory(Item.Category.SPECIAL_MIDHIGH_RANGE);
+        update($i);
 end

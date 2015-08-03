@@ -6,12 +6,12 @@ import java.util.Objects;
 public class IsLargeOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
-	
+    
     private Long orderId;
-	
+    
     public IsLargeOrder() {
     }
-	
+    
     public IsLargeOrder(Long orderId) {
         super();
         this.orderId = orderId;
@@ -24,7 +24,7 @@ public class IsLargeOrder implements Serializable {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
-	
+    
     @Override
     public int hashCode() {
         return 17 * 3 + Objects.hashCode(this.orderId);
@@ -47,6 +47,6 @@ public class IsLargeOrder implements Serializable {
 
     @Override
     public String toString() {
-    	return "IsLargeOrder[orderId = " + this.orderId + "]";
+        return "IsLargeOrder[orderId = " + this.orderId + "]";
     }
 }

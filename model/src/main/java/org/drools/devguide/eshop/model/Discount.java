@@ -4,28 +4,28 @@ import java.io.Serializable;
 
 public class Discount implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+    private static final long serialVersionUID = 1L;
+    
         
-	private Double percentage;
+    private Double percentage;
 
-	
-	public Discount() {
-	}
+    
+    public Discount() {
+    }
 
-        public Discount(Double percentage) {
-            this.percentage = percentage;
-        }
+    public Discount(Double percentage) {
+        this.percentage = percentage;
+    }
         
 
-	public Double getPercentage() {
-		return percentage;
-	}
+    public Double getPercentage() {
+        return percentage;
+    }
 
-	public void setPercentage(Double percentage) {
-		this.percentage = percentage;
-	}
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
+    }
 
-	
-	
+    
+    
 }

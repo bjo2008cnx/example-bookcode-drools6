@@ -46,7 +46,7 @@ public class LoopingExamplesTest extends BaseTest {
     @Test
     public void testLockOnActive() {
         KieSession ksession1 = createSession(ksessionName);
-    	Order order1 = createLargeOrder();
+        Order order1 = createLargeOrder();
         ksession1.insert(order1);
         //to break down the rules in groups, we use agenda groups
         ksession1.getAgenda().getAgendaGroup("withoutLockOnActive").setFocus();
@@ -68,18 +68,18 @@ public class LoopingExamplesTest extends BaseTest {
         assertThat(order2.getDiscount().getPercentage(), equalTo(0.04)); //discounts are exactly 4%
     }
 
-	private Order  createLargeOrder() {
-		Order order = new Order();
-    	List<OrderLine> orderLines = new ArrayList<OrderLine>();
-    	OrderLine orderLine1 = new OrderLine();
-    	orderLine1.setItem(new Item("paper block", 5.00, 8.00));
-    	orderLine1.setQuantity(50);
-    	OrderLine orderLine2 = new OrderLine();
-    	orderLine2.setItem(new Item("pen", 1.00, 1.50));
-    	orderLine2.setQuantity(100);
-		orderLines.add(orderLine1);
-    	orderLines.add(orderLine2);
-    	order.setItems(orderLines);
-    	return order;
-	}
+    private Order  createLargeOrder() {
+        Order order = new Order();
+        List<OrderLine> orderLines = new ArrayList<OrderLine>();
+        OrderLine orderLine1 = new OrderLine();
+        orderLine1.setItem(new Item("paper block", 5.00, 8.00));
+        orderLine1.setQuantity(50);
+        OrderLine orderLine2 = new OrderLine();
+        orderLine2.setItem(new Item("pen", 1.00, 1.50));
+        orderLine2.setQuantity(100);
+        orderLines.add(orderLine1);
+        orderLines.add(orderLine2);
+        order.setItems(orderLines);
+        return order;
+    }
 }

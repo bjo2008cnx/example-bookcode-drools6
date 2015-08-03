@@ -15,10 +15,10 @@ import org.kie.api.runtime.KieSession;
 public class ConditionalElementsTest extends BaseTest {
 
     protected final String ksessionName = "condElemsKsession";
-	
-	@Test
-	public void testConditionalElements() {
-		
+    
+    @Test
+    public void testConditionalElements() {
+        
         KieSession ksession = createSession(ksessionName);
 
         //first run: empty working memory
@@ -49,17 +49,17 @@ public class ConditionalElementsTest extends BaseTest {
         //no rule fires this time (not empty working memory, and not all elements have order lines)
         firedRules = ksession.fireAllRules();
         assertThat(firedRules, equalTo(0));
-	}
+    }
 
-	private Order createOrderOf(String itemName, int quantity) {
-		Order order = new Order();
-		List<OrderLine> orderLines = new ArrayList<OrderLine>();
-		OrderLine line = new OrderLine();
-		line.setItem(new Item(itemName, 1.0, 2.0));;
-		line.setQuantity(quantity);
-		orderLines.add(line);
-		order.setItems(orderLines);
-		return order;
-	}
+    private Order createOrderOf(String itemName, int quantity) {
+        Order order = new Order();
+        List<OrderLine> orderLines = new ArrayList<OrderLine>();
+        OrderLine line = new OrderLine();
+        line.setItem(new Item(itemName, 1.0, 2.0));;
+        line.setQuantity(quantity);
+        orderLines.add(line);
+        order.setItems(orderLines);
+        return order;
+    }
 
 }

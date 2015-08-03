@@ -7,8 +7,8 @@
     </kbase>
     
     <kbase name="cepConfigKbase" eventProcessingMode="stream" packages="chapter06.cep2">
-    	<ksession name="cepConfigKsessionPseudoClock" clockType="pseudo"/>
-    	<ksession name="cepConfigKsessionRealtimeClock" clockType="realtime"/>
+        <ksession name="cepConfigKsessionPseudoClock" clockType="pseudo"/>
+        <ksession name="cepConfigKsessionRealtimeClock" clockType="realtime"/>
     </kbase>
     
 </kmodule>

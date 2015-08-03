@@ -26,10 +26,10 @@ public class TraitsTest  extends BaseTest {
     public void testInsertModifyAndDelete() {
         KieSession ksession = createSession(ksessionName);
         ksession.addEventListener(new DefaultAgendaEventListener() {
-        	@Override
-        	public void afterMatchFired(AfterMatchFiredEvent event) {
-        		System.out.println(event.getMatch().getRule().getName());
-        	}
+            @Override
+            public void afterMatchFired(AfterMatchFiredEvent event) {
+                System.out.println(event.getMatch().getRule().getName());
+            }
         });
         
         TraitableOrder order = createSchoolItemsOrder();
@@ -47,27 +47,27 @@ public class TraitsTest  extends BaseTest {
     }
     
     class KidFriendlyObjectFilter implements ObjectFilter {
-    	@Override
-    	public boolean accept(Object object) {
-    		String className = object.getClass().getName();
-    		return className.contains("KidFriendly");
-    	}
+        @Override
+        public boolean accept(Object object) {
+            String className = object.getClass().getName();
+            return className.contains("KidFriendly");
+        }
     }
     
     private TraitableItem createToyItem() {
-    	TraitableItem item = new TraitableItem();
+        TraitableItem item = new TraitableItem();
         item.setName("cool toy for kids");
-		return item;
-	}
+        return item;
+    }
 
-	private TraitableOrder createSchoolItemsOrder() {
-    	TraitableOrder order = new TraitableOrder();
-    	OrderLine line = new OrderLine();
-    	line.setItem(new Item("school textboox", 10.00, 21.00));
-    	line.setQuantity(1);
-    	List<OrderLine> orderLines = new ArrayList<OrderLine>();
+    private TraitableOrder createSchoolItemsOrder() {
+        TraitableOrder order = new TraitableOrder();
+        OrderLine line = new OrderLine();
+        line.setItem(new Item("school textboox", 10.00, 21.00));
+        line.setQuantity(1);
+        List<OrderLine> orderLines = new ArrayList<OrderLine>();
         orderLines.add(line);
         order.setOrderLines(orderLines);
-    	return order;
+        return order;
     }
 }

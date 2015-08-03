@@ -12,8 +12,8 @@ import org.kie.api.definition.type.Timestamp;
 @Expires("2h30m")
 public class TransactionEvent implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private Date executionTime;
+    private static final long serialVersionUID = 1L;
+    private Date executionTime;
     private Long customerId;
     private Double totalAmount;
 
@@ -22,15 +22,15 @@ public class TransactionEvent implements Serializable {
     }
     
     public TransactionEvent(Long customerId, Double totalAmount) {
-		super();
-		this.executionTime = new Date();
-		this.customerId = customerId;
-		this.totalAmount = totalAmount;
-	}
+        super();
+        this.executionTime = new Date();
+        this.customerId = customerId;
+        this.totalAmount = totalAmount;
+    }
 
 
 
-	public Date getExecutionTime() {
+    public Date getExecutionTime() {
         return executionTime;
     }
 

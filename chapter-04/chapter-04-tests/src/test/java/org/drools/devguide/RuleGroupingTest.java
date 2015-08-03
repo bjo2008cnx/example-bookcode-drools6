@@ -15,18 +15,18 @@ import org.kie.api.runtime.ObjectFilter;
 
 public class RuleGroupingTest extends BaseTest {
 
-	protected final String ksessionName = "ruleGroupingKsession";
-	
-	@Test
-	public void testInsertModifyAndDelete() {
-		KieSession ksession = createSession(ksessionName);
-		
-		Item item = new Item("pencil", 1.5, 2.0);
-		OrderLine orderLine = new OrderLine();
-		orderLine.setItem(item);
-		orderLine.setQuantity(11);
-		ksession.insert(orderLine);
-		int firedRules = ksession.fireAllRules();
+    protected final String ksessionName = "ruleGroupingKsession";
+    
+    @Test
+    public void testInsertModifyAndDelete() {
+        KieSession ksession = createSession(ksessionName);
+        
+        Item item = new Item("pencil", 1.5, 2.0);
+        OrderLine orderLine = new OrderLine();
+        orderLine.setItem(item);
+        orderLine.setQuantity(11);
+        ksession.insert(orderLine);
+        int firedRules = ksession.fireAllRules();
         assertThat(0, equalTo(firedRules));
         ksession.getAgenda().getAgendaGroup("promotions").setFocus();
         firedRules = ksession.fireAllRules();
@@ -54,12 +54,12 @@ public class RuleGroupingTest extends BaseTest {
         assertThat(1, equalTo(discounts.size()));
         Discount discount2 = (Discount) discounts.iterator().next();
         assertThat(discount2.getPercentage(), equalTo(0.05));
-	}
-	
-	class DiscountObjectFilter implements ObjectFilter {
-		@Override
-		public boolean accept(Object obj) {
-			return obj instanceof Discount;
-		}
-	}
+    }
+    
+    class DiscountObjectFilter implements ObjectFilter {
+        @Override
+        public boolean accept(Object obj) {
+            return obj instanceof Discount;
+        }
+    }
 }

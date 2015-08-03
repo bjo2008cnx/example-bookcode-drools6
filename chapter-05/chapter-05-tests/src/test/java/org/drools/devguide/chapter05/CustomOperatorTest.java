@@ -61,6 +61,6 @@ public class CustomOperatorTest extends BaseTest {
             line.setQuantity(10);
             order.getOrderLines().add(line);
         }
-    	return order;
+        return order;
     }
 }

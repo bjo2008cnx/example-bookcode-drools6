@@ -67,16 +67,16 @@ public class Order implements Serializable {
     }
     
     public int getTotalItems() {
-    	return this.getOrderLines().stream()
-    			.mapToInt(item -> item.getQuantity())
-    			.sum();
+        return this.getOrderLines().stream()
+                .mapToInt(item -> item.getQuantity())
+                .sum();
     }
     
     public void increaseDiscount(double increase) {
-    	if (discount == null) {
-    		discount = new Discount(0.0);
-    	}
-    	discount.setPercentage(discount.getPercentage() + increase);
+        if (discount == null) {
+            discount = new Discount(0.0);
+        }
+        discount.setPercentage(discount.getPercentage() + increase);
     }
 
     public Discount getDiscount() {

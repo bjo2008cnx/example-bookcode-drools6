@@ -19,8 +19,8 @@ import org.kie.api.runtime.KieSession;
 
 public class RuleExceptionsTest extends BaseTest {
 
-	private String ksessionName = "ruleExceptionsKsession";
-	
+    private String ksessionName = "ruleExceptionsKsession";
+    
     @Test
     public void testInsertModifyAndDelete() {
         KieSession ksession = createSession(ksessionName);
@@ -36,17 +36,17 @@ public class RuleExceptionsTest extends BaseTest {
         assertThat(largeOrders.size(), equalTo(2));
     }
 
-	private AtomicLong id = new AtomicLong(0l);
-	
+    private AtomicLong id = new AtomicLong(0l);
+    
     private Order createOrder(String itemName, double price, int quantity) {
-		Order order = new Order();
-		order.setOrderId(id.incrementAndGet());
-		List<OrderLine> orderLines = new ArrayList<OrderLine>();
-		OrderLine line1 = new OrderLine();
-		line1.setItem(new Item(itemName, price / 1.5, price));
-		line1.setQuantity(quantity);
-		orderLines.add(line1);
-		order.setItems(orderLines);
-		return order;
-	}
+        Order order = new Order();
+        order.setOrderId(id.incrementAndGet());
+        List<OrderLine> orderLines = new ArrayList<OrderLine>();
+        OrderLine line1 = new OrderLine();
+        line1.setItem(new Item(itemName, price / 1.5, price));
+        line1.setQuantity(quantity);
+        orderLines.add(line1);
+        order.setItems(orderLines);
+        return order;
+    }
 }

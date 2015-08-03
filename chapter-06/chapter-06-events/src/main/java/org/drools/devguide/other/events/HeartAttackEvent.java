@@ -9,9 +9,9 @@ import org.kie.api.definition.type.Role;
 @Expires("30m")
 public class HeartAttackEvent implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public HeartAttackEvent() {
-		super();
-	}
+    public HeartAttackEvent() {
+        super();
+    }
 }

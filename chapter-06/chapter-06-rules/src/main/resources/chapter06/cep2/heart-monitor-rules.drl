@@ -6,8 +6,8 @@ import org.drools.devguide.other.events.HeartBeatEvent;
 rule "No heart beat in the last 5 seconds!"
     when
         not(
-        	HeartBeatEvent() 
-        	over window:time(5s)
+            HeartBeatEvent() 
+            over window:time(5s)
         )
     then
         insert(new HeartAttackEvent());

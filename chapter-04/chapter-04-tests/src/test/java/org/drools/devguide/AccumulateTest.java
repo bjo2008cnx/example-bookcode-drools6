@@ -42,18 +42,18 @@ public class AccumulateTest  extends BaseTest {
     }
     
     private Order createExpensiveItemsOrder() {
-    	Order order = new Order();
-    	OrderLine line = new OrderLine();
-    	line.setItem(new Item("nice phone case", 10.00, 21.00));
-    	line.setQuantity(10);
-    	List<OrderLine> orderLines = new ArrayList<OrderLine>();
+        Order order = new Order();
+        OrderLine line = new OrderLine();
+        line.setItem(new Item("nice phone case", 10.00, 21.00));
+        line.setQuantity(10);
+        List<OrderLine> orderLines = new ArrayList<OrderLine>();
         orderLines.add(line);
         order.setItems(orderLines);
-    	return order;
+        return order;
     }
 
-	private Order createCheapItemsOrder() {
-		Order order = new Order();
+    private Order createCheapItemsOrder() {
+        Order order = new Order();
         OrderLine line1 = new OrderLine();
         line1.setItem(new Item("pencil", 0.50, 0.80));
         line1.setQuantity(20);
@@ -64,7 +64,7 @@ public class AccumulateTest  extends BaseTest {
         orderLines.add(line1);
         orderLines.add(line2);
         order.setItems(orderLines);
-		return order;
-	}
+        return order;
+    }
 
 }
