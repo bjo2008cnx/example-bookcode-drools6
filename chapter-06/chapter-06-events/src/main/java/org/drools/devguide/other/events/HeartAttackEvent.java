@@ -6,13 +6,12 @@ import org.kie.api.definition.type.Expires;
 import org.kie.api.definition.type.Role;
 
 @Role(Role.Type.EVENT)
-@Expires("10m")
-public class HeartBeatEvent implements Serializable {
+@Expires("30m")
+public class HeartAttackEvent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public HeartBeatEvent() {
-        super();
-    }
+	public HeartAttackEvent() {
+		super();
+	}
 }
-
