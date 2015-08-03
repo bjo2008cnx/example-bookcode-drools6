@@ -56,3 +56,35 @@ rule "More than 3 suspicious cases in the day and we warn the owner"
         insert(new AlarmTriggered($cId));
 end
 
+
+rule "More than 10 transactions in an hour from small client portal"
+    when
+        $t1: TransactionEvent($cId: customerId) from entry-point "small-client-portal"
+        Number(intValue >= 10) from accumulate(
+            $t2: TransactionEvent(
+                this != $t1, 
+                customerId == $cId, 
+                this meets[1h] $t1
+            ) from entry-point "small-client-portal",
+            count($t2)
+        )
+        not (SuspiciousCustomerEvent(customerId == $cId, reason == "Many transactions"))
+    then
+        insert(new SuspiciousCustomerEvent($cId, "Many transactions"));
+end
+
+rule "More than 100 transactions in an hour from big client portal"
+    when
+        $t1: TransactionEvent($cId: customerId) from entry-point "big-client-portal"
+        Number(intValue >= 100) from accumulate(
+            $t2: TransactionEvent(
+                this != $t1, 
+                customerId == $cId, 
+                this meets[1h] $t1
+            ) from entry-point "big-client-portal",
+            count($t2)
+        )
+        not (SuspiciousCustomerEvent(customerId == $cId, reason == "Many transactions"))
+    then
+        insert(new SuspiciousCustomerEvent($cId, "Many transactions"));
+end
