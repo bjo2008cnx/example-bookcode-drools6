@@ -27,6 +27,7 @@
         <module>chapter-04</module>
         <module>chapter-05</module>
         <module>chapter-06</module>
+        <module>chapter-07</module>
     </modules>
     
     <dependencyManagement>
@@ -85,6 +86,11 @@
             <dependency>
                 <groupId>org.drools.devguide</groupId>
                 <artifactId>chapter-06-tests</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>chapter-07-kjar</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
