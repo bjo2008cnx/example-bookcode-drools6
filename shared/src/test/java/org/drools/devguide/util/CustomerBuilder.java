@@ -30,6 +30,11 @@ public class CustomerBuilder {
         return this;
     }
     
+    public CustomerBuilder withAge(int age){
+        instance.setAge(age);
+        return this;
+    }
+    
     public CustomerBuilder withCategory(Customer.Category category){
         instance.setCategory(category);
         return this;
