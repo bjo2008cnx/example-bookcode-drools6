@@ -6,7 +6,10 @@
 package org.drools.devguide;
 
 import java.util.Collection;
+import java.util.List;
 import org.kie.api.KieServices;
+import org.kie.api.builder.Message;
+import org.kie.api.builder.Results;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -27,7 +30,18 @@ public class BaseTest {
     protected KieSession createSession(String name) {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
-
+        
+        Results results = kContainer.verify();
+        
+        if (results.hasMessages(Message.Level.WARNING, Message.Level.ERROR)){
+            List<Message> messages = results.getMessages(Message.Level.WARNING, Message.Level.ERROR);
+            for (Message message : messages) {
+                System.out.println("Error: "+message.getText());
+            }
+            
+            throw new IllegalStateException("Compilation errors were found. Check the logs.");
+        }
+        
         return kContainer.newKieSession(name);
     }
 
