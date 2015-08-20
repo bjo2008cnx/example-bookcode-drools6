@@ -10,4 +10,10 @@
     <kbase name="dtable-simple-KBase" packages="chapter07.dtable-simple">
         <ksession name="dtableSimpleKsession"/>
     </kbase>
+    <kbase name="dtable-enhanced-KBase" packages="chapter07.dtable-enhanced">
+        <ksession name="dtableEnhancedKsession"/>
+    </kbase>
+    <kbase name="dtable-advanced-KBase" packages="chapter07.dtable-advanced">
+        <ksession name="dtableAdvancedKsession"/>
+    </kbase>
 </kmodule>

@@ -9,8 +9,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.util.IOUtils;
 import org.drools.decisiontable.DecisionTableProviderImpl;
 import org.drools.devguide.BaseTest;
@@ -71,8 +69,65 @@ public class DecisionTablesTest extends BaseTest{
     }
     
     @Test
+    public void testEnhancedDecisionTable(){
+        
+        this.printGeneratedDRL(DecisionTablesTest.class.getResourceAsStream("/chapter07/dtable-enhanced/customer-classification-enhanced.xls"), System.out);
+        
+        Customer customer1 = new CustomerBuilder()
+                .withId(1L)
+                .withAge(19)
+                .build();
+        
+        Customer customer2 = new CustomerBuilder()
+                .withId(2L)
+                .withAge(27)
+                .build();
+        
+        Customer customer3 = new CustomerBuilder()
+                .withId(3L)
+                .withAge(32)
+                .build();
+        
+        Customer customer4 = new CustomerBuilder()
+                .withId(4L)
+                .withAge(60)
+                .build();
+        
+        KieSession ksession = this.createSession("dtableEnhancedKsession");
+        
+        ksession.insert(customer1);
+        ksession.insert(customer2);
+        ksession.insert(customer3);
+        ksession.insert(customer4);
+        
+        ksession.fireAllRules();
+        
+        assertThat(customer1.getCategory(), is(Customer.Category.NA));
+        assertThat(customer2.getCategory(), is(Customer.Category.BRONZE));
+        assertThat(customer3.getCategory(), is(Customer.Category.SILVER));
+        assertThat(customer4.getCategory(), is(Customer.Category.GOLD));
+        
+        
+    }
+    
+    @Test
     public void testAdvancedDecisionTable(){
         
+        this.printGeneratedDRL(DecisionTablesTest.class.getResourceAsStream("/chapter07/dtable-advanced/customer-classification-advanced.xls"), System.out);
+        
+        KieSession ksession = this.createSession("dtableAdvancedKsession");
+        
+        Customer customer1 = createAndInsertCustomerWithOrders(ksession, 1, 3);
+        Customer customer2 = createAndInsertCustomerWithOrders(ksession, 2, 7);
+        Customer customer3 = createAndInsertCustomerWithOrders(ksession, 3, 15);
+        Customer customer4 = createAndInsertCustomerWithOrders(ksession, 4, 50);
+        
+        ksession.fireAllRules();
+        
+        assertThat(customer1.getCategory(), is(Customer.Category.NA));
+        assertThat(customer2.getCategory(), is(Customer.Category.BRONZE));
+        assertThat(customer3.getCategory(), is(Customer.Category.SILVER));
+        assertThat(customer4.getCategory(), is(Customer.Category.GOLD));
         
     }
     
