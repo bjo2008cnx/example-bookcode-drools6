@@ -42,6 +42,12 @@ public class BaseTest {
             throw new IllegalStateException("Compilation errors were found. Check the logs.");
         }
         
+        KieSession ksession = kContainer.newKieSession(name);
+        
+        if (ksession == null){
+            throw new IllegalArgumentException("Unknown Session with name '"+name+"'");
+        }
+        
         return kContainer.newKieSession(name);
     }
 
