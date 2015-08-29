@@ -121,6 +121,11 @@
             </dependency>
             <dependency>
                 <groupId>org.drools</groupId>
+                <artifactId>drools-pmml</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools</groupId>
                 <artifactId>drools-core</artifactId>
                 <version>${drools.version}</version>
             </dependency>

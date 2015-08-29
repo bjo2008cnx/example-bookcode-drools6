@@ -22,7 +22,6 @@ import org.drools.template.DataProviderCompiler;
 import org.drools.template.ObjectDataCompiler;
 import org.drools.template.jdbc.ResultSetGenerator;
 import org.drools.template.objects.ArrayDataProvider;
-import org.drools.template.objects.ObjectDataProvider;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Ignore;

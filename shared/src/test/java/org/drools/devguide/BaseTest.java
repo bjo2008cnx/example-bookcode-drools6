@@ -7,6 +7,7 @@ package org.drools.devguide;
 
 import java.util.Collection;
 import java.util.List;
+import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
@@ -26,8 +27,35 @@ public class BaseTest {
 
         return kContainer.newKieSession();
     }
+    
+    protected KieBase createKnowledgeBase(String name) {
+        KieContainer kContainer = this.createContainer();
+        KieBase kbase = kContainer.getKieBase(name);
+        
+        if (kbase == null){
+            throw new IllegalArgumentException("Unknown Kie Base with name '"+name+"'");
+        }
+        
+        return kbase;
+    }
 
     protected KieSession createSession(String name) {
+        
+        KieContainer kContainer = this.createContainer();
+        KieSession ksession = kContainer.newKieSession(name);
+        
+        if (ksession == null){
+            throw new IllegalArgumentException("Unknown Session with name '"+name+"'");
+        }
+        
+        return ksession;
+    }
+
+    protected <T> Collection<T> getFactsFromKieSession(KieSession ksession, Class<T> classType) {
+        return (Collection<T>) ksession.getObjects(new ClassObjectFilter(classType));
+    }
+    
+    private KieContainer createContainer(){
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
         
@@ -42,17 +70,7 @@ public class BaseTest {
             throw new IllegalStateException("Compilation errors were found. Check the logs.");
         }
         
-        KieSession ksession = kContainer.newKieSession(name);
-        
-        if (ksession == null){
-            throw new IllegalArgumentException("Unknown Session with name '"+name+"'");
-        }
-        
-        return kContainer.newKieSession(name);
-    }
-
-    protected <T> Collection<T> getFactsFromKieSession(KieSession ksession, Class<T> classType) {
-        return (Collection<T>) ksession.getObjects(new ClassObjectFilter(classType));
+        return kContainer;
     }
 
 }
