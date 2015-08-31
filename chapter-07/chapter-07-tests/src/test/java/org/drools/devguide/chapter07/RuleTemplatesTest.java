@@ -70,6 +70,11 @@ public class RuleTemplatesTest extends BaseTest{
         this.doTest(ksession);
     }
     
+    /**
+     * Tests customer-classification-simple.drt template by manually creating
+     * the corresponding DRL using a bidimensional array of Strings 
+     * as the data source.
+     */
     @Test
     public void testSimpleTemplateWithArrays(){
         
@@ -92,6 +97,10 @@ public class RuleTemplatesTest extends BaseTest{
         this.doTest(ksession);
     }
     
+    /**
+     * Tests customer-classification-simple.drt template by manually creating
+     * the corresponding DRL using a collection of Objects as the data source.
+     */
     @Test
     public void testSimpleTemplateWithObjects(){
         
@@ -114,6 +123,10 @@ public class RuleTemplatesTest extends BaseTest{
         this.doTest(ksession);
     }
     
+    /**
+     * Tests customer-classification-simple.drt template by manually creating
+     * the corresponding DRL using an embedded database as the data source.
+     */
     @Test
     public void testSimpleTemplateWithDatabase() throws Exception{
         
@@ -183,6 +196,13 @@ public class RuleTemplatesTest extends BaseTest{
         assertThat(customer4.getCategory(), is(Customer.Category.GOLD));
     }
     
+    /**
+     * Executes an update statement into a database.
+     * @param expression the SQL expression to be executed.
+     * @param conn the connection the the database where the statement will be
+     * executed.
+     * @throws SQLException 
+     */
     private void executeInDB(String expression, Connection conn) throws SQLException {
         Statement st;
         st = conn.createStatement();

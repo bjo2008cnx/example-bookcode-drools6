@@ -26,6 +26,10 @@ import org.kie.api.runtime.KieSession;
  */
 public class DecisionTablesTest extends BaseTest{
     
+    /**
+     * Executes the simple customer classification scenario from a 
+     * decision table.
+     */
     @Test
     public void testSimpleDecisionTable(){
         
@@ -68,6 +72,12 @@ public class DecisionTablesTest extends BaseTest{
         
     }
     
+    /**
+     * Executes the simple customer classification scenario from a 
+     * decision table. In this case, the source spreadsheet contains more
+     * advanced features such as hidden columns, merged cells and functions.
+     * 
+     */
     @Test
     public void testEnhancedDecisionTable(){
         
@@ -110,6 +120,10 @@ public class DecisionTablesTest extends BaseTest{
         
     }
     
+    /**
+     * Executes the advanced customer classification scenario from a 
+     * decision table.
+     */
     @Test
     public void testAdvancedDecisionTable(){
         
@@ -131,6 +145,12 @@ public class DecisionTablesTest extends BaseTest{
         
     }
     
+    /**
+     * Converts a decision table into DRL and prints the result in the
+     * passed OutputStream.
+     * @param decisionTable the decision table to be converted.
+     * @param target the stream where the generated DRL will be printed.
+     */
     private void printGeneratedDRL(InputStream decisionTable, OutputStream target){
         try {
             DecisionTableProviderImpl dtp = new DecisionTableProviderImpl();

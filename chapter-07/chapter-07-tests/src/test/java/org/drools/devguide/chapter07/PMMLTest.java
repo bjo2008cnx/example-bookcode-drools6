@@ -5,8 +5,12 @@
  */
 package org.drools.devguide.chapter07;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+import org.apache.poi.util.IOUtils;
 import org.drools.devguide.BaseTest;
 import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.util.CustomerBuilder;
@@ -29,6 +33,12 @@ import org.kie.internal.utils.KieHelper;
  */
 public class PMMLTest extends BaseTest{
     
+    /**
+     * Executes the simple customer classification PMML model
+     * (/chapter07/pmml-simple/customer-classification-simple.pmml.xml).
+     * Because PMML models can't handle concurrent evaluations, individual 
+     * KieSessions are used to evaluate 5 different Customers.
+     */
     @Test
     public void testSimpleDecisionTree(){
         
@@ -40,7 +50,7 @@ public class PMMLTest extends BaseTest{
             "GOLD"
         };
 
-        this.printGeneratedDRL(RuleTemplatesTest.class.getResourceAsStream("/chapter07/pmml-simple/customer-classification-simple.pmml.xml"));
+        this.printGeneratedDRL(RuleTemplatesTest.class.getResourceAsStream("/chapter07/pmml-simple/customer-classification-simple.pmml.xml"), System.out);
         
         Customer[] customers = new Customer[]{
             new CustomerBuilder()
@@ -94,6 +104,15 @@ public class PMMLTest extends BaseTest{
         
     }
     
+    /**
+     * Creates a KieBase from a PMML document. This method also includes the
+     * chapter07/pmml-simple/utility.drl asset in the generated KieBase. This
+     * DEL resource contains a query definition that can be used to extract the
+     * result of the PMML model.
+     * @param pmml the PMML document
+     * @return a KieBase containing the compiled version of the passed PMML model
+     * along with a query to retrieve its result.
+     */
     private KieBase createKieBaseFromPMML(InputStream pmml){
         KieHelper kieHelper = new KieHelper();
         kieHelper.addResource(ResourceFactory.newInputStreamResource(pmml), ResourceType.PMML);
@@ -116,16 +135,32 @@ public class PMMLTest extends BaseTest{
         return kieHelper.build();
     }
     
+    /**
+     * Executes the getNewCategory query present in the passed KieSession and
+     * returns its result.
+     * @param ksession the KieSession where the query is executed.
+     * @return the result of the getNewCategory query. 
+     */
     private String getNewCategory(KieSession ksession){
         QueryResults queryResults = ksession.getQueryResults("getNewCategory");
         return (String) queryResults.iterator().next().get("$cat");
     }
     
-    private void printGeneratedDRL(InputStream pmml){
-        PMML4Compiler compiler = new PMML4Compiler();
-        String drl = compiler.compile(pmml, PMMLTest.class.getClassLoader());
-                
-        System.out.println(drl);
+    /**
+     * Compiles a PMML resource and prints the result in the
+     * passed OutputStream.
+     * @param pmml the decision table to be converted.
+     * @param target the stream where the generated DRL will be printed. 
+     */
+    private void printGeneratedDRL(InputStream pmml, OutputStream target){
+        try{
+            PMML4Compiler compiler = new PMML4Compiler();
+            String drl = compiler.compile(pmml, PMMLTest.class.getClassLoader());
+
+            IOUtils.copy(new ByteArrayInputStream(drl.getBytes()), target);
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
+        }
     }
     
 }

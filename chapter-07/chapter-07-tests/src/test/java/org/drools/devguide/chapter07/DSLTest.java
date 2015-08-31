@@ -7,6 +7,7 @@ package org.drools.devguide.chapter07;
 
 import org.drools.devguide.BaseTest;
 import org.drools.devguide.eshop.model.Customer;
+import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.util.CustomerBuilder;
 import org.drools.devguide.util.OrderBuilder;
 import static org.hamcrest.CoreMatchers.is;
@@ -20,6 +21,9 @@ import org.kie.api.runtime.KieSession;
  */
 public class DSLTest extends BaseTest{
     
+    /**
+     * A simple customer classification DSL scenario based on the Customer's age.
+     */
     @Test
     public void testSimpleDSL(){
         
@@ -58,6 +62,10 @@ public class DSLTest extends BaseTest{
         assertThat(customer4.getCategory(), is(Customer.Category.GOLD));
     }
     
+     /**
+     * A more advanced customer classification DSL scenario based on the 
+     * Customer's number of orders.
+     */
     @Test
     public void testAdvancedDSL(){
         
@@ -77,6 +85,17 @@ public class DSLTest extends BaseTest{
         
     }
     
+    /**
+     * Creates a new {@link Customer} instance and inserts it into the given
+     * KIE Session. This method also creates as many {@link Order} objects
+     * associated to this customer as <code>numberOfOrders</code> indicates.
+     * The generated orders are also inserted into the passed session.
+     * @param ksession the KIE Session where the created Customer and Orders
+     * are inserted.
+     * @param customerId the id of the generated cutsomer.
+     * @param numberOfOrders the number of orders to be created for the customer.
+     * @return 
+     */
     private Customer createAndInsertCustomerWithOrders(KieSession ksession, long customerId, int numberOfOrders){
         Customer customer = new CustomerBuilder()
                 .withId(customerId)
