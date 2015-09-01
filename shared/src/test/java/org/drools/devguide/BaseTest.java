@@ -20,6 +20,12 @@ import org.kie.api.runtime.KieSession;
  * @author esteban
  */
 public class BaseTest {
+    
+    /**
+     * For performance purposes, we keep a cached container. Please note that 
+     * this is not Thread Safe at all!.
+     */
+    private static KieContainer cachedKieContainer;
 
     protected KieSession createDefaultSession() {
         KieServices ks = KieServices.Factory.get();
@@ -56,6 +62,10 @@ public class BaseTest {
     }
     
     private KieContainer createContainer(){
+        if (cachedKieContainer != null){
+            return cachedKieContainer;
+        }
+        
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
         
@@ -70,7 +80,8 @@ public class BaseTest {
             throw new IllegalStateException("Compilation errors were found. Check the logs.");
         }
         
-        return kContainer;
+        cachedKieContainer = kContainer;
+        return cachedKieContainer;
     }
 
 }
