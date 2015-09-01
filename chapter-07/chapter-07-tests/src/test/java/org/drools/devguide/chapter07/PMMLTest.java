@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.drools.devguide.BaseTest;
 import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.util.CustomerBuilder;

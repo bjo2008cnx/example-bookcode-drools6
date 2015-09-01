@@ -9,7 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.drools.decisiontable.DecisionTableProviderImpl;
 import org.drools.devguide.BaseTest;
 import org.drools.devguide.eshop.model.Customer;
