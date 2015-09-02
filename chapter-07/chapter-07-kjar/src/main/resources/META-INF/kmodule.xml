@@ -16,11 +16,11 @@
     <kbase name="dtable-advanced-KBase" packages="chapter07.dtable-advanced">
         <ksession name="dtableAdvancedKsession"/>
     </kbase>
-    <!--kbase name="template-simple-KBase" packages="chapter07.template-dtable">
+    <kbase name="template-simple-KBase" packages="chapter07.template-dtable">
         <ruleTemplate 
             dtable="chapter07/template-dtable/template-data.xls"
             template="chapter07/template-dtable/customer-classification-simple.drt"
-            row="2" col="2"/>
+            row="3" col="2"/>
         <ksession name="templateSimpleKsession"/>
-    </kbase-->
+    </kbase>
 </kmodule>

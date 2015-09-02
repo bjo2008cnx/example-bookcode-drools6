@@ -24,7 +24,6 @@ import org.drools.template.jdbc.ResultSetGenerator;
 import org.drools.template.objects.ArrayDataProvider;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
@@ -42,7 +41,7 @@ public class RuleTemplatesTest extends BaseTest{
      * Tests customer-classification-simple.drt template using the configuration 
      * present in kmodule.xml.
      */
-    @Ignore("Defining the template in kmodule.xml is failing.")
+    @Test
     public void testSimpleTemplateWithSpreadsheet1(){
         
         KieSession ksession = this.createSession("templateSimpleKsession");
