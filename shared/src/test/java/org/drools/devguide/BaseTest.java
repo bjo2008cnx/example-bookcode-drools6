@@ -28,10 +28,7 @@ public class BaseTest {
     private static KieContainer cachedKieContainer;
 
     protected KieSession createDefaultSession() {
-        KieServices ks = KieServices.Factory.get();
-        KieContainer kContainer = ks.getKieClasspathContainer();
-
-        return kContainer.newKieSession();
+        return this.createContainer().newKieSession();
     }
     
     protected KieBase createKnowledgeBase(String name) {
@@ -74,7 +71,7 @@ public class BaseTest {
         if (results.hasMessages(Message.Level.WARNING, Message.Level.ERROR)){
             List<Message> messages = results.getMessages(Message.Level.WARNING, Message.Level.ERROR);
             for (Message message : messages) {
-                System.out.println("Error: "+message.getText());
+                System.out.printf("[%s] - %s[%s,%s]: %s", message.getLevel(), message.getPath(), message.getLine(), message.getColumn(), message.getText());
             }
             
             throw new IllegalStateException("Compilation errors were found. Check the logs.");
