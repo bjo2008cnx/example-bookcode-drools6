@@ -13,7 +13,7 @@ public class Order implements Serializable {
     private Long orderId;
     private Date date;
     private Customer customer;
-    private List<OrderLine> orderLines = new ArrayList<OrderLine>();
+    private List<OrderLine> orderLines = new ArrayList<>();
     private OrderState state;
     private Discount discount;
 
