@@ -31,7 +31,11 @@
         <module>chapter-05</module>
         <module>chapter-06</module>
         <module>chapter-07</module>
+<<<<<<< HEAD
         <module>chapter-08</module>
+=======
+        <module>chapter-09</module>
+>>>>>>> origin/master
     </modules>
     
     <dependencyManagement>
@@ -99,10 +103,16 @@
             </dependency>
             <dependency>
                 <groupId>org.drools.devguide</groupId>
+<<<<<<< HEAD
                 <artifactId>chapter-08-kjar</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+=======
+                <artifactId>chapter-09-kjar</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+>>>>>>> origin/master
             <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-api</artifactId>

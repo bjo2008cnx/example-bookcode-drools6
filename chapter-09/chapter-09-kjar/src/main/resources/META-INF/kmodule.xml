@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="noMatchKBase" packages="chapter09.lhs-no-match">
+        <ksession name="noMatchKsession"/>
+    </kbase>
+    <kbase name="matchCancelledKBase" packages="chapter09.match-cancelled">
+        <ksession name="matchCancelledKsession"/>
+    </kbase>
+</kmodule>

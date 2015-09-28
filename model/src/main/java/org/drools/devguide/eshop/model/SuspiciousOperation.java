@@ -16,6 +16,7 @@ public class SuspiciousOperation {
     
     public static enum Type {
         SUSPICIOUS_AMOUNT,
+        SUSPICIOUS_DISCOUNT,
         SUSPICIOUS_FREQUENCY;
     }
     
