@@ -31,6 +31,7 @@
         <module>chapter-05</module>
         <module>chapter-06</module>
         <module>chapter-07</module>
+        <module>chapter-08</module>
     </modules>
     
     <dependencyManagement>
@@ -97,6 +98,12 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>chapter-08-kjar</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-api</artifactId>
                 <version>${drools.version}</version>
@@ -135,6 +142,11 @@
                 <groupId>org.drools</groupId>
                 <artifactId>drools-core</artifactId>
                 <classifier>tests</classifier>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jbpm</groupId>
+                <artifactId>jbpm-bpmn2</artifactId>
                 <version>${drools.version}</version>
             </dependency>
             <dependency>

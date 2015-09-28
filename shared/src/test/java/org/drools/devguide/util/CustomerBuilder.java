@@ -40,6 +40,11 @@ public class CustomerBuilder {
         return this;
     }
     
+    public CustomerBuilder withEmail(String email){
+        instance.setEmail(email);
+        return this;
+    }
+    
     public Customer build(){
         return instance;
     }
