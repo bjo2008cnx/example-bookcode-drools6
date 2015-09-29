@@ -15,19 +15,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Test;
-import org.kie.api.event.rule.AfterMatchFiredEvent;
-import org.kie.api.event.rule.AgendaEventListener;
-import org.kie.api.event.rule.AgendaGroupPoppedEvent;
-import org.kie.api.event.rule.AgendaGroupPushedEvent;
-import org.kie.api.event.rule.BeforeMatchFiredEvent;
-import org.kie.api.event.rule.MatchCancelledEvent;
-import org.kie.api.event.rule.MatchCreatedEvent;
-import org.kie.api.event.rule.ObjectDeletedEvent;
-import org.kie.api.event.rule.ObjectInsertedEvent;
-import org.kie.api.event.rule.ObjectUpdatedEvent;
-import org.kie.api.event.rule.RuleFlowGroupActivatedEvent;
-import org.kie.api.event.rule.RuleFlowGroupDeactivatedEvent;
-import org.kie.api.event.rule.RuleRuntimeEventListener;
+import org.kie.api.event.rule.DebugAgendaEventListener;
+import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieSession;
 
 /**
@@ -39,70 +28,8 @@ public class EventListenerTest extends BaseTest {
     @Test
     public void matchCancelledTest() {
         KieSession ksession = this.createSession("matchCancelledKsession");
-//        ksession.addEventListener(new DebugAgendaEventListener());
-//        ksession.addEventListener(new DebugRuleRuntimeEventListener());
-        ksession.addEventListener(new AgendaEventListener(){
-
-            @Override
-            public void matchCreated(MatchCreatedEvent event) {
-                System.out.println("==>[ActivationCreatedEvent: rule: ["+event.getMatch().getRule().getName()+"]]");
-            }
-
-            @Override
-            public void matchCancelled(MatchCancelledEvent event) {
-            }
-
-            @Override
-            public void beforeMatchFired(BeforeMatchFiredEvent event) {
-            }
-
-            @Override
-            public void afterMatchFired(AfterMatchFiredEvent event) {
-                System.out.println("==>[AfterActivationFiredEvent: rule: ["+event.getMatch().getRule().getName()+"]]");
-            }
-
-            @Override
-            public void agendaGroupPopped(AgendaGroupPoppedEvent event) {
-            }
-
-            @Override
-            public void agendaGroupPushed(AgendaGroupPushedEvent event) {
-            }
-
-            @Override
-            public void beforeRuleFlowGroupActivated(RuleFlowGroupActivatedEvent event) {
-            }
-
-            @Override
-            public void afterRuleFlowGroupActivated(RuleFlowGroupActivatedEvent event) {
-            }
-
-            @Override
-            public void beforeRuleFlowGroupDeactivated(RuleFlowGroupDeactivatedEvent event) {
-            }
-
-            @Override
-            public void afterRuleFlowGroupDeactivated(RuleFlowGroupDeactivatedEvent event) {
-            }
-            
-        });
-        ksession.addEventListener(new RuleRuntimeEventListener(){
-
-            @Override
-            public void objectInserted(ObjectInsertedEvent event) {
-                System.out.println("==>[ObjectInsertedEventImpl: [object: ["+event.getObject()+"]]");
-            }
-
-            @Override
-            public void objectUpdated(ObjectUpdatedEvent event) {
-                System.out.println("==>[ObjectUpdatedEventImpl: [object: ["+event.getObject()+"]]");
-            }
-
-            @Override
-            public void objectDeleted(ObjectDeletedEvent event) {
-            }
-            
-        });
+        ksession.addEventListener(new DebugAgendaEventListener());
+        ksession.addEventListener(new DebugRuleRuntimeEventListener());
 
         Customer customer = new CustomerBuilder()
                 .withId(1L)
