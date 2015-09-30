@@ -7,8 +7,8 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     
-    <artifactId>chapter-08-tests</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 8:  Tests</name>
+    <artifactId>chapter-10-tests</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 10:  Tests</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

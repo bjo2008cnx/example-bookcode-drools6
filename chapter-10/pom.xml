@@ -6,13 +6,13 @@
         <artifactId>drools6-dev-guide-parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-08</artifactId>
+    <artifactId>chapter-10</artifactId>
     <packaging>pom</packaging>
-    <name>Drools 6 Developer Guide - Chapter 8 Parent</name>
+    <name>Drools 6 Developer Guide - Chapter 10 Parent</name>
 
    <modules>
-        <module>chapter-08-kjar</module>
-        <module>chapter-08-tests</module>
-    </modules> 
+      <module>chapter-10-tests</module>
+      <module>chapter-10-kjar</module>
+   </modules> 
     
 </project>

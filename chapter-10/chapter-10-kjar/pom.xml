@@ -6,8 +6,8 @@
         <artifactId>chapter-08</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-08-kjar</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 8:  Business Processes</name>
+    <artifactId>chapter-10-kjar</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 10:  Business Processes</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
