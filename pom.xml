@@ -100,7 +100,7 @@
             </dependency>
             <dependency>
                 <groupId>org.drools.devguide</groupId>
-                <artifactId>chapter-08-kjar</artifactId>
+                <artifactId>chapter-10-kjar</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
