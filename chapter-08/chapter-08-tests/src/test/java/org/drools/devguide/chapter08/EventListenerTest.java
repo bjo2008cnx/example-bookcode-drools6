@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drools.devguide.chapter09;
+package org.drools.devguide.chapter08;
 
 import java.util.stream.IntStream;
 import org.drools.devguide.BaseTest;

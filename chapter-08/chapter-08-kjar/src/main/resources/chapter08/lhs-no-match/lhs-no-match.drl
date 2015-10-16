@@ -1,4 +1,4 @@
-package chapter09.nomatch;
+package chapter08.nomatch;
 
 import org.drools.devguide.eshop.model.Discount;
 import org.drools.devguide.eshop.model.Customer;

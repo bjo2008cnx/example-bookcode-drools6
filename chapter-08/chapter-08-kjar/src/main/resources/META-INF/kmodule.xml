@@ -4,10 +4,10 @@
     <configuration>
         <property key="drools.dump.dir" value="target"/>
     </configuration>
-    <kbase name="noMatchKBase" packages="chapter09.lhs-no-match">
+    <kbase name="noMatchKBase" packages="chapter08.lhs-no-match">
         <ksession name="noMatchKsession"/>
     </kbase>
-    <kbase name="matchCancelledKBase" packages="chapter09.match-cancelled">
+    <kbase name="matchCancelledKBase" packages="chapter08.match-cancelled">
         <ksession name="matchCancelledKsession"/>
     </kbase>
 </kmodule>

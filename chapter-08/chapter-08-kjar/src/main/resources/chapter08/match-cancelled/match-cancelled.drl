@@ -1,4 +1,4 @@
-package chapter09.matchcancelled;
+package chapter08.matchcancelled;
 
 import org.drools.devguide.eshop.model.Discount;
 import org.drools.devguide.eshop.model.Customer;
