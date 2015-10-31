@@ -13,6 +13,7 @@
    <modules>
       <module>chapter-10-tests</module>
       <module>chapter-10-kjar</module>
+      <module>chapter-10-persistence-jpa</module>
    </modules> 
     
 </project>
