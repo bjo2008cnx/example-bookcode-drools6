@@ -6,8 +6,8 @@
         <artifactId>chapter-10</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-10-persistence-jpa</artifactId>
-    <name>Drools 6 Developer Guide - Persistence examples (JPA)</name>
+    <artifactId>chapter-10-persistence-inf</artifactId>
+    <name>Drools 6 Developer Guide - Persistence examples (Infinispan)</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -26,12 +26,17 @@
             <artifactId>drools-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>drools-persistence-jpa</artifactId>
+            <groupId>org.kie</groupId>
+            <artifactId>drools-infinispan-persistence</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jbpm</groupId>
-            <artifactId>jbpm-persistence-jpa</artifactId>
+            <groupId>org.kie</groupId>
+            <artifactId>drools-infinispan-persistence</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>jbpm-infinispan-persistence</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jbpm</groupId>
@@ -61,25 +66,6 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -95,9 +81,9 @@
                             <directory>${basedir}</directory>
                             <includes>
                                 <include>btm*</include>
-                                <include>workflow.*.db</include>
                             </includes>
                         </fileset>
+                        <fileset><directory>org.drools.persistence.info.EntityHolder</directory></fileset>
                     </filesets>
                 </configuration>
             </plugin>

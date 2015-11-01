@@ -162,6 +162,22 @@
                 <version>${drools.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>drools-infinispan-persistence</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>drools-infinispan-persistence</artifactId>
+                <type>test-jar</type>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>jbpm-infinispan-persistence</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jbpm</groupId>
                 <artifactId>jbpm-bpmn2</artifactId>
                 <version>${drools.version}</version>
