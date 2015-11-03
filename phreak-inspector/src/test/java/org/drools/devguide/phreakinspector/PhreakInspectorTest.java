@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.kie.api.io.Resource;
 import org.kie.api.io.ResourceType;
 import org.kie.internal.io.ResourceFactory;
-import org.socraticgrid.phreak.inspector.PhreakInspector;
+import org.drools.devguide.phreakinspector.model.PhreakInspector;
 
 /**
  *

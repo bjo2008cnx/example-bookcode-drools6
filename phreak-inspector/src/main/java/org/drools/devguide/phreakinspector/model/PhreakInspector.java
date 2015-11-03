@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.socraticgrid.phreak.inspector;
+package org.drools.devguide.phreakinspector.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
