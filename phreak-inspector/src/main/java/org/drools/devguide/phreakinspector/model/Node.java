@@ -16,8 +16,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class Node {
     
     public static enum TYPE {
-        ENTRY_POINT("ENTRY_POINT", "EP", "#0DFFE7"),
-        OBJECT_TYPE("OBJECT_TYPE", "OTN","#00D1FF"),
+        ENTRY_POINT("EP", "EP", "#0DFFE7"),
+        OBJECT_TYPE("OTN", "OTN","#00D1FF"),
         ALPHA("ALPHA", "A", "#F4F000"),
         BETA("BETA", "B", "#FFA858"),
         NOT("NOT", "B", "#E5E4E4"),

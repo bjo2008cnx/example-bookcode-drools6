@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
+import org.drools.core.base.ClassObjectType;
 import org.drools.core.common.EmptyBetaConstraints;
 import org.drools.core.impl.KnowledgeBaseImpl;
 import org.drools.core.reteoo.AccumulateNode;
@@ -69,7 +70,6 @@ public class PhreakInspector {
 
         Map<EntryPointId, EntryPointNode> entryPointNodes = rete.getEntryPointNodes();
         for (EntryPointNode value : entryPointNodes.values()) {
-            System.out.println("Entry Point: " + value.getEntryPoint().getEntryPointId());
 
             Node epNode = new Node(value.getId(), value.getEntryPoint().getEntryPointId(), Node.TYPE.ENTRY_POINT);
             nodes.put(epNode.getId(), epNode);
@@ -77,8 +77,15 @@ public class PhreakInspector {
             Map<ObjectType, ObjectTypeNode> objectTypeNodes = value.getObjectTypeNodes();
             for (ObjectTypeNode otn : objectTypeNodes.values()) {
 
-                System.out.println(" OTN[" + otn.getObjectType().toString() + "]");
-                Node otNode = new Node(otn.getId(), otn.getObjectType().toString(), Node.TYPE.OBJECT_TYPE);
+                String nodeLabel = "";
+                if (otn.getObjectType() instanceof ClassObjectType){
+                    nodeLabel = ((ClassObjectType)otn.getObjectType()).getClassName();
+                } else {
+                    nodeLabel = otn.getObjectType().toString();
+                }
+                
+                
+                Node otNode = new Node(otn.getId(), nodeLabel, Node.TYPE.OBJECT_TYPE);
                 nodes.put(otNode.getId(), otNode);
                 epNode.addTargetNode(otNode.getId());
 
@@ -89,6 +96,27 @@ public class PhreakInspector {
 
             }
         }
+        
+        
+//        //Segments
+//        InternalWorkingMemory wm = ((InternalWorkingMemory)kbase.newStatefulKnowledgeSession());
+//        for (EntryPointNode value : entryPointNodes.values()) {
+//            Map<ObjectType, ObjectTypeNode> objectTypeNodes = value.getObjectTypeNodes();
+//            for (ObjectTypeNode otn : objectTypeNodes.values()) {
+//                if (otn.getSinkPropagator().getSinks().length == 0){
+//                    continue;
+//                }
+//                ObjectSink tmp = otn.getSinkPropagator().getSinks()[0];
+//                wm.getNodeMemory(tmp);
+//                
+//                LeftInputAdapterNode liaNode = (LeftInputAdapterNode) otn.getSinkPropagator().getSinks()[0];
+//
+//                LeftInputAdapterNode.LiaNodeMemory liaMem = ( LeftInputAdapterNode.LiaNodeMemory ) wm.getNodeMemory( liaNode ); 
+//
+//                System.out.println("Found a memory");
+//            }
+//        }
+        
         
         return this.generateGraphViz(nodes);
     }

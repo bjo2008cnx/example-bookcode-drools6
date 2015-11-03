@@ -27,26 +27,31 @@ import org.socraticgrid.phreak.inspector.PhreakInspector;
  */
 public class PhreakInspectorTest {
 
-    
-
     @Test
     public void doTest() throws IOException {
 
         Map<Resource, ResourceType> resources = new LinkedHashMap<>();
-        resources.put(ResourceFactory.newClassPathResource("rules/simple-1.drl"), ResourceType.DRL);
-//        resources.put(ResourceFactory.newClassPathResource("rules/test.drl"), ResourceType.DRL);
+//        resources.put(ResourceFactory.newClassPathResource("rules/simple-1.drl"), ResourceType.DRL);
+        resources.put(ResourceFactory.newClassPathResource("rules/test.drl"), ResourceType.DRL);
 
         PhreakInspector inspector = new PhreakInspector();
-        
+
         InputStream graphViz = inspector.fromResources(resources);
-        
-        this.writeTmpFile(graphViz);
+
+//        this.writeTmpFile(graphViz);
+        this.writeToFixedTmpFile(graphViz);
     }
-    
-    private void writeTmpFile(InputStream is) throws IOException{
+
+    private void writeTmpFile(InputStream is) throws IOException {
         try (FileWriter fileWriter = new FileWriter(File.createTempFile("phreak-", ".viz"))) {
             IOUtils.write(IOUtils.toByteArray(is), fileWriter);
         }
     }
     
+    private void writeToFixedTmpFile(InputStream is) throws IOException {
+        try (FileWriter fileWriter = new FileWriter(new File("/tmp","phreak.viz"))) {
+            IOUtils.write(IOUtils.toByteArray(is), fileWriter);
+        }
+    }
+
 }
