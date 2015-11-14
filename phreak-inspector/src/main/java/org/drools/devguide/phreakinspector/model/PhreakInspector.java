@@ -8,17 +8,23 @@ package org.drools.devguide.phreakinspector.model;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.drools.core.base.ClassObjectType;
+import org.drools.core.base.accumulators.JavaAccumulatorFunctionExecutor;
 import org.drools.core.common.EmptyBetaConstraints;
 import org.drools.core.impl.KnowledgeBaseImpl;
 import org.drools.core.reteoo.AccumulateNode;
 import org.drools.core.reteoo.AlphaNode;
 import org.drools.core.reteoo.EntryPointNode;
+import org.drools.core.reteoo.ExistsNode;
+import org.drools.core.reteoo.FromNode;
 import org.drools.core.reteoo.JoinNode;
 import org.drools.core.reteoo.LeftInputAdapterNode;
 import org.drools.core.reteoo.LeftTupleSink;
@@ -29,13 +35,14 @@ import org.drools.core.reteoo.ObjectTypeNode;
 import org.drools.core.reteoo.QueryElementNode;
 import org.drools.core.reteoo.QueryTerminalNode;
 import org.drools.core.reteoo.Rete;
+import org.drools.core.reteoo.RightInputAdapterNode;
 import org.drools.core.reteoo.RuleTerminalNode;
 import org.drools.core.reteoo.Sink;
 import org.drools.core.rule.EntryPointId;
 import org.drools.core.rule.constraint.MvelConstraint;
 import org.drools.core.spi.BetaNodeFieldConstraint;
 import org.drools.core.spi.ObjectType;
-import org.drools.devguide.phreakinspector.model.Node;
+import org.drools.core.spi.ReturnValueExpression;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.Message;
@@ -53,6 +60,11 @@ import org.stringtemplate.v4.ST;
 public class PhreakInspector {
     
     private final Map<Integer, Node> nodes = new HashMap<>();
+    private final Map<Integer, String> nodesLabels = new HashMap<>();
+    
+    public void addNodeLabel(int nodeId, String label){
+        this.nodesLabels.put(nodeId, label);
+    }
     
     public InputStream fromClassPathKieContainer(String kieBaseName) throws IOException{
         return this.fromKieBase(this.createContainer().getKieBase(kieBaseName));
@@ -97,6 +109,9 @@ public class PhreakInspector {
             }
         }
         
+        //Replace node labels with any specific label provided by the user.
+        nodesLabels.forEach((k,v) -> Optional.ofNullable(nodes.get(k)).ifPresent(n -> n.setLabel(v)));
+        
         
 //        //Segments
 //        InternalWorkingMemory wm = ((InternalWorkingMemory)kbase.newStatefulKnowledgeSession());
@@ -128,11 +143,18 @@ public class PhreakInspector {
     private void visitLeftTupleSink(LeftTupleSink ltSink, Node parentNode) {
         this.visitSink(ltSink, parentNode);
     }
+    
+    private void visitRightTupleSink(ObjectSink ltSink, Node parentNode) {
+        this.visitSink(ltSink, parentNode);
+    }
 
     private void visitSink(Sink sink, Node parentNode) {
         if (sink instanceof LeftInputAdapterNode) {
             LeftInputAdapterNode lian = (LeftInputAdapterNode) sink;
             this.visitLeftInputAdapterNode(lian, parentNode);
+        } else if (sink instanceof RightInputAdapterNode) {
+            RightInputAdapterNode rian = (RightInputAdapterNode) sink;
+            this.visitRightInputAdapterNode(rian, parentNode);
         } else if (sink instanceof AlphaNode) {
             AlphaNode alpha = (AlphaNode) sink;
             this.visitAlphaNode(alpha, parentNode);
@@ -142,12 +164,18 @@ public class PhreakInspector {
         } else if (sink instanceof NotNode) {
             NotNode not = (NotNode) sink;
             this.visitNotNode(not, parentNode);
+        } else if (sink instanceof ExistsNode) {
+            ExistsNode en = (ExistsNode) sink;
+            this.visitExistsNode(en, parentNode);
         } else if (sink instanceof QueryElementNode) {
             QueryElementNode qen = (QueryElementNode) sink;
             this.visitQueryElementNode(qen, parentNode);
         } else if (sink instanceof AccumulateNode) {
             AccumulateNode acc = (AccumulateNode) sink;
             this.visitAccumulateNode(acc, parentNode);
+        } else if (sink instanceof FromNode) {
+            FromNode from = (FromNode) sink;
+            this.visitFromNode(from, parentNode);
         } else if (sink instanceof RuleTerminalNode) {
             RuleTerminalNode rt = (RuleTerminalNode) sink;
             this.visitRuleTerminalNode(rt, parentNode);
@@ -163,6 +191,13 @@ public class PhreakInspector {
         LeftTupleSink[] ltSinks = lian.getSinkPropagator().getSinks();
         for (LeftTupleSink ltSink : ltSinks) {
             visitLeftTupleSink(ltSink, parentNode);
+        }
+    }
+    
+    private void visitRightInputAdapterNode(RightInputAdapterNode rian, Node parentNode) {
+        ObjectSink[] ltSinks = rian.getSinkPropagator().getSinks();
+        for (ObjectSink oSink : ltSinks) {
+            visitRightTupleSink(oSink, parentNode);
         }
     }
 
@@ -190,11 +225,41 @@ public class PhreakInspector {
     }
 
     private void visitNotNode(NotNode not, Node parentNode) {
-        Node notNode = new Node(not.getId(), not.toString(), Node.TYPE.NOT);
+        
+        //Unfortunately, there is not public way to extract the right label
+        //from a NotNode. We need to parse the toString() value :(
+        String check="ClassObjectType class=";
+        String label = not.toString();
+        if (label.contains(check)){
+            label = label.substring(label.indexOf(check)+check.length()).replace("]]", "");
+        }
+        
+        Node notNode = new Node(not.getId(), label, Node.TYPE.NOT);
         nodes.put(notNode.getId(), notNode);
         parentNode.addTargetNode(notNode.getId());
         
         LeftTupleSinkPropagator ltsp = not.getSinkPropagator();
+        LeftTupleSink[] sinks = ltsp.getSinks();
+        for (LeftTupleSink ltSink : sinks) {
+            visitLeftTupleSink(ltSink, notNode);
+        }
+    }
+    
+    private void visitExistsNode(ExistsNode en, Node parentNode) {
+        
+        //Unfortunately, there is not public way to extract the right label
+        //from a ExistsNode. We need to parse the toString() value :(
+        String check="ClassObjectType class=";
+        String label = en.toString();
+        if (label.contains(check)){
+            label = label.substring(label.indexOf(check)+check.length()).replace("]]", "");
+        }
+        
+        Node notNode = new Node(en.getId(), label, Node.TYPE.EXISTS);
+        nodes.put(notNode.getId(), notNode);
+        parentNode.addTargetNode(notNode.getId());
+        
+        LeftTupleSinkPropagator ltsp = en.getSinkPropagator();
         LeftTupleSink[] sinks = ltsp.getSinks();
         for (LeftTupleSink ltSink : sinks) {
             visitLeftTupleSink(ltSink, notNode);
@@ -214,7 +279,8 @@ public class PhreakInspector {
     }
     
     private void visitAccumulateNode(AccumulateNode an, Node parentNode) {
-        Node accNode = new Node(an.getId(), an.toString(), Node.TYPE.ACCUMULATE);
+        
+        Node accNode = new Node(an.getId(), "", Node.TYPE.ACCUMULATE);
         nodes.put(accNode.getId(), accNode);
         parentNode.addTargetNode(accNode.getId());
         
@@ -222,6 +288,18 @@ public class PhreakInspector {
         LeftTupleSink[] sinks = ltsp.getSinks();
         for (LeftTupleSink ltSink : sinks) {
             visitLeftTupleSink(ltSink, accNode);
+        }
+    }
+    
+    private void visitFromNode(FromNode from, Node parentNode) {
+        Node fromNode = new Node(from.getId(), from.getDataProvider().toString(), Node.TYPE.FROM);
+        nodes.put(fromNode.getId(), fromNode);
+        parentNode.addTargetNode(fromNode.getId());
+
+        LeftTupleSinkPropagator ltsp = from.getSinkPropagator();
+        LeftTupleSink[] sinks = ltsp.getSinks();
+        for (LeftTupleSink ltSink : sinks) {
+            visitLeftTupleSink(ltSink, fromNode);
         }
     }
     

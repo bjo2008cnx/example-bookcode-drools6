@@ -32,7 +32,8 @@ public class PhreakInspectorTest {
 
         Map<Resource, ResourceType> resources = new LinkedHashMap<>();
 //        resources.put(ResourceFactory.newClassPathResource("rules/simple-1.drl"), ResourceType.DRL);
-        resources.put(ResourceFactory.newClassPathResource("rules/test.drl"), ResourceType.DRL);
+//        resources.put(ResourceFactory.newClassPathResource("rules/test.drl"), ResourceType.DRL);
+        resources.put(ResourceFactory.newClassPathResource("rules/from.drl"), ResourceType.DRL);
 
         PhreakInspector inspector = new PhreakInspector();
 

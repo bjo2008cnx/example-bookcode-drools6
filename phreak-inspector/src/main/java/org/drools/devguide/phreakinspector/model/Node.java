@@ -21,10 +21,12 @@ public class Node {
         ALPHA("ALPHA", "A", "#F4F000"),
         BETA("BETA", "B", "#FFA858"),
         NOT("NOT", "B", "#E5E4E4"),
+        EXISTS("EXISTS", "B", "#E5E4E4"),
         QUERY_ELEMENT("QUERY_ELEMENT", "B", "#FF8FFC"),
+        FROM("FROM", "B", "#FFA4A4"),
         ACCUMULATE("ACCUMULATE", "B", "#FFA4A4"),
-        RULE_TERMINAL("RULE_TERMINAL", "TERMINAL", "#FFB4F8"),
-        QUERY_TERMINAL("QUERY_TERMINAL", "TERMINAL", "#D1ECFF");
+        RULE_TERMINAL("RTN", "TERMINAL", "#FFB4F8"),
+        QUERY_TERMINAL("QTN", "TERMINAL", "#D1ECFF");
         
         private final String label;
         private final String color;
@@ -51,7 +53,7 @@ public class Node {
     }
     
     private final Integer id;
-    private final String label;
+    private String label;
     private final TYPE type;
     private final List<Integer> targetNodesIds = new ArrayList<>();
 
@@ -67,6 +69,10 @@ public class Node {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getLabel() {
