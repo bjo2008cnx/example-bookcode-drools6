@@ -1,4 +1,4 @@
-package chapter09.alpha;
+package chapter09.exists;
 
 import org.drools.devguide.eshop.model.Customer;
 import org.drools.devguide.eshop.model.SuspiciousOperation;

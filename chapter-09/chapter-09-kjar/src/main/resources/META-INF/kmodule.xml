@@ -20,4 +20,5 @@
     <kbase name="ExistsNode2KBase" packages="chapter09.exists-node2"/>
     <kbase name="AccumulateNode1KBase" packages="chapter09.accumulate-node1"/>
     <kbase name="AccumulateNode2KBase" packages="chapter09.accumulate-node2"/>
+    <kbase name="FromNode1KBase" packages="chapter09.from-node1"/>
 </kmodule>

@@ -18,12 +18,14 @@ import org.junit.Test;
 import org.kie.api.KieBase;
 import org.drools.devguide.phreakinspector.model.PhreakInspector;
 import org.junit.Before;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  *
  * @author esteban
  */
-public class PhreakInspectorTests extends BaseTest {
+public class PhreakInspectorTest extends BaseTest {
     
     private static File targetDirectory = new File("target/viz");
     
@@ -136,6 +138,11 @@ public class PhreakInspectorTests extends BaseTest {
     public void doAccumulateNode2Test() throws IOException {
         this.inspector.addNodeLabel(5, "[Order] count(1)");
         this.doTest("AccumulateNode2KBase", "B01512_09_17.viz");
+    }
+    
+    @Test
+    public void doFromNode1Test() throws IOException {
+        this.doTest("FromNode1KBase", "B01512_09_18.viz");
     }
     
     private void doTest(String kbaseName, String targetFileName) throws IOException{

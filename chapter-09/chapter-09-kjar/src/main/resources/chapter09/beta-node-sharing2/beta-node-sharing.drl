@@ -1,4 +1,4 @@
-package chapter09.alpha;
+package chapter09.beta;
 
 import org.drools.devguide.eshop.model.Order;
 import org.drools.devguide.eshop.model.Provider;
