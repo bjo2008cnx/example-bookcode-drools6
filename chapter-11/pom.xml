@@ -13,8 +13,8 @@
    <modules>
       <module>chapter-11-kjar</module>
       <module>chapter-11-ci</module>
-      <!--module>chapter-11-spring</module>
-      <module>chapter-11-camel</module>
+      <module>chapter-11-spring</module>
+      <!--module>chapter-11-camel</module>
       <module>chapter-11-kie-server</module-->
    </modules> 
 

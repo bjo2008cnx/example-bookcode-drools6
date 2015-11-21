@@ -25,6 +25,7 @@
         <h2.version>1.3.168</h2.version>
         <hibernate.version>4.2.17.Final</hibernate.version>
         <jpa.api.version>1.0.1.Final</jpa.api.version>
+        <spring.version>4.2.1.RELEASE</spring.version>
     </properties>
     
     <modules>
@@ -140,6 +141,11 @@
             <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-ci</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>kie-spring</artifactId>
                 <version>${drools.version}</version>
             </dependency>
             <dependency>

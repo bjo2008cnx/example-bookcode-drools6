@@ -2,3 +2,6 @@
 target/
 nb-configuration.xml
 **.iml
+*.db
+*.tlog
+chapter-10/chapter-10-persistence-inf/org.drools.persistence.info.EntityHolder/
