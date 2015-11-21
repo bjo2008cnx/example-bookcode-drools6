@@ -8,8 +8,6 @@ package org.drools.devguide.phreakinspector.model;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.drools.core.base.ClassObjectType;
-import org.drools.core.base.accumulators.JavaAccumulatorFunctionExecutor;
 import org.drools.core.common.EmptyBetaConstraints;
 import org.drools.core.impl.KnowledgeBaseImpl;
 import org.drools.core.reteoo.AccumulateNode;
@@ -42,7 +39,6 @@ import org.drools.core.rule.EntryPointId;
 import org.drools.core.rule.constraint.MvelConstraint;
 import org.drools.core.spi.BetaNodeFieldConstraint;
 import org.drools.core.spi.ObjectType;
-import org.drools.core.spi.ReturnValueExpression;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.Message;
@@ -111,27 +107,6 @@ public class PhreakInspector {
         
         //Replace node labels with any specific label provided by the user.
         nodesLabels.forEach((k,v) -> Optional.ofNullable(nodes.get(k)).ifPresent(n -> n.setLabel(v)));
-        
-        
-//        //Segments
-//        InternalWorkingMemory wm = ((InternalWorkingMemory)kbase.newStatefulKnowledgeSession());
-//        for (EntryPointNode value : entryPointNodes.values()) {
-//            Map<ObjectType, ObjectTypeNode> objectTypeNodes = value.getObjectTypeNodes();
-//            for (ObjectTypeNode otn : objectTypeNodes.values()) {
-//                if (otn.getSinkPropagator().getSinks().length == 0){
-//                    continue;
-//                }
-//                ObjectSink tmp = otn.getSinkPropagator().getSinks()[0];
-//                wm.getNodeMemory(tmp);
-//                
-//                LeftInputAdapterNode liaNode = (LeftInputAdapterNode) otn.getSinkPropagator().getSinks()[0];
-//
-//                LeftInputAdapterNode.LiaNodeMemory liaMem = ( LeftInputAdapterNode.LiaNodeMemory ) wm.getNodeMemory( liaNode ); 
-//
-//                System.out.println("Found a memory");
-//            }
-//        }
-        
         
         return this.generateGraphViz(nodes);
     }

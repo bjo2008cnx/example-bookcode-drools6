@@ -21,4 +21,11 @@
     <kbase name="AccumulateNode1KBase" packages="chapter09.accumulate-node1"/>
     <kbase name="AccumulateNode2KBase" packages="chapter09.accumulate-node2"/>
     <kbase name="FromNode1KBase" packages="chapter09.from-node1"/>
+
+    <kbase name="QuerySimpleKBase" packages="chapter09.query-simple"/>
+    <kbase name="QueryUnificationKBase" packages="chapter09.query-unification"/>
+    <kbase name="QueryPositionalKBase" packages="chapter09.query-positional"/>
+    <kbase name="QueryBackwardChainingKBase" packages="chapter09.query-backward-chaining"/>
+
+    <kbase name="QueryBackwardChainingSampleKBase" packages="chapter09.query-backward-chaining-sample"/>
 </kmodule>

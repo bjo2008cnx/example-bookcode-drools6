@@ -5,19 +5,10 @@
  */
 package org.drools.devguide.chapter09;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import org.apache.commons.io.IOUtils;
-import org.drools.devguide.BaseTest;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsNull.notNullValue;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.KieBase;
-import org.drools.devguide.phreakinspector.model.PhreakInspector;
-import org.junit.Before;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -25,24 +16,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  *
  * @author esteban
  */
-public class PhreakInspectorTest extends BaseTest {
+public class PhreakInspectorTest extends PhreakInspectorBaseTest {
     
-    private static File targetDirectory = new File("target/viz");
-    
-    PhreakInspector inspector;
-    
-    @BeforeClass
-    public static void doBeforeClass() throws IOException{
-        if (!targetDirectory.exists()){
-            targetDirectory.mkdir();
-        }
-    }
-    
-    @Before
-    public void doBefore(){
-        this.inspector = new PhreakInspector();
-    }
-
     @Test
     public void doOTNTest() throws IOException {
         this.doTest("OTNKBase", "B01512_09_02.viz");
@@ -155,10 +130,4 @@ public class PhreakInspectorTest extends BaseTest {
         this.writeFile(targetFileName, phreakGraph);
     }
     
-    private void writeFile(String targetFileName, InputStream is) throws IOException {
-        try (FileWriter fileWriter = new FileWriter(new File(targetDirectory, targetFileName))){
-            IOUtils.write(IOUtils.toByteArray(is), fileWriter);
-        }
-    }
-
 }
