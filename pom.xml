@@ -11,6 +11,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <drools.version>6.4.0-SNAPSHOT</drools.version>
+        <fuse.integration.version>1.3.0-SNAPSHOT</fuse.integration.version>
         <cdi.version>1.0-SP4</cdi.version>
         <junit.version>4.11</junit.version>
         <mockito.version>2.0.5-beta</mockito.version>
@@ -26,6 +27,8 @@
         <hibernate.version>4.2.17.Final</hibernate.version>
         <jpa.api.version>1.0.1.Final</jpa.api.version>
         <spring.version>4.2.1.RELEASE</spring.version>
+        <camel.version>2.15.3</camel.version>
+        <commons.logging.version>1.2</commons.logging.version>
     </properties>
     
     <modules>
@@ -139,6 +142,11 @@
                 <version>${drools.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.integration.fuse</groupId>
+                <artifactId>kie-camel</artifactId>
+                <version>${fuse.integration.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-ci</artifactId>
                 <version>${drools.version}</version>
@@ -246,9 +254,34 @@
                 <version>${commons.lang.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons.logging.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-spring</artifactId>
+                <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>

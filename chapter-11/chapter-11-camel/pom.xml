@@ -6,13 +6,13 @@
         <artifactId>chapter-11</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>chapter-11-spring</artifactId>
-    <name>Drools 6 Developer Guide - Chapter 11: Spring examples</name>
+    <artifactId>chapter-11-camel</artifactId>
+    <name>Drools 6 Developer Guide - Chapter 11: Camel examples</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.drools.devguide</groupId>
-            <artifactId>chapter-11-kjar</artifactId>
+            <artifactId>model</artifactId>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -28,6 +28,10 @@
             <artifactId>kie-spring</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jboss.integration.fuse</groupId>
+            <artifactId>kie-camel</artifactId>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>
@@ -41,6 +45,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -50,5 +64,18 @@
             <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
+
