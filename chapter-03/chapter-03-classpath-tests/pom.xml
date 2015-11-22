@@ -15,19 +15,16 @@
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>chapter-03-kjar-simple-discounts</artifactId>  
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>chapter-03-kjar-premium-discounts</artifactId>  
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>chapter-03-kjar-parent</artifactId>  
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- End dependencies for the other Kie Modules --> 

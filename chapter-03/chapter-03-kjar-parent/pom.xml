@@ -13,14 +13,10 @@
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>chapter-03-kjar-simple-discounts</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.drools.devguide</groupId>
             <artifactId>chapter-03-kjar-premium-discounts</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 </project>
