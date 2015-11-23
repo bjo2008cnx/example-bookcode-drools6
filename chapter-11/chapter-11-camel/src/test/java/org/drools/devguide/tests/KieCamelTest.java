@@ -26,7 +26,7 @@ public class KieCamelTest extends CamelSpringTestSupport {
     public void testInvocation() throws Exception {
         String cmd = "";
         cmd += "<batch-execution lookup=\"ksession1\">\n";
-        cmd += "  <insert out-identifier=\"mariano\">\n";
+        cmd += "  <insert out-identifier=\"myItem\">\n";
         cmd += "      <org.drools.devguide.eshop.model.Item>\n";
         cmd += "         <cost>119.0</cost>\n";
         cmd += "         <category>NA</category>\n";
