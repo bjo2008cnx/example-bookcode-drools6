@@ -29,6 +29,8 @@
         <spring.version>4.2.1.RELEASE</spring.version>
         <camel.version>2.15.3</camel.version>
         <commons.logging.version>1.2</commons.logging.version>
+        <org.jboss.arquillian.version>1.1.10.Final</org.jboss.arquillian.version>
+        <org.wildfly.version>8.1.0.Final</org.wildfly.version>
     </properties>
     
     <modules>
@@ -157,6 +159,13 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.drools.devguide</groupId>
+                <artifactId>kie-server-war</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+                <classifier>custom</classifier>
+            </dependency>
+            <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-api</artifactId>
                 <version>${drools.version}</version>
@@ -164,6 +173,11 @@
             <dependency>
                 <groupId>org.kie</groupId>
                 <artifactId>kie-internal</artifactId>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie.server</groupId>
+                <artifactId>kie-server-client</artifactId>
                 <version>${drools.version}</version>
             </dependency>
             <dependency>
@@ -181,6 +195,11 @@
                 <artifactId>kie-server</artifactId>
                 <type>war</type>
                 <classifier>ee7</classifier>
+                <version>${drools.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kie.remote</groupId>
+                <artifactId>kie-remote-client</artifactId>
                 <version>${drools.version}</version>
             </dependency>
             <dependency>
@@ -352,6 +371,23 @@
                 <version>${mockito.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${org.jboss.arquillian.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-arquillian-container-embedded</artifactId>
+                <version>${org.wildfly.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-embedded</artifactId>
+                <version>${org.wildfly.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.codehaus.btm</groupId>
                 <artifactId>btm</artifactId>
                 <version>${btm.version}</version>
@@ -390,13 +426,6 @@
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-weld-se-embedded-1.1</artifactId>
                 <version>1.0.0.CR9</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>1.1.10.Final</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

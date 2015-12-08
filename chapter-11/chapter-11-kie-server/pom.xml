@@ -16,5 +16,6 @@
     <modules>
         <module>kie-server-custom-extension</module>
         <module>kie-server-war</module>
+        <module>kie-server-tests</module>
     </modules>
 </project>
