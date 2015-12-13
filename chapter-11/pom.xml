@@ -16,6 +16,7 @@
       <module>chapter-11-spring</module>
       <module>chapter-11-camel</module>
       <module>chapter-11-kie-server</module>
+      <module>chapter-11-workbench-tests</module>
    </modules> 
 
 </project>
