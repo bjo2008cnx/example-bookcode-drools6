@@ -27,7 +27,12 @@
     <dependencySet>
       <includes>
         <include>org.drools.devguide:kie-server-custom-extension:jar</include>
+        <include>org.drools.devguide:model:jar</include>
         <include>cglib:cglib-nodep:jar</include>
+        <include>org.osgi:org.osgi.core:jar</include>
+        <include>org.osgi:org.osgi.core:jar</include>
+        <include>jaxen:jaxen:jar</include>
+        <include>org.jdom:jdom:jar</include>
       </includes>
       <outputDirectory>WEB-INF/lib</outputDirectory>
       <unpack>false</unpack>
