@@ -17,6 +17,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.jbpm.bpmn2.handler.ServiceTaskHandler;
+import org.jbpm.process.instance.event.listeners.RuleAwareProcessEventLister;
 
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.process.ProcessInstance;
@@ -83,7 +84,7 @@ public class ProcessOrderTest extends BaseTest {
 
         KieSession ksession = this.createDefaultSession();
         ksession.addEventListener(new SystemOutProcessEventListener());
-
+        
          // Creating a new customer to simulate the Customer that creates the order
         Customer customer = new CustomerBuilder().withId(1L).withName("salaboy")
                 .withCategory(Customer.Category.BRONZE).withEmail("salaboy@mail.com").build();
