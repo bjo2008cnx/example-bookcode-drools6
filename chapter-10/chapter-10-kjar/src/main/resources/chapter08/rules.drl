@@ -31,8 +31,8 @@ end
 
 rule "Too many orders for just one Manager"
     when
-        List(size == 1) from collect(Manager()) 
-        List(size > 3) from collect(WorkflowProcessInstance(processId == "process-order"))
+        List($managersCount:size > 0) from collect(Manager()) 
+        List(size > ($managersCount * 3)) from collect(WorkflowProcessInstance(processId == "process-order"))
     then
-        System.out.println(">> There are more than 3 Process Order Flows for a single manager. Please hire more people :) ");
+        System.out.println(">> There are more than 3 Process Order Flows per manager. Please hire more people :) ");
 end
