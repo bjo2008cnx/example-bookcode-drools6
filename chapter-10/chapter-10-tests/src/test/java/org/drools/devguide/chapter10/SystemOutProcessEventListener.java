@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.drools.devguide.chapter08;
+package org.drools.devguide.chapter10;
 
 import org.kie.api.event.process.ProcessCompletedEvent;
 import org.kie.api.event.process.ProcessNodeLeftEvent;

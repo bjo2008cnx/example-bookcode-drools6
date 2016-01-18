@@ -37,7 +37,6 @@ end
 
 rule "No Customer"
     ruleflow-group "Validation"
-    
     when
         $wi: WorkflowProcessInstance(processId == "order-validation",  getVariable("valid") == "not-validated", 
                                    $o: getVariable("order") != null && 
