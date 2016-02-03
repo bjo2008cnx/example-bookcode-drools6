@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drools.devguide</groupId>
         <artifactId>chapter-06</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>chapter-06-rules</artifactId>
     <name>Drools 6 Developer Guide - Chapter 6:  Complex Event Processing Rules</name>

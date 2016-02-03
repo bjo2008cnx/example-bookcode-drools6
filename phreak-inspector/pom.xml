@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drools.devguide</groupId>
         <artifactId>drools6-dev-guide-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>phreak-inspector</artifactId>
     <name>Drools 6 Developer Guide - PHREAK Inspector</name>

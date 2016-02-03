@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.drools.devguide</groupId>
         <artifactId>chapter-07</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>chapter-07-kjar</artifactId>
     <name>Drools 6 Developer Guide - Chapter 7:  Business Knowledge Assets</name>

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.drools.devguide</groupId>
     <artifactId>drools6-dev-guide-parent</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Drools 6 Developer Guide - Parent</name>
     <properties>
