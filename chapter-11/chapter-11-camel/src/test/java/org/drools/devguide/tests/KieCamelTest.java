@@ -18,7 +18,7 @@ public class KieCamelTest extends CamelSpringTestSupport {
     @Override
     protected AbstractApplicationContext createApplicationContext() {
         return (AbstractXmlApplicationContext) InternalKieSpringUtils.getSpringContext(
-                new ReleaseIdImpl("org.drools.devguide", "chapter-11-camel", "0.1-SNAPSHOT"), 
+                new ReleaseIdImpl("org.drools.devguide", "chapter-11-camel", "1.0.0"), 
                 getClass().getResource("/cxf-rs-spring.xml"));
     }
 

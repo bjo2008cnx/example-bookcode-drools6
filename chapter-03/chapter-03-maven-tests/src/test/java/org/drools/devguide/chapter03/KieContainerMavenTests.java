@@ -33,7 +33,7 @@ public class KieContainerMavenTests {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
                                                                     "chapter-03-kjar-simple-discounts", 
-                                                                    "0.1-SNAPSHOT"));
+                                                                    "1.0.0"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
@@ -54,7 +54,7 @@ public class KieContainerMavenTests {
         KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
                                                         ks.newReleaseId("org.drools.devguide", 
                                                                         "chapter-03-kjar-simple-discounts", 
-                                                                        "0.1-SNAPSHOT"));
+                                                                        "1.0.0"));
         
         kieModuleMetaData.getPackages().stream().map((pkg) -> {
             System.out.println(" >> Package Loaded:  "+pkg);
@@ -91,7 +91,7 @@ public class KieContainerMavenTests {
 
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
                                                                 "chapter-03-kjar-premium-discounts", 
-                                                                "0.1-SNAPSHOT"));
+                                                                "1.0.0"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
@@ -112,7 +112,7 @@ public class KieContainerMavenTests {
         KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
                                                         ks.newReleaseId("org.drools.devguide", 
                                                                 "chapter-03-kjar-premium-discounts", 
-                                                                "0.1-SNAPSHOT"));
+                                                                "1.0.0"));
         
         kieModuleMetaData.getPackages().stream().map((pkg) -> {
             System.out.println(" >> Package Loaded:  "+pkg);
@@ -149,7 +149,7 @@ public class KieContainerMavenTests {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("org.drools.devguide", 
                                                                 "chapter-03-kjar-parent", 
-                                                                "0.1-SNAPSHOT"));
+                                                                "1.0.0"));
 
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {
@@ -171,7 +171,7 @@ public class KieContainerMavenTests {
         KieModuleMetaData kieModuleMetaData = KieModuleMetaData.Factory.newKieModuleMetaData(
                                                         ks.newReleaseId("org.drools.devguide", 
                                                                 "chapter-03-kjar-parent", 
-                                                                "0.1-SNAPSHOT"));
+                                                                "1.0.0"));
         
         kieModuleMetaData.getPackages().stream().map((pkg) -> {
             System.out.println(" >> Package Loaded:  "+pkg);

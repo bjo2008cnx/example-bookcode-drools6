@@ -36,7 +36,7 @@ public class KieCITest {
     
     @Inject
     @KSession
-    @KReleaseId(groupId = "org.drools.devguide",artifactId = "chapter-11-kjar", version = "0.1-SNAPSHOT")
+    @KReleaseId(groupId = "org.drools.devguide",artifactId = "chapter-11-kjar", version = "1.0.0")
     private KieSession kSession;
 
     /**
@@ -63,7 +63,7 @@ public class KieCITest {
     @Test
     public void kieScannerTest() {
     	KieServices ks = KieServices.Factory.get();
-    	ReleaseId rId = ks.newReleaseId("org.drools.devguide", "chapter-11-kjar", "0.1-SNAPSHOT");
+    	ReleaseId rId = ks.newReleaseId("org.drools.devguide", "chapter-11-kjar", "1.0.0");
     	KieContainer kContainer = ks.newKieContainer(rId);
     	KieScanner kscanner = ks.newKieScanner(kContainer);
     	//you can also configure the kie scanner to scan at a specific moment

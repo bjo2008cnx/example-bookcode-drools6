@@ -24,7 +24,7 @@ public class KieSessionSerializingTest {
     public void loadingRulesFromExistingBlob() throws Exception {
         System.out.println("### Running loadingRulesFromExistingBlob() Test ###");
         KieServices ks = KieServices.Factory.get();
-        final ReleaseId releaseId = ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-simple-discounts", "0.1-SNAPSHOT");
+        final ReleaseId releaseId = ks.newReleaseId("org.drools.devguide", "chapter-03-kjar-simple-discounts", "1.0.0");
         KieContainer kContainer = ks.newKieContainer(releaseId);
         Results results = kContainer.verify();
         results.getMessages().stream().forEach((message) -> {

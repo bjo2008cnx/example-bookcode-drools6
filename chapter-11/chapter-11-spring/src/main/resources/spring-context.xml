@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
   <kie:import releaseId-ref="kjarToUse" />
-  <kie:releaseId id="kjarToUse" groupId="org.drools.devguide" artifactId="chapter-11-kjar" version="0.1-SNAPSHOT" />
+  <kie:releaseId id="kjarToUse" groupId="org.drools.devguide" artifactId="chapter-11-kjar" version="1.0.0" />
 
   <kie:kmodule id="kie-spring-sample">
     <kie:kbase name="kbase1">

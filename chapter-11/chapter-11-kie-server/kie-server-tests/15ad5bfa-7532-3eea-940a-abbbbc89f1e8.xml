@@ -9,7 +9,7 @@
       <releaseId>
         <groupId>org.drools.devguide</groupId>
         <artifactId>chapter-11-kjar</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
       </releaseId>
       <status>STARTED</status>
     </container>

@@ -31,8 +31,8 @@ public class RESTClientExampleTest {
 		String s = File.separator;
         String warFile = System.getProperty("user.home") + s + ".m2" 
         		+ s + "repository" + s + "org" + s + "drools" + s + "devguide" 
-        		+ s + "kie-server-war" + s + "0.1-SNAPSHOT" 
-        		+ s + "kie-server-war-0.1-SNAPSHOT-custom.war";
+        		+ s + "kie-server-war" + s + "1.0.0" 
+        		+ s + "kie-server-war-1.0.0-custom.war";
         File destFile = new File(System.getProperty("java.io.tmpdir") + s + "kie-server.war");
         FileUtils.copyFile(new File(warFile), destFile);
         return ShrinkWrap.createFromZipFile(WebArchive.class, destFile);
@@ -55,7 +55,7 @@ public class RESTClientExampleTest {
 	    ReleaseId releaseId = new ReleaseId();
 	    releaseId.setGroupId("org.drools.devguide");
 	    releaseId.setArtifactId("chapter-11-kjar");
-	    releaseId.setVersion("0.1-SNAPSHOT");
+	    releaseId.setVersion("1.0.0");
 	    kContainer.setReleaseId(releaseId);
 	    kContainer.setContainerId("my-deploy");
 	    ServiceResponse<KieContainerResource> resp = client.createContainer("my-deploy", kContainer);
