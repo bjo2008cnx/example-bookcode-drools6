@@ -31,8 +31,8 @@ import org.kie.api.runtime.StatelessKieSession;
 public class KieContainerClasspathTests {
 
     @Test
-    public void loadingRulesFromLocalKieModule() {
-        System.out.println("### Running loadingRulesFromLocalKieModule() Test ###");
+    public void loadingRulesFromClassPath() {
+        System.out.println("### Running loadingRulesFromClassPath() Test ###");
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieClasspathContainer();
 
