@@ -30,10 +30,6 @@ public class ContainsItemEvaluatorDefinition implements EvaluatorDefinition {
     private ContainsItemEvaluator negatedEvaluator;
 
     static {
-        init();
-    }
-
-    static void init() {
         if (SUPPORTED_IDS == null) {
             CONTAINS_ITEM = Operator.addOperatorToRegistry(containsItemOp, false);
             NOT_CONTAINS_ITEM = Operator.addOperatorToRegistry(containsItemOp, true);
