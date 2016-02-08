@@ -6,7 +6,7 @@ import org.drools.devguide.eshop.model.ProviderRequest;
 rule "Sample Rule 1"
 when
     $p:  Provider(rating > 50)
-    $pr: ProviderRequest(this == $p)
+    $pr: ProviderRequest(provider == $p)
 then
     channels["request-channel"].send($pr);
 end
