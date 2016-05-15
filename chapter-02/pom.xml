@@ -16,5 +16,6 @@
         <module>chapter-02-tests</module>
         <module>myfirst-drools-project-final</module>
         <module>myfirst-drools-project-cdi-final</module>
+    <module>myfirst-drools-project</module>
   </modules>
 </project>
