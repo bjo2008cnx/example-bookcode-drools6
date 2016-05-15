@@ -18,7 +18,7 @@ public class App
         
         // 2) Provide information to the Rule Engine Context
         Item item = new Item("A", 123.0, 234.0);
-        System.out.println( "Item Ctegory: " + item.getCategory());
+        System.out.println( "Item Category: " + item.getCategory());
         kSession.insert(item);
         
         // 3) Execute the rules that are matching
